@@ -1,5 +1,3 @@
 # rushhour
 Our group document:
-https://docs.google.com/document/d/1M_pBqfvmd7e9w2D4nicxVeJGpOnDtOhXJrsZoys7xps/edit
-
-test
+https://drive.google.com/drive/folders/1weqj6__kEpObx-_6V2E9ijmGJZKb-iqt
