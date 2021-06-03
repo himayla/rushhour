@@ -22,3 +22,15 @@ class Grid():
                 # rooms[room_number] = Room(room_number, room_name, long_description)
 
         return cars
+
+    def load_grid(self):
+        """
+        Checks title of csv file to see how big the grid is and loads the grid.
+        """
+        pass
+
+     def is_victory(self):
+         """
+         checks if the game is won.
+         """
+         pass
