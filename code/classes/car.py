@@ -6,6 +6,9 @@ class Car():
         self.y = y
         self.length = length
 
+    def __str__(self):
+        return f"{self.name}, {self.orientation}, {self.x}, {self.y}, {self.length}"
+
 
     def is_move_valid(self):
         """
