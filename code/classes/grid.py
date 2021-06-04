@@ -9,12 +9,38 @@ class Grid():
     def __init__(self, source_file):
         self.cars = self.load_cars(source_file)
         self.coordinates= self.load_coordinates(source_file)
+        self.graph=self.load_grid()
+
+    def load_grid(self):
+        """
+        Checks title of csv file to see how big the grid is and loads the grid.
+        Requires source_file. 
+        """
+        plt.plot()
+        
+        for x in range(len(self.coordinates)):
+            for y in range(len(self.coordinates[x])):
+                if self.coordinates[y][x]=="0":
+                    rect=mpatches.Rectangle((x,6-y),1,1, 
+                                        fill = False,
+                                        color = "purple",
+                                        linewidth = 2)
+                    plt.gca().add_patch(rect)
+                else:
+                    rect=mpatches.Rectangle((x,6-y),1,1, 
+                                            fill = True,
+                                            color = "purple",
+                                            linewidth = 2)
+                    plt.gca().add_patch(rect)
+
+        plt.savefig('name.png') 
+    
+    
      
     def load_coordinates(self, source_file):
         
         num_of_rows = 6
-        num_of_cols = 6
-        # a = np.zeros((num_of_rows, num_of_cols))   
+        num_of_cols = 6   
         a = [["0" for x in range(num_of_rows)] for y in range(num_of_cols)] 
         with open(source_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
@@ -52,34 +78,11 @@ class Grid():
         print()
         for coor in self.coordinates:
             print(coor)
+        
 
 
-    # def load_grid(self):
-    #     """
-    #     Checks title of csv file to see how big the grid is and loads the grid.
-    #     Requires source_file. 
-    #     """
-    #     plt.plot()
-    #     for x in range(6):
-    #         for y in range(6):
-    #             Checkforcar(x,y)
-    #             if Checkforcar == True:
-    #                 rect=mpatches.Rectangle((x,y),1,1, 
-    #                                     fill = True,
-    #                                     color = "purple",
-    #                                     linewidth = 2)
-    #                 plt.gca().add_patch(rect)
-    #             else:
-    #                 rect=mpatches.Rectangle((x,y),1,1, 
-    #                                         fill = False,
-    #                                         color = "purple",
-    #                                         linewidth = 2)
-    #                 plt.gca().add_patch(rect)
-
-    #     plt.savefig('name.png') 
-    
-    # def Checkforcar(x,y):
-    #     
+   
+        
 
 
    
