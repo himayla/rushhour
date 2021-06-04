@@ -27,6 +27,7 @@ class Grid():
                                         color = "purple",
                                         linewidth = 2)
                     plt.gca().add_patch(rect)
+                    
                 # If the value is not 0, there is a car, the square is filled
                 else:
                     rect=mpatches.Rectangle((x,6-y),1,1, 
@@ -34,6 +35,8 @@ class Grid():
                                             color = "purple",
                                             linewidth = 2)
                     plt.gca().add_patch(rect)
+                    # Add the name of the car on the square where it's found
+                    plt.text(x + 0.5, 6.5-y,self.coordinates[y][x],fontsize=16, color="red", weight="bold")
 
         plt.savefig('name.png') 
     
