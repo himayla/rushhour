@@ -11,29 +11,26 @@ class Grid():
         self.coordinates= self.load_coordinates(source_file)
      
     def load_coordinates(self, source_file):
-       
-
-        # creating 2D array with nans
+        
         num_of_rows = 6
         num_of_cols = 6
-        a = np.zeros((num_of_rows, num_of_cols))   
+        # a = np.zeros((num_of_rows, num_of_cols))   
+        a = [["0" for x in range(num_of_rows)] for y in range(num_of_cols)] 
         with open(source_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
             for row in reader:
-                a[int(row['row'])-1][int(row['col'])-1]=1
+                a[int(row['row'])-1][int(row['col'])-1]=row['car']
                 if row['orientation']=="H":
                     if row['length']=="2":
-                        a[int(row['row'])-1][int(row['col'])]=1
+                        a[int(row['row'])-1][int(row['col'])]=row['car']
                     elif row['length']=="3":
-                        a[int(row['row'])-1][int(row['col'])]=1
-                        a[int(row['row'])-1][int(row['col'])+1]=1
+                        a[int(row['row'])-1][int(row['col'])]=row['car']
+                        a[int(row['row'])-1][int(row['col'])+1]=row['car']
                 elif row['orientation']=="V":
                     if row['length']=="2":
-                       a[int(row['row'])][int(row['col'])-1]=1 
+                       a[int(row['row'])][int(row['col'])-1]=row['car']
                     elif row['length']=="3":
-                        a[int(row['row'])+1][int(row['col'])-1]=1 
-                 
-
+                        a[int(row['row'])+1][int(row['col'])-1]=row['car']
         return a
 
     def load_cars(self, source_file):
