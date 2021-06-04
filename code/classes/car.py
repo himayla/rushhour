@@ -2,12 +2,12 @@ class Car():
     def __init__(self, name, orientation, x, y, length):
         self.name = name
         self.orientation = orientation
-        self.x = x
-        self.y = y
-        self.length = length
+        self.x = int(x)
+        self.y = int(y)
+        self.length = int(length)
 
     def __str__(self):
-        return f"{self.name}, {self.orientation}, {self.x}, {self.y}, {self.length}"
+        return f"Car: {self.name}, {self.orientation}, {self.x}, {self.y}, {self.length}"
 
 
     def is_move_valid(self):

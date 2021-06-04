@@ -7,7 +7,7 @@ import numpy as np
 
 class Grid():
     def __init__(self, source_file):
-        # self.cars = self.load_cars(source_file)
+        self.cars = self.load_cars(source_file)
         self.coordinates= self.load_coordinates(source_file)
         self.graph=self.load_grid(source_file)
 
@@ -55,42 +55,39 @@ class Grid():
             size = 12   
         # Make a 2D array filled with 0's 
         a = [["0" for x in range(size)] for y in range(size)] 
-        
-        with open(source_file, 'r') as in_file:
-            reader = csv.DictReader(in_file)
-            for row in reader:
-                # Draw the car-name at the x and y coordinates at the starting point of the car
-                a[int(row['row'])-1][int(row['col'])-1]=row['car']
-                if row['orientation']=="H":
-                    if row['length']=="2":
-                        # If a horizontal car has length 2, draw the carname at x+1 as well
-                        a[int(row['row'])-1][int(row['col'])]=row['car']
-                    elif row['length']=="3":
-                        # If a horizontal car has length 3, draw the carname at x+1 and x+2 as well
-                        a[int(row['row'])-1][int(row['col'])]=row['car']
-                        a[int(row['row'])-1][int(row['col'])+1]=row['car']
-                elif row['orientation']=="V":
-                    if row['length']=="2":
-                        # If a vertical car has length 2, draw the carname at y+1 as well
-                       a[int(row['row'])][int(row['col'])-1]=row['car']
-                    elif row['length']=="3":
-                        # If a vertical car has length 3, draw the carname at y+1 and y+2 as well
-                        a[int(row['row'])+1][int(row['col'])-1]=row['car']
+        for car in self.cars.values():
+            a[car.y-1][car.x-1]=car.name
+            if car.orientation=="H":
+                if car.length==2:
+                    # If a horizontal car has length 2, draw the carname at x+1 as well
+                    a[car.y-1][car.x]=car.name
+                elif car.length==3:
+                    # If a horizontal car has length 3, draw the carname at x+1 and x+2 as well
+                    a[car.y-1][car.x]=car.name
+                    a[car.y-1][car.x+1]=car.name
+            elif car.orientation=="V":
+                if car.length==2:
+                    # If a vertical car has length 2, draw the carname at y+1 as well
+                    a[car.y][car.x-1]=car.name
+                elif car.length==3:
+                    # If a vertical car has length 3, draw the carname at y+1 and y+2 as well
+                    a[car.y][car.x-1]=car.name
+                    a[car.y+1][car.x-1]=car.name
         return a
 
-    # def load_cars(self, source_file):
-    #     """
-    #     load all cars into the grid.
-    #     No longer necessary
-    #     """
-    #     cars = {}
-    #     with open(source_file, 'r') as in_file:
-    #         reader = csv.DictReader(in_file)
+    def load_cars(self, source_file):
+        """
+        load all cars into the grid.
+        No longer necessary
+        """
+        cars = {}
+        with open(source_file, 'r') as in_file:
+            reader = csv.DictReader(in_file)
 
-    #         for row in reader:
-    #             cars[row['car']] = Car(row['car'],row['orientation'], row['col'], row['row'], row['length'])
+            for row in reader:
+                cars[row['car']] = Car(row['car'],row['orientation'], int(row['col']), int(row['row']), int(row['length']))
                 
-    #     return cars
+        return cars
 
     def print(self):      
         for coor in self.coordinates:
