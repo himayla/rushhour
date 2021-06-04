@@ -20,7 +20,18 @@ class Grid():
         with open(source_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
             for row in reader:
-                a[int(row['col'])-1][int(row['row'])-1]=1
+                a[int(row['row'])-1][int(row['col'])-1]=1
+                if row['orientation']=="H":
+                    if row['length']=="2":
+                        a[int(row['row'])-1][int(row['col'])]=1
+                    elif row['length']=="3":
+                        a[int(row['row'])-1][int(row['col'])]=1
+                        a[int(row['row'])-1][int(row['col'])+1]=1
+                elif row['orientation']=="V":
+                    if row['length']=="2":
+                       a[int(row['row'])][int(row['col'])-1]=1 
+                    elif row['length']=="3":
+                        a[int(row['row'])+1][int(row['col'])-1]=1 
                  
 
         return a
@@ -71,7 +82,7 @@ class Grid():
     #     plt.savefig('name.png') 
     
     # def Checkforcar(x,y):
-    #     for 
+    #     
 
 
    
