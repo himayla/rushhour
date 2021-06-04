@@ -9,20 +9,26 @@ class Grid():
     def __init__(self, source_file):
         self.cars = self.load_cars(source_file)
         self.coordinates= self.load_coordinates(source_file)
-        self.graph=self.load_grid()
+        self.graph=self.load_grid(source_file)
 
-    def load_grid(self):
+    def load_grid(self, source_file):
         """
         Checks title of csv file to see how big the grid is and loads the grid.
         Requires source_file. 
         """
+        if "6" in source_file:
+            size = 6
+        elif "9" in source_file:
+            size = 9   
+        elif "12" in source_file:
+            size = 12
         plt.plot()
         # loops over the 2D array and checks the value at each place
         for x in range(len(self.coordinates)):
             for y in range(len(self.coordinates[x])):
                 # If the value is 0, there is no car, the square is not filled
                 if self.coordinates[y][x]=="0":
-                    rect=mpatches.Rectangle((x,6-y),1,1, 
+                    rect=mpatches.Rectangle((x,size-y),1,1, 
                                         fill = False,
                                         color = "purple",
                                         linewidth = 2)
@@ -30,24 +36,27 @@ class Grid():
                     
                 # If the value is not 0, there is a car, the square is filled
                 else:
-                    rect=mpatches.Rectangle((x,6-y),1,1, 
+                    rect=mpatches.Rectangle((x,size-y),1,1, 
                                             fill = True,
                                             color = "purple",
                                             linewidth = 2)
                     plt.gca().add_patch(rect)
                     # Add the name of the car on the square where it's found
-                    plt.text(x + 0.5, 6.5-y,self.coordinates[y][x],fontsize=16, color="red", weight="bold")
+                    plt.text(x + 0.5, size+0.5-y,self.coordinates[y][x],fontsize=16, color="red", weight="bold")
 
         plt.savefig('name.png') 
-    
-    
+       
      
     def load_coordinates(self, source_file):
-        # The size of the array is still hardcoded
-        num_of_rows = 6
-        num_of_cols = 6  
+        if "6" in source_file:
+            size = 6
+        elif "9" in source_file:
+            size = 9   
+        elif "12" in source_file:
+            size = 12   
         # Make a 2D array filled with 0's 
-        a = [["0" for x in range(num_of_rows)] for y in range(num_of_cols)] 
+        a = [["0" for x in range(size)] for y in range(size)] 
+        
         with open(source_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
             for row in reader:
