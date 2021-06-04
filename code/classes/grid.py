@@ -7,7 +7,7 @@ import numpy as np
 
 class Grid():
     def __init__(self, source_file):
-        self.cars = self.load_cars(source_file)
+        # self.cars = self.load_cars(source_file)
         self.coordinates= self.load_coordinates(source_file)
         self.graph=self.load_grid(source_file)
 
@@ -42,10 +42,9 @@ class Grid():
                                             linewidth = 2)
                     plt.gca().add_patch(rect)
                     # Add the name of the car on the square where it's found
-                    plt.text(x + 0.5, size+0.5-y,self.coordinates[y][x],fontsize=16, color="red", weight="bold")
+                    plt.text(x + 0.25, size+0.25-y,self.coordinates[y][x],fontsize=10, color="red", weight="bold")
 
         plt.savefig('name.png') 
-       
      
     def load_coordinates(self, source_file):
         if "6" in source_file:
@@ -79,24 +78,21 @@ class Grid():
                         a[int(row['row'])+1][int(row['col'])-1]=row['car']
         return a
 
-    def load_cars(self, source_file):
-        """
-        load all cars into the grid.
-        No longer necessary
-        """
-        cars = {}
-        with open(source_file, 'r') as in_file:
-            reader = csv.DictReader(in_file)
+    # def load_cars(self, source_file):
+    #     """
+    #     load all cars into the grid.
+    #     No longer necessary
+    #     """
+    #     cars = {}
+    #     with open(source_file, 'r') as in_file:
+    #         reader = csv.DictReader(in_file)
 
-            for row in reader:
-                cars[row['car']] = Car(row['car'],row['orientation'], row['col'], row['row'], row['length'])
+    #         for row in reader:
+    #             cars[row['car']] = Car(row['car'],row['orientation'], row['col'], row['row'], row['length'])
                 
-        return cars
+    #     return cars
 
-    def print(self):
-        for car in self.cars.values():
-            print(car)
-        print()
+    def print(self):      
         for coor in self.coordinates:
             print(coor)
         
