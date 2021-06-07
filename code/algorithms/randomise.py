@@ -1,21 +1,20 @@
 import random
 import copy
 
-def random_assignment(grid, possibilities):
-    """
-    Randomly assign each node with one of the possibilities.
-    """
-    pass
+# Pseudocode: 
+# Grid aan randomise geven.
+# Zetten verzamelen:
+# Welke vakjes zijn leeg?
+# Kies random vakje van deze lege vakjes.
+# Locatie van deze auto.
+# Welke auto's zijn er in de buurt.
+# Liggen zij in de orientatie dat ze bij dit vakje kunnen maken.
+# Random keus daaruit maken.
+# Check if auto X naar uitgang kan.
+# Geef dit bord weer terug.
 
-def random_reconfigure_board(grid, car, possibilities):
+def random_assignment(grid):
     """
-    Takes a node and assigns each node with one of the possibilities.
-    """
-    pass
-
-def random_reassignment(grid, possibilities):
-    """
-    Algorithm that reassigns nodes that are invalid until each node is valid.
-    CAUTION: may run indefinitely.
+    Random
     """
     pass
