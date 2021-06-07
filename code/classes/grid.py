@@ -48,6 +48,9 @@ class Grid():
         plt.show()
      
     def load_coordinates(self, source_file):
+        """
+        For every car the X and Y coordinates are inserted into a 2D grid array.
+        """
         if "6" in source_file:
             size = 6
         elif "9" in source_file:
@@ -55,30 +58,30 @@ class Grid():
         elif "12" in source_file:
             size = 12
     
-        # Make a 2D array filled with 0's 
+        # Draw a 2D array filled with 0's, based on the size
         a = [["0" for x in range(size)] for y in range(size)]
 
         for car in self.cars.values():
-            a[car.y-1][car.x-1]=car.name
+            a[car.y-1][car.x-1] = car.name
 
-            # Check if the car is vertical or horizontal
+            # Check if the car is positioned vertical or horizontal
             if car.orientation == "H" :
                 
-                # If a horizontal car has length 2, draw the carname at x+1 as well
+                # If a horizontal car has length 2, draw the name of the car at x+1
                 if car.length == 2:
-                    a[car.y-1][car.x]=car.name
+                    a[car.y-1][car.x] = car.name
                 
-                # If a horizontal car has length 3, draw the carname at x+1 and x+2 as well
+                # If a horizontal car has length 3, draw the name of the car at x+1 and x+2 as well
                 elif car.length == 3:
-                    a[car.y-1][car.x]=car.name
-                    a[car.y-1][car.x+1]=car.name
+                    a[car.y-1][car.x] = car.name
+                    a[car.y-1][car.x+1] = car.name
 
-            # IF car is positioned vertical
+            # If car is positioned vertical
             elif car.orientation == "V" :
 
-                # If a vertical car has length 2, draw the carname at y+1 as well
+                # If a vertical car has length 2, draw the name of the car at y+1
                 if car.length == 2:
-                    a[car.y][car.x-1]=car.name
+                    a[car.y][car.x-1] = car.name
 
                 # If a vertical car has length 3, draw the carname at y+1 and y+2 as well
                 elif car.length == 3:
@@ -89,7 +92,7 @@ class Grid():
 
     def load_cars(self, source_file):
         """
-        Create car objects from the information in the CSV_file
+        Create car objects from the information in the CSV file
         """
 
         # Empty dictionary to store the cars in
