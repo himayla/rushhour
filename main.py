@@ -8,3 +8,4 @@ if __name__ == "__main__":
     test_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
     
     test_grid.print()
+
