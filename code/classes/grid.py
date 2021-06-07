@@ -11,6 +11,10 @@ class Grid():
         self.coordinates= self.load_coordinates(source_file)
         self.graph=self.load_grid(source_file)
 
+    def __str__(self):
+        return f"{self.coordinates}"
+
+
     def load_grid(self, source_file):
         """
         Plots the gameboard as a grid based on the dimensions in name of input file and fills the grid with beginning positions.
@@ -44,8 +48,8 @@ class Grid():
         # Save the plot as a file
         plt.savefig('name.png')
 
-        # Pop up
-        plt.show()
+        # # Pop up
+        # plt.show()
      
     def load_coordinates(self, source_file):
         """

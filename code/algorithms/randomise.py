@@ -17,4 +17,28 @@ def random_assignment(grid):
     """
     Random
     """
-    pass
+    empty_spaces_coor = []
+
+    for x in range(len(grid.coordinates)):
+        for y in range(len(grid.coordinates[x])):
+            if grid.coordinates[y][x] == "0":
+                empty_space = [x,y]
+                empty_spaces_coor.append(empty_space)
+
+    total_empty = len(empty_spaces_coor) - 1
+
+    random_value = random.randint(0, total_empty)
+    random_position = empty_spaces_coor[random_value]
+
+
+
+
+
+
+
+
+
+
+
+
+    
