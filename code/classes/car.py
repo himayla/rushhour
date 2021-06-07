@@ -9,14 +9,12 @@ class Car():
     def __str__(self):
         return f"Car: {self.name}, {self.orientation}, {self.x}, {self.y}, {self.length}"
 
-
     def is_move_valid(self):
         """
         runs is_on_grid, is_correct_orientation and is_not_blocked to check if the move is valid.
         if move is valid, car can move
         """
         pass
-
 
     def is_on_grid(self):
         """
@@ -39,7 +37,3 @@ class Car():
         checks the position the user wants to move to is not blocked by other cars.
         """
         pass
-      
-
-
-        
