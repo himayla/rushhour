@@ -15,7 +15,9 @@ This code aims algorithimically solve this puzzle using the fewest amount of mov
 ### Getting started
 The code is written in Python. It has the following main Object Oriented structure:
 ![UX diagram](doc/ux_diagram.png)
-After cloning the Git code you can run a board by running:
+To run this code the package matplotlib is required, you can download this with this command:
+```pip install matplotlib```
+After cloning the Git code you can run a board by running
 ```python main.py```. A visualisation will be shown in the terminal as well as in a pop-up.
 
 ### Structure

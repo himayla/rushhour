@@ -56,42 +56,53 @@ class Grid():
             size = 12
     
         # Make a 2D array filled with 0's 
-        a = [["0" for x in range(size)] for y in range(size)] 
+        a = [["0" for x in range(size)] for y in range(size)]
+
         for car in self.cars.values():
             a[car.y-1][car.x-1]=car.name
-            if car.orientation=="H":
+
+            # Check if the car is vertical or horizontal
+            if car.orientation == "H" :
                 
                 # If a horizontal car has length 2, draw the carname at x+1 as well
-                if car.length==2:
+                if car.length == 2:
                     a[car.y-1][car.x]=car.name
                 
                 # If a horizontal car has length 3, draw the carname at x+1 and x+2 as well
-                elif car.length==3:
+                elif car.length == 3:
                     a[car.y-1][car.x]=car.name
                     a[car.y-1][car.x+1]=car.name
 
-            elif car.orientation=="V":
+            # IF car is positioned vertical
+            elif car.orientation == "V" :
 
                 # If a vertical car has length 2, draw the carname at y+1 as well
-                if car.length==2:
+                if car.length == 2:
                     a[car.y][car.x-1]=car.name
 
                 # If a vertical car has length 3, draw the carname at y+1 and y+2 as well
-                elif car.length==3:
-                    a[car.y][car.x-1]=car.name
-                    a[car.y+1][car.x-1]=car.name
+                elif car.length == 3:
+                    a[car.y][car.x-1] = car.name
+                    a[car.y+1][car.x-1] = car.name
         return a
+
 
     def load_cars(self, source_file):
         """
-        load all cars into the grid.
-        No longer necessary
+        Create car objects from the information in the CSV_file
         """
+
+        # Empty dictionary to store the cars in
         cars = {}
+
         with open(source_file, 'r') as in_file:
+
+            # Read the car information from file
             reader = csv.DictReader(in_file)
 
             for row in reader:
+
+                # Create the car objects
                 cars[row['car']] = Car(row['car'],row['orientation'], int(row['col']), int(row['row']), int(row['length']))
                 
         return cars
