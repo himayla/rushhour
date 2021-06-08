@@ -34,22 +34,65 @@ def random_assignment(grid):
     random_value = random.randint(0, total_empty)
     random_position = empty_spaces_coor[random_value]
     
-    # # Check for cars on x and y axis
+    #
     empty_x = random_position[0]
     empty_y = random_position[1]
     print(f"random position:{random_position}")
 
     # Attempy Mila en co
-    for x in range(len(grid.coordinates)):
-        if x == empty_y:
-            for value in grid.coordinates[x]:
-                if value != "0":
-                    print(f"grid_value: {value}")
-                    print(f"grid_coordinates: {empty_y}")
-    for value in grid.coordinates[empty_y]:
-        print(f"x value: {value}")
-    for x in range(len(grid.coordinates)):
-        print(f"y value: {grid.coordinates[x][empty_x]}")
+    #for x in range(len(grid.coordinates)):
+    #    if x == empty_y:
+    #        for value in grid.coordinates[x]:
+    #            if value != "0":
+    #                print(f"grid_value: {value}")
+    #                print(f"grid_coordinates: {empty_y}")
+
+    x_values = []
+    y_values = []
+
+    for x in grid.coordinates[empty_y]:
+        #print(f"x value: {x}")
+        x_values.append(x)
+
+    for y in range(len(grid.coordinates)):
+        #print(f"y value: {grid.coordinates[y][empty_x]}")
+        y_values.append(grid.coordinates[y][empty_x])
+    
+    print(f"horizontal:{x_values[empty_x]}")
+    print(f"vertical:{y_values[empty_y]}")
+    print(f"horizontal single:{empty_x}")
+    print(f"vertical single :{empty_y}")
+
+    counter_x = 0
+    before_x = []
+    after_x = []
+
+    for value in x_values:
+        if value != "0":
+            if counter_x < empty_x:
+                before_x.append(value)
+            elif counter_x > empty_x:
+                after_x.append(value)
+            counter_x += 1
+    
+    print(f"(X) before :{before_x}")
+    print(f"(X) after :{after_x}")
+
+    counter_y = 0
+    before_y = []
+    after_y = []
+
+    for value in y_values:
+        if value != "0":
+            if counter_y < empty_y:
+                before_y.append(value)
+            elif counter_y > empty_y:
+                after_y.append(value)
+            counter_y += 1
+    
+    print(f"(Y) before :{before_y}")
+    print(f"(Y) after :{after_y}")
+        
 
     
     
