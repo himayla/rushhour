@@ -68,7 +68,7 @@ def random_assignment(grid):
             if value != "0":
                 after_x.append(value)
         counter_x += 1
-        print(f"counter: {counter_x}")
+        
     
     print(f"(X) before :{before_x}")
     print(f"(X) after :{after_x}")
@@ -86,25 +86,57 @@ def random_assignment(grid):
                 after_y.append(value)
         counter_y += 1
 
-    # possible_cars = []
+    possible_cars = []
     print(f"(Y) before :{before_y}")
     print(f"(Y) after :{after_y}")
-    # if before_y:
-    #     last_place = len(before_y) -1
-    #     before_car_y = before_y[last_place]
-    #     print(f" y before: {before_car_y}")
-    #     count_by = 0
-    #     for before_car_y in before_y:
-    #         print("found!")
-    #         count_by += 1
-    #     if count_by > 1:
-    #         possible_cars.append(before_car_y)
 
-    # if after_y:
-    #     after_car_y = after_y[0]
-    #     print(f" y after: {after_car_y}")
+    if before_y:
+        last_place = len(before_y) -1
+        before_car_y = before_y[last_place]
+        print(f" y before: {before_car_y}")
+        count_by = 0
+        for car in before_y:
+            if car == before_car_y:
+                count_by += 1
+                
+        if count_by > 1:
+            possible_cars.append(before_car_y)
 
-    # print(f"possible cars: {possible_cars}")
+    if after_y:
+        after_car_y = after_y[0]
+        print(f" y after: {after_car_y}")
+        count_ay = 0
+        for car in after_y:
+            if car == after_car_y:
+                count_ay += 1
+                
+        if count_ay > 1:
+            possible_cars.append(after_car_y)
+
+    if before_x:
+        last_place = len(before_x) -1
+        before_car_x = before_x[last_place]
+        print(f" y before: {before_car_x}")
+        count_bx = 0
+        for car in before_x:
+            if car == before_car_x:
+                count_bx += 1
+                
+        if count_bx > 1:
+            possible_cars.append(before_car_x)
+
+    if after_x:
+        after_car_x = after_x[0]
+        print(f" y after: {after_car_x}")
+        count_ax = 0
+        for car in after_x:
+            if car == after_car_x:
+                count_ax += 1
+                
+        if count_ax > 1:
+            possible_cars.append(after_car_x)
+
+    print(f"possible cars: {possible_cars}")
         
 
     
