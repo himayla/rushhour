@@ -11,5 +11,3 @@ if __name__ == "__main__":
     test_grid.print()
 
     random_board = randomise.random_assignment(test_grid)
-    #random_board.print()
-

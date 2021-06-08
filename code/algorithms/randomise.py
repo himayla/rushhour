@@ -33,28 +33,26 @@ def random_assignment(grid):
     # Get coordinates for random empty space on the grid
     random_value = random.randint(0, total_empty)
     random_position = empty_spaces_coor[random_value]
+    print(f"random position:{random_position}")
     
-    #
+    # The coordinates of the empty spot
     empty_x = random_position[0]
     empty_y = random_position[1]
-    print(f"random position:{random_position}")
 
-
+    # Lists for the possiblities based on coordinates
     x_values = []
     y_values = []
 
     for x in grid.coordinates[empty_y]:
-        #print(f"x value: {x}")
         x_values.append(x)
 
     for y in range(len(grid.coordinates)):
-        #print(f"y value: {grid.coordinates[y][empty_x]}")
         y_values.append(grid.coordinates[y][empty_x])
     
-    print(f"horizontal:{x_values[empty_x]}")
-    print(f"vertical:{y_values[empty_y]}")
-    print(f"horizontal single:{empty_x}")
-    print(f"vertical single :{empty_y}")
+    # print(f"horizontal:{x_values[empty_x]}")
+    # print(f"vertical:{y_values[empty_y]}")
+    # print(f"horizontal single:{empty_x}")
+    # print(f"vertical single :{empty_y}")
 
     counter_x = 0
     before_x = []
@@ -70,8 +68,8 @@ def random_assignment(grid):
         counter_x += 1
         
     
-    print(f"(X) before :{before_x}")
-    print(f"(X) after :{after_x}")
+    # print(f"(X) before :{before_x}")
+    # print(f"(X) after :{after_x}")
 
     counter_y = 0
     before_y = []
@@ -87,13 +85,13 @@ def random_assignment(grid):
         counter_y += 1
 
     possible_cars = []
-    print(f"(Y) before :{before_y}")
-    print(f"(Y) after :{after_y}")
-
+    # print(f"(Y) before :{before_y}")
+    # print(f"(Y) after :{after_y}")
+    
     if before_y:
         last_place = len(before_y) -1
         before_car_y = before_y[last_place]
-        print(f" y before: {before_car_y}")
+        # print(f" y before: {before_car_y}")
         count_by = 0
         for car in before_y:
             if car == before_car_y:
@@ -104,7 +102,7 @@ def random_assignment(grid):
 
     if after_y:
         after_car_y = after_y[0]
-        print(f" y after: {after_car_y}")
+        # print(f" y after: {after_car_y}")
         count_ay = 0
         for car in after_y:
             if car == after_car_y:
@@ -116,7 +114,7 @@ def random_assignment(grid):
     if before_x:
         last_place = len(before_x) -1
         before_car_x = before_x[last_place]
-        print(f" y before: {before_car_x}")
+        #print(f" y before: {before_car_x}")
         count_bx = 0
         for car in before_x:
             if car == before_car_x:
@@ -127,7 +125,7 @@ def random_assignment(grid):
 
     if after_x:
         after_car_x = after_x[0]
-        print(f" y after: {after_car_x}")
+        #print(f" y after: {after_car_x}")
         count_ax = 0
         for car in after_x:
             if car == after_car_x:
@@ -137,9 +135,30 @@ def random_assignment(grid):
             possible_cars.append(after_car_x)
 
     print(f"possible cars: {possible_cars}")
-        
 
-    
-    
-    
-    
+    # If there is a possibility
+    if possible_cars:
+
+        for car in possible_cars:
+
+            if car in x_values:
+                print("Before X", x_values) ## Remove later
+
+                # Index the positions
+                index1 = x_values.index(car)
+                index2 = x_values.index(x_values[empty_x])
+
+                # Swap the positions of elements
+                x_values[index1], x_values[index2] = x_values[index2], x_values[index1]
+       
+                print("After X", x_values) ## Remove later
+
+            elif car in y_values:
+                print("Before Y", y_values) ## Remove later
+                index1 = y_values.index(car)
+                index2 = y_values.index(y_values[empty_y]) ## Remove later
+           
+                # Swap the positions
+                y_values[index1], y_values[index2] = y_values[index2], y_values[index1]
+
+                print("After Y", y_values)
