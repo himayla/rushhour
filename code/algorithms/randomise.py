@@ -137,28 +137,74 @@ def random_assignment(grid):
     print(f"possible cars: {possible_cars}")
 
     # If there is a possibility
-    if possible_cars:
+    # if possible_cars:
+    #     for car in possible_cars:
+    #         if car in x_values:
+    #             print("Before X", x_values) ## Remove later
 
-        for car in possible_cars:
+    #             # Index the positions
+    #             index1 = x_values.index(car)
+    #             index2 = x_values.index(x_values[empty_y])
+    #             print(f"index 1: {index1}")
+    #             print(f"index 2: {index2}")
 
-            if car in x_values:
-                print("Before X", x_values) ## Remove later
-
-                # Index the positions
-                index1 = x_values.index(car)
-                index2 = x_values.index(x_values[empty_x])
-
-                # Swap the positions of elements
-                x_values[index1], x_values[index2] = x_values[index2], x_values[index1]
+    #             # Swap the positions of elements
+    #             x_values[index1], x_values[index2] = x_values[index2], x_values[index1]
        
-                print("After X", x_values) ## Remove later
+    #             print("After X", x_values) ## Remove later
 
-            elif car in y_values:
-                print("Before Y", y_values) ## Remove later
-                index1 = y_values.index(car)
-                index2 = y_values.index(y_values[empty_y]) ## Remove later
+    #         elif car in y_values:
+    #             print("Before Y", y_values) ## Remove later
+    #             index1 = y_values.index(car)
+    #             index2 = y_values.index(y_values[empty_y]) ## Remove later
            
-                # Swap the positions
-                y_values[index1], y_values[index2] = y_values[index2], y_values[index1]
+    #             # Swap the positions
+    #             y_values[index1], y_values[index2] = y_values[index2], y_values[index1]
 
-                print("After Y", y_values)
+    #             print("After Y", y_values)
+
+    # Mila's attempt:
+    count_lengthbx = 0
+    count_lengthax = 0
+    count_lengthby = 0
+    count_lengthay = 0
+    if possible_cars:
+        for car in possible_cars:
+            if car in before_x:
+                for x_car in before_x:
+                    if car == x_car:
+                        count_lengthbx += 1
+            if count_lengthbx == 2 or count_lengthbx == 3:
+                grid.coordinates[empty_y][empty_x] = car
+                grid.coordinates[empty_y][empty_x - count_lengthbx] = "0"
+
+            if car in after_x:
+                for x_car in after_x:
+                    if car == x_car:
+                        count_lengthax += 1
+            if count_lengthax == 2 or count_lengthax == 3:
+                grid.coordinates[empty_y][empty_x] = car
+                grid.coordinates[empty_y][empty_x + count_lengthax] = "0"
+
+            # if car in before_y:
+            #     for y_car in before_y:
+            #         if car == y_car:
+            #             count_lengthby += 1
+            # if count_lengthby == 2 or count_lengthby == 3:
+            #     grid.coordinates[empty_y][empty_x] = car
+            #     grid.coordinates[empty_y - count_lengthby][empty_x] = "0"
+
+            # if car in after_y:
+            #     for y_car in after_y:
+            #         if car == y_car:
+            #             count_lengthay += 1
+            # if count_lengthax == 2 or count_lengthax == 3:
+            #     grid.coordinates[empty_y][empty_x] = car
+            #     grid.coordinates[empty_y + count_lengthay][empty_x ] = "0"
+        
+        for line in grid.coordinates:
+            print(line)
+    
+    
+    
+
