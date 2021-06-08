@@ -40,10 +40,12 @@ def random_assignment(grid):
     print(f"random position:{random_position}")
 
     # Attempy Mila en co
-    for y in range(len(grid.coordinates)):
-        if grid.coordinates[x][empty_y -1] != "0":
-            print(f"value of coordinates {grid.coordinates[x][y]}")
-            print(f"actual coordinates {x,y}")
+    for x in range(len(grid.coordinates)):
+        if x == empty_y:
+            for value in grid.coordinates[x]:
+                if value != "0":
+                    print(f"grid_value: {value}")
+                    print(f"grid_coordinates: {empty_y}")
 
     # Attempt Mayla
     for x in range(len(grid.coordinates)-1):
@@ -52,3 +54,6 @@ def random_assignment(grid):
             # If coordinates are similar to the empty spot, print the row
             if grid.coordinates[y][x] == grid.coordinates[empty_x][empty_y]:
                 print(grid.coordinates[x])
+    
+    
+    
