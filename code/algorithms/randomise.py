@@ -49,161 +49,160 @@ def random_assignment(grid):
     for y in range(len(grid.coordinates)):
         y_values.append(grid.coordinates[y][empty_x])
     
-    # print(f"horizontal:{x_values[empty_x]}")
-    # print(f"vertical:{y_values[empty_y]}")
-    # print(f"horizontal single:{empty_x}")
-    # print(f"vertical single :{empty_y}")
 
     counter_x = 0
     before_x = []
     after_x = []
 
     for value in x_values:
+
+        # If the car is to the left of the empty space and it's value is not 0, add to list
         if counter_x < empty_x:
             if value != "0":
                 before_x.append(value)
+
+        # If the car is to the right of the empty space and it's value is not 0, add to other list
         else:
             if value != "0":
                 after_x.append(value)
         counter_x += 1
         
-    
-    # print(f"(X) before :{before_x}")
-    # print(f"(X) after :{after_x}")
 
     counter_y = 0
     before_y = []
     after_y = []
 
     for value in y_values:
+
+        # If the car is lower than the empty space and it's value is not zero, add to list
         if counter_y < empty_y:
             if value != "0":
                 before_y.append(value)
+
+        # If the car is higher than the empty space and it's value is not zero, add to other list
         else:
             if value != "0":
                 after_y.append(value)
         counter_y += 1
 
     possible_cars = []
-    # print(f"(Y) before :{before_y}")
-    # print(f"(Y) after :{after_y}")
     
+    # If there are cars lower than the empty space: 
     if before_y:
         last_place = len(before_y) -1
         before_car_y = before_y[last_place]
-        # print(f" y before: {before_car_y}")
         count_by = 0
         for car in before_y:
             if car == before_car_y:
                 count_by += 1
-                
+        # Take the car to the right of the list, closest to the empty space and add to list
         if count_by > 1:
             possible_cars.append(before_car_y)
 
+    # If there are any cars higher than the empty space: 
     if after_y:
         after_car_y = after_y[0]
-        # print(f" y after: {after_car_y}")
         count_ay = 0
         for car in after_y:
             if car == after_car_y:
                 count_ay += 1
-                
+
+        #  Take the first car after the empty space and add it to the list. 
         if count_ay > 1:
             possible_cars.append(after_car_y)
 
+    # If there are cars to the left of the empty space
     if before_x:
         last_place = len(before_x) -1
         before_car_x = before_x[last_place]
-        #print(f" y before: {before_car_x}")
         count_bx = 0
         for car in before_x:
             if car == before_car_x:
                 count_bx += 1
-                
+        # Take the carname to the left of the empty space 
         if count_bx > 1:
             possible_cars.append(before_car_x)
 
+    # If there are cars to the right of the empty space
     if after_x:
         after_car_x = after_x[0]
-        #print(f" y after: {after_car_x}")
         count_ax = 0
         for car in after_x:
             if car == after_car_x:
                 count_ax += 1
-                
+
+        # Add the first car to the right of the empty space to the list. 
         if count_ax > 1:
             possible_cars.append(after_car_x)
 
     print(f"possible cars: {possible_cars}")
 
-    # If there is a possibility
-    # if possible_cars:
-    #     for car in possible_cars:
-    #         if car in x_values:
-    #             print("Before X", x_values) ## Remove later
-
-    #             # Index the positions
-    #             index1 = x_values.index(car)
-    #             index2 = x_values.index(x_values[empty_y])
-    #             print(f"index 1: {index1}")
-    #             print(f"index 2: {index2}")
-
-    #             # Swap the positions of elements
-    #             x_values[index1], x_values[index2] = x_values[index2], x_values[index1]
-       
-    #             print("After X", x_values) ## Remove later
-
-    #         elif car in y_values:
-    #             print("Before Y", y_values) ## Remove later
-    #             index1 = y_values.index(car)
-    #             index2 = y_values.index(y_values[empty_y]) ## Remove later
-           
-    #             # Swap the positions
-    #             y_values[index1], y_values[index2] = y_values[index2], y_values[index1]
-
-    #             print("After Y", y_values)
-
-    # Mila's attempt:
+    # move car to random empty space    
+    
     count_lengthbx = 0
     count_lengthax = 0
     count_lengthby = 0
     count_lengthay = 0
-    if possible_cars:
-        for car in possible_cars:
-            if car in before_x:
-                for x_car in before_x:
-                    if car == x_car:
-                        count_lengthbx += 1
-            if count_lengthbx == 2 or count_lengthbx == 3:
-                grid.coordinates[empty_y][empty_x] = car
-                grid.coordinates[empty_y][empty_x - count_lengthbx] = "0"
+    
+    # Move every car in the list (change later to random car)
+    for car in possible_cars:
 
-            if car in after_x:
-                for x_car in after_x:
-                    if car == x_car:
-                        count_lengthax += 1
-            if count_lengthax == 2 or count_lengthax == 3:
-                grid.coordinates[empty_y][empty_x] = car
-                grid.coordinates[empty_y][empty_x + count_lengthax] = "0"
+        # If the car is to the left of the empty space in the grid
+        if car in before_x:
+            for x_car in before_x:
+                index = x_values.index(x_car)
+                if car == x_car:
+                    count_lengthbx += 1
 
-            # if car in before_y:
-            #     for y_car in before_y:
-            #         if car == y_car:
-            #             count_lengthby += 1
-            # if count_lengthby == 2 or count_lengthby == 3:
-            #     grid.coordinates[empty_y][empty_x] = car
-            #     grid.coordinates[empty_y - count_lengthby][empty_x] = "0"
+            # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
+            if count_lengthbx > 1:
+                for a in range(count_lengthbx):
+                    grid.coordinates[empty_y][index - a + 1] = "0"
+                    grid.coordinates[empty_y][empty_x - a + 1] = car
 
-            # if car in after_y:
-            #     for y_car in after_y:
-            #         if car == y_car:
-            #             count_lengthay += 1
-            # if count_lengthax == 2 or count_lengthax == 3:
-            #     grid.coordinates[empty_y][empty_x] = car
-            #     grid.coordinates[empty_y + count_lengthay][empty_x ] = "0"
-        
+        #  If the car is to the right of the empty space
+        if car in after_x:
+            for x_car in after_x:
+                index = x_values.index(x_car)
+                if car == x_car:
+                    count_lengthax += 1
+
+            # check the  car's orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
+            if count_lengthax > 1:
+                for a in range(count_lengthax):
+                    grid.coordinates[index][empty_x + a] = "0"
+                    grid.coordinates[empty_y][empty_x + a] = car
+
+        # If the car is lower than the empty space
+        if car in before_y:
+            for y_car in before_y:
+                index = y_values.index(y_car)
+                if car == y_car:
+                    count_lengthby += 1
+
+            # again, check orientation, then move the length of the car
+            if count_lengthby > 1:
+                for a in range(count_lengthby):
+                    grid.coordinates[empty_y - index][empty_x] = "0"
+                    grid.coordinates[empty_y - a + 1][empty_x] = car
+                    
+        #  If the car is to the right of the empty space: 
+        if car in after_y:
+            for y_car in after_y:
+                index = y_values.index(y_car)
+                if car == y_car:
+                    count_lengthay += 1
+
+            # Check orientation and then move the car 
+            if count_lengthay > 1:
+                for a in range(count_lengthay):
+                    grid.coordinates[index + a][empty_x] = "0"
+                    grid.coordinates[empty_y + a][empty_x] = car
+                
         for line in grid.coordinates:
             print(line)
+    
+    
     
     
     
