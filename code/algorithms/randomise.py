@@ -39,13 +39,6 @@ def random_assignment(grid):
     empty_y = random_position[1]
     print(f"random position:{random_position}")
 
-    # Attempy Mila en co
-    #for x in range(len(grid.coordinates)):
-    #    if x == empty_y:
-    #        for value in grid.coordinates[x]:
-    #            if value != "0":
-    #                print(f"grid_value: {value}")
-    #                print(f"grid_coordinates: {empty_y}")
 
     x_values = []
     y_values = []
@@ -68,12 +61,14 @@ def random_assignment(grid):
     after_x = []
 
     for value in x_values:
-        if value != "0":
-            if counter_x < empty_x:
+        if counter_x < empty_x:
+            if value != "0":
                 before_x.append(value)
-            elif counter_x > empty_x:
+        else:
+            if value != "0":
                 after_x.append(value)
-            counter_x += 1
+        counter_x += 1
+        print(f"counter: {counter_x}")
     
     print(f"(X) before :{before_x}")
     print(f"(X) after :{after_x}")
@@ -83,15 +78,33 @@ def random_assignment(grid):
     after_y = []
 
     for value in y_values:
-        if value != "0":
-            if counter_y < empty_y:
+        if counter_y < empty_y:
+            if value != "0":
                 before_y.append(value)
-            elif counter_y > empty_y:
+        else:
+            if value != "0":
                 after_y.append(value)
-            counter_y += 1
-    
+        counter_y += 1
+
+    # possible_cars = []
     print(f"(Y) before :{before_y}")
     print(f"(Y) after :{after_y}")
+    # if before_y:
+    #     last_place = len(before_y) -1
+    #     before_car_y = before_y[last_place]
+    #     print(f" y before: {before_car_y}")
+    #     count_by = 0
+    #     for before_car_y in before_y:
+    #         print("found!")
+    #         count_by += 1
+    #     if count_by > 1:
+    #         possible_cars.append(before_car_y)
+
+    # if after_y:
+    #     after_car_y = after_y[0]
+    #     print(f" y after: {after_car_y}")
+
+    # print(f"possible cars: {possible_cars}")
         
 
     
