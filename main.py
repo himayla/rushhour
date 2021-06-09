@@ -1,6 +1,6 @@
 from code.classes import grid
 from code.algorithms import randomise
-from code.algorithms import randomise_mayla ###
+from code.algorithms import randomise_mayla as rn
 
 
 if __name__ == "__main__":
@@ -15,5 +15,6 @@ if __name__ == "__main__":
 
     #random_board = randomise.random_assignment(test_grid)
 
-    test_random = randomise_mayla.randomise(test_grid.coordinates)
+    test_random = rn.Randomise(test_grid.coordinates)
+    test_random.run()
     #print(test_random)
