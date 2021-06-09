@@ -278,7 +278,9 @@ class Randomise:
         """
         
 
-        while "[x, (5,2)]" not in self.list_of_moves:
+        while ['X', [5, 2]] not in self.list_of_moves:
+            
+            
 
             # Find empty spaces in board
             self.find_empty_spaces()
@@ -300,6 +302,7 @@ class Randomise:
                 
                 # move the car
                 self.move_car()
+                
                 self.x_values = []
                 self.y_values = []
                 self.left =[]
