@@ -1,6 +1,6 @@
 from code.classes import grid
 from code.algorithms import randomise
-from code.algorithms import randomise_mayla as rn
+from code.algorithms import randomise_oo as rn
 
 
 if __name__ == "__main__":

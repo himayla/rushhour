@@ -172,85 +172,67 @@ class Randomise:
         Moves the selected car to the random empty spot by updating the current grid.
         """
         print("start move car")
-    
         count_left = 0
         count_right = 0
         count_upper = 0
         count_lower = 0
-
-        print(f"auto op 169: {self.random_car}")
-        # Move every car in the list (change later to random car)
-        for car in self.random_car:
-            print("komt op regel 172 {car} ")
-            # If the car is to the left of the empty space in the grid
-            if car in self.left:
-                for x_car in self.left:
-                    if car == x_car:
-                        index = self.x_values.index(x_car)
-                        count_left += 1
-
-                # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
-                if count_left > 1:
-                    for a in range(count_left):
-                        self.grid[self.random_position[1]][index + a] = "0"
-                        print(f"left 0: {index + a}, {self.random_position[1]}")
-                    for a in range(count_left):
-                        self.grid[self.random_position[1]][self.random_position[0] - a] = car
-                        print(f"left car: {self.random_position[0] - a}, {self.random_position[1]}")
-                        
-
-            #  If the car is to the right of the empty space
-            if car in self.right:
-                for x_car in self.right: 
-                    if car == x_car:
-                        index = self.x_values.index(x_car)
-                        count_right += 1
-
-                # check the  car's orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
-                if count_right > 1:
-                    for a in range(count_right):
-                        self.grid[self.random_position[1]][index + a] = "0"
-                        print(f"right 0: {index + a},{self.random_position[1]}")
-                    for a in range(count_right):
-                        self.grid[self.random_position[1]][self.random_position[0] + a] = car
-                        print(f"right car: {self.random_position[0] + a}, {self.random_position[1]}")
-                        
-            # If the car is lower than the empty space
-            if car in self.lower:
-                for y_car in self.lower:
-                    if car == y_car:
-                        index = self.y_values.index(y_car)
-                        count_lower += 1
-
-                # again, check orientation, then move the length of the car first zero's then car-names
-                if count_lower > 1:
-                    for a in range(count_lower):
-                        self.grid[index + a][self.random_position[0]] = "0"
-                        print(f"lower 0: {self.random_position[0]}, {index + a}")
-                        
-                    for a in range(count_lower):
-                        self.grid[self.random_position[1] + a][self.random_position[0]] = car
-                        print(f"lower car: {self.random_position[0]},{self.random_position[1]}")
-                        
-            #  If the car is above the empty space: 
-            if car in self.upper:
-                for y_car in self.upper:
-                    if car == y_car:
-                        index = self.y_values.index(y_car)
-                        count_upper += 1
-
-                # Check orientation and then move the car 
-                if count_upper > 1:
-                    for a in range(count_upper):
-                        self.grid[index + a][self.random_position[0]] = "0"
-                        print(f"upper 0: {self.random_position[0]}, {index + a} ")
-                        
-                    for a in range(count_upper):
-                        self.grid[self.random_position[1] + a][self.random_position[0]] = car
-                        print(f"upper car: {self.random_position[0]}, {self.random_position[1] + a}")
-                    
-            for line in self.grid:
-                print(line)
+        if self.random_car in self.left:
+            for x_car in self.left:
+                if self.random_car == x_car:
+                    index = self.x_values.index(x_car)
+                    count_left += 1
+            # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
+            if count_left > 1:
+                for a in range(count_left):
+                    self.grid[self.random_position[1]][index - a] = "0"
+                    print(f"left 0: {index + a}, {self.random_position[1]}")
+                for a in range(count_left):
+                    self.grid[self.random_position[1]][self.random_position[0] - a] = self.random_car
+                    print(f"left car: {self.random_position[0] - a}, {self.random_position[1]}")
+        #  If the car is to the right of the empty space
+        elif self.random_car in self.right:
+            for x_car in self.right:
+                if self.random_car == x_car:
+                    index = self.x_values.index(x_car)
+                    count_right += 1
+            # check the  car’s orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
+            if count_right > 1:
+                for a in range(count_right):
+                    self.grid[self.random_position[1]][index - a] = "0"
+                    print(f"right 0: {index + a},{self.random_position[1]}")
+                for a in range(count_right):
+                    self.grid[self.random_position[1]][self.random_position[0] - a] = self.random_car
+                    print(f"right car: {self.random_position[0] + a}, {self.random_position[1]}")
+        # If the car is lower than the empty space
+        elif self.random_car in self.lower:
+            for y_car in self.lower:
+                if self.random_car == y_car:
+                    index = self.y_values.index(y_car)
+                    count_lower += 1
+            # again, check orientation, then move the length of the car first zero’s then car-names
+            if count_lower > 1:
+                for a in range(count_lower):
+                    self.grid[index + a][self.random_position[0]] = "0"
+                    print(f"lower 0: {self.random_position[0]}, {index + a}")
+                for a in range(count_lower):
+                    self.grid[self.random_position[1] - a][self.random_position[0]] = self.random_car
+                    print(f"lower car: {self.random_position[0]},{self.random_position[1]}")
+        #  If the car is to the right of the empty space:
+        elif self.random_car in self.upper:
+            for y_car in self.upper:
+                if self.random_car == y_car:
+                    index = self.y_values.index(y_car)
+                    count_upper += 1
+            # Check orientation and then move the car
+            if count_upper > 1:
+                for a in range(count_upper):
+                    self.grid[index - a][self.random_position[0]] = "0"
+                    print(f"upper 0: {self.random_position[0]}, {index - a}")
+                for a in range(count_upper):
+                    self.grid[self.random_position[1] - a][self.random_position[0]] = self.random_car
+                    print(f"upper car{self.random_position[0]}{self.random_position[1] - a}")
+        for line in self.grid:
+            print(line)
 
 
     def run(self):
