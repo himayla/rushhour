@@ -1,20 +1,6 @@
 import random
 import copy
 
-"""
-Pseudocode:
-1. While [x, (5,2)] not in list_of_moves                                                run(new_grid) #als laatste
-    2. Find empty spaces in board                                                       find_empty_spaces(new_grid), return empty_spaces
-    3. Choose a random space out of the empty spaces                                    get_random_space(empty_spaces), return random_space
-    4. Create a list for all the X values and Y values connected to this empty space    get_relevant_rows_cols(new_grid, random_space) return, list and cols
-        5.  Create a list with the cars left, up, right, down to the empty space         
-            Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
-            If list is empty, go back to step 3 and choose a new random place
-        7. Move the car, add to list_of_moves and update the grid                        move_car(new_grid, random_car)
-"""
-
-# DEF class Randomise, daarin deepcopy. Run als laatste.
-
 # Pseudocode: 
 # Grid aan randomise geven.
 # Zetten verzamelen:
@@ -164,54 +150,59 @@ def random_assignment(grid):
         # If the car is to the left of the empty space in the grid
         if car in before_x:
             for x_car in before_x:
-                index = x_values.index(x_car)
                 if car == x_car:
+                    index = x_values.index(x_car)
                     count_lengthbx += 1
 
             # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
             if count_lengthbx > 1:
                 for a in range(count_lengthbx):
-                    grid.coordinates[empty_y][index - a + 1] = "0"
-                    grid.coordinates[empty_y][empty_x - a + 1] = car
+                    grid.coordinates[empty_y][index + a] = "0"
+                for a in range(count_lengthbx):
+                    grid.coordinates[empty_y][empty_x - a] = car
+                    
 
         #  If the car is to the right of the empty space
         if car in after_x:
-            for x_car in after_x:
-                index = x_values.index(x_car)
+            for x_car in after_x: 
                 if car == x_car:
+                    index = x_values.index(x_car)
                     count_lengthax += 1
 
             # check the  car's orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
             if count_lengthax > 1:
                 for a in range(count_lengthax):
-                    grid.coordinates[index][empty_x + a] = "0"
+                    grid.coordinates[empty_y][index + a] = "0"
+                for a in range(count_lengthax):
                     grid.coordinates[empty_y][empty_x + a] = car
-
+                    
         # If the car is lower than the empty space
         if car in before_y:
             for y_car in before_y:
-                index = y_values.index(y_car)
                 if car == y_car:
+                    index = y_values.index(y_car)
                     count_lengthby += 1
 
-            # again, check orientation, then move the length of the car
+            # again, check orientation, then move the length of the car first zero's then car-names
             if count_lengthby > 1:
                 for a in range(count_lengthby):
-                    grid.coordinates[empty_y - index][empty_x] = "0"
-                    grid.coordinates[empty_y - a + 1][empty_x] = car
-                    
+                    grid.coordinates[index + a][empty_x] = "0"
+                for a in range(count_lengthby):
+                    grid.coordinates[empty_y - a][empty_x] = car
         #  If the car is to the right of the empty space: 
         if car in after_y:
             for y_car in after_y:
-                index = y_values.index(y_car)
                 if car == y_car:
+                    index = y_values.index(y_car)
                     count_lengthay += 1
 
             # Check orientation and then move the car 
             if count_lengthay > 1:
                 for a in range(count_lengthay):
                     grid.coordinates[index + a][empty_x] = "0"
+                for a in range(count_lengthay):
                     grid.coordinates[empty_y + a][empty_x] = car
+                   
                 
         for line in grid.coordinates:
             print(line)
