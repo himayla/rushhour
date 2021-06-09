@@ -4,9 +4,6 @@ import copy
 def randomise(grid): # Main function
     new_grid = copy.deepcopy(grid)
 
-    for line in new_grid:
-        print(line)
-
     empty_spaces(new_grid)
 
     place = [0,1] ## Temporary. (Randomise later)

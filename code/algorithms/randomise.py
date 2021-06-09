@@ -1,6 +1,20 @@
 import random
 import copy
 
+"""
+Pseudocode:
+1. While [x, (5,2)] not in list_of_moves                                                run(new_grid) #als laatste
+    2. Find empty spaces in board                                                       find_empty_spaces(new_grid), return empty_spaces
+    3. Choose a random space out of the empty spaces                                    get_random_space(empty_spaces), return random_space
+    4. Create a list for all the X values and Y values connected to this empty space    get_relevant_rows_cols(new_grid, random_space) return, list and cols
+        5.  Create a list with the cars left, up, right, down to the empty space         
+            Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
+            If list is empty, go back to step 3 and choose a new random place
+        7. Move the car, add to list_of_moves and update the grid                        move_car(new_grid, random_car)
+"""
+
+# DEF class Randomise, daarin deepcopy. Run als laatste.
+
 # Pseudocode: 
 # Grid aan randomise geven.
 # Zetten verzamelen:
