@@ -21,7 +21,7 @@ class Randomise:
         self.empty_spaces = []
 
     def find_empty_spaces(self):
-        print("start empty spaces")
+        # print("start empty spaces")
         """
         Lists all empty spaces in the grid.
         """
@@ -37,7 +37,7 @@ class Randomise:
         """
         Chooses a random empty space from a list of empty spaces.
         """
-        print("start get random space")
+        # print("start get random space")
         
         # Amount of empty spaces -1 to account for indexing
         total_empty = len(self.empty_spaces) - 1
@@ -53,7 +53,7 @@ class Randomise:
         """
         Lists x and y axis connected to the selected empty space.
         """
-        print("start get relevant rows")
+        # print("start get relevant rows")
 
         # Lists for the possiblities based on coordinates
         for x in self.grid[self.random_position[1]]:
@@ -94,7 +94,8 @@ class Randomise:
         """
         Lists all possible cars from the x and y axis of the empty spot, and chooses one at random.
         """
-        print("start choose random car")
+        # print("start choose random car")
+
         # 5.  Create a list with the cars left, up, right, down to the empty space         
         # Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
         
@@ -270,4 +271,14 @@ class Randomise:
                 
                 # move the car
                 self.move_car()
+                self.x_values = []
+                self.y_values = []
+                self.left =[]
+                self.right = []
+                self.upper = []
+                self.lower = []
+                self.possible_cars = []
                 self.random_car = ""
+                self.list_of_moves = []
+                self.random_position = []
+                self.empty_spaces = []
