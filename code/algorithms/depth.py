@@ -33,6 +33,8 @@ class Depthfirst:
 
             cars = rand_func.choose_random_car(rows[0], rows[1], rows[2], rows[3])
             print(f"cars: {cars}")
+            if cars:
+                
 
     def run(self):
         """
