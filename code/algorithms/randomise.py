@@ -53,9 +53,10 @@ class Randomise:
         """
         Lists x and y axis connected to the selected empty space.
         """
-        # print("start get relevant rows")
+        # Create lists to put the entire x and y axis that the chosen empty spaces resides on
         x_val = []
         y_val = []
+
         # Lists for the possiblities based on coordinates
         for x in self.grid[self.random_position[1]]:
             x_val.append(x)
@@ -63,31 +64,34 @@ class Randomise:
         for y in range(len(self.grid)):
             y_val.append(self.grid[y][self.random_position[0]])
 
+        # Add the x and y-axis values to the self
         self.x_values = x_val
         self.y_values = y_val
 
+        # Create lists for values to the left and right of the chosen empty space
         left = []
         right = []
         counter_x = 0
         for value in self.x_values:
-
             # If the car is to the left of the empty space and it's value is not 0, add to list
             if counter_x < self.random_position[0]:
                 if value != "0":
                     left.append(value)
-
             # If the car is to the right of the empty space and it's value is not 0, add to other list
             else:
                 if value != "0":
                     right.append(value)
             counter_x += 1 
 
-        counter_y = 0
+        # Add the lists for left and right to self
         self.right = right
         self.left = left
 
+        # Create counter and lists for upper and lower values to the empty space
+        counter_y = 0
         upper = []
         lower = []
+
         for value in self.y_values:
 
             # If the car is lower than the empty space and it's value is not zero, add to list
@@ -95,13 +99,14 @@ class Randomise:
                 if value != "0":
                     upper.append(value)
                     
-
             # If the car is higher than the empty space and it's value is not zero, add to other list
             else:
                 if value != "0":
                     lower.append(value)
                     
             counter_y += 1
+
+        # Add the lower and upper values of the empty space to the self
         self.lower = lower
         self.upper = upper
         
@@ -115,78 +120,74 @@ class Randomise:
         # 5.  Create a list with the cars left, up, right, down to the empty space         
         # Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
         possible = []
-        # If there are cars lower than the empty space: 
+
+        # If there are cars higher than the empty space
         
         if self.upper:            
             last_place = len(self.upper) -1
-            before_car_y = self.upper[last_place]
-            count_by = 0
+            upper_car = self.upper[last_place]
+            count_upper = 0
             for car in self.upper:
-                if car == before_car_y:
+                if car == upper_car:
                    
-                    count_by += 1
+                    count_upper += 1
                 else:
-                    count_by = 0
+                    count_upper = 0
                 
-            # Take the car to the right of the list, closest to the empty space and add to list
-                if count_by > 1 and before_car_y not in possible:
-                    possible.append(before_car_y)
+                # Take the car to the right of the list, closest to the empty space and add to list if it's not put in yet
+                if count_upper > 1 and upper_car not in possible:
+                    possible.append(upper_car)
             
 
-        # If there are any cars higher than the empty space: 
+        # If there are any cars lower than the empty space: 
         if self.lower:
-            after_car_y = self.lower[0]
-            count_ay = 0
+            car_left = self.lower[0]
+            count_lower = 0
             for car in self.lower:
-                if car == after_car_y:
-                    
-                    count_ay += 1
+                if car == car_left:
+                    count_lower += 1
                 else:
-                    count_ay = 0
+                    count_lower = 0
                            
-                #  Take the first car after the empty space and add it to the list. 
-                if count_ay > 1 and after_car_y not in possible:
-                    possible.append(after_car_y)
+                #  Take the first car after the empty space and add it to the list if it's not in there yet
+                if count_lower > 1 and car_left not in possible:
+                    possible.append(car_left)
 
         # If there are cars to the left of the empty space
         if self.left:
             last_place = len(self.left) -1
-            before_car_x = self.left[last_place]
-            count_bx = 0
+            left_car = self.left[last_place]
+            count_left = 0
             for car in self.left:
-                if car == before_car_x:
-                    count_bx += 1
+                if car == left_car:
+                    count_left += 1
                 else:
-                    count_bx = 0   
+                    count_left = 0   
                 
-                # Take the carname to the left of the empty space 
-                if count_bx > 1 and before_car_x not in possible:
-                    possible.append(before_car_x)
+                # Take the carname to the left of the empty space and add to possible cars if it's not in there yet
+                if count_left > 1 and left_car not in possible:
+                    possible.append(left_car)
 
         # If there are cars to the right of the empty space
         if self.right:
-            after_car_x = self.right[0]
-            count_ax = 0
+            right_car = self.right[0]
+            count_right = 0
             for car in self.right:
-                if car == after_car_x:
-                    count_ax += 1
+                if car == right_car:
+                    count_right += 1
                 else:
-                    count_ax = 0
+                    count_right = 0
                 
-                # Add the first car to the right of the empty space to the list. 
-                if count_ax > 1 and after_car_x not in possible:
-                    possible.append(after_car_x)
-        count_by = 0
-        count_ay = 0
-        count_bx = 0
-        count_ax = 0
-
+                # Add the first car to the right of the empty space to the list if it's not in there yet 
+                if count_right > 1 and right_car not in possible:
+                    possible.append(right_car)
+        
+        # Add the list of possible cars to the self
         self.possible_cars = possible
         
         # choose random car from list of possible cars.
         if self.possible_cars:
             self.random_car = random.choice(self.possible_cars)
-            
 
         else:
             self.random_car = ""
@@ -201,22 +202,20 @@ class Randomise:
         count_right = 0
         count_upper = 0
         count_lower = 0
+
+        # If the car is to the left of the empty space
         if self.random_car in self.left:
-            
             for x_car in self.left:
                 if self.random_car == x_car:
                     index = self.x_values.index(x_car)
                     count_left += 1
             # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
             if count_left > 1:
-                
                 for a in range(count_left):
                     self.grid[self.random_position[1]][index + a] = "0"
-                    
                 for a in range(count_left):
                     self.grid[self.random_position[1]][self.random_position[0] - a] = self.random_car
                    
-            count_left = 0
         #  If the car is to the right of the empty space
         elif self.random_car in self.right:
             for x_car in self.right:
@@ -225,14 +224,12 @@ class Randomise:
                     count_right += 1
             # check the  car’s orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
             if count_right > 1:
-                
                 for a in range(count_right):
                     self.grid[self.random_position[1]][index + a] = "0"
-                    
                 for a in range(count_right):
                     self.grid[self.random_position[1]][self.random_position[0] + a] = self.random_car
                     
-            count_right = 0
+            
         # If the car is lower than the empty space
         elif self.random_car in self.lower:
             for y_car in self.lower:
@@ -241,15 +238,12 @@ class Randomise:
                     count_lower += 1
             # again, check orientation, then move the length of the car first zero’s then car-names
             if count_lower > 1:
-                
                 for a in range(count_lower):
                     self.grid[index + a][self.random_position[0]] = "0"
-                    
                 for a in range(count_lower):
                     self.grid[self.random_position[1] + a][self.random_position[0]] = self.random_car
                     
-            count_lower = 0
-        #  If the car is to the right of the empty space:
+        #  If the car is higher than the empty space:
         elif self.random_car in self.upper:
             for y_car in self.upper:
                 if self.random_car == y_car:
@@ -257,28 +251,23 @@ class Randomise:
                     count_upper += 1
             # Check orientation and then move the car
             if count_upper > 1:
-                
                 for a in range(count_upper):
                     self.grid[index + a][self.random_position[0]] = "0"
-                    
                 for a in range(count_upper):
-                    self.grid[self.random_position[1] - a][self.random_position[0]] = self.random_car
-                    
-            count_upper = 0
+                    self.grid[self.random_position[1] - a][self.random_position[0]] = self.random_car          
         
-
 
     def run(self):
         """
         Run all the funcitons to find a empty space and move a car to that space.
         Stops when car x (red car) is in the winning position.
         """
-        
+        # for each board size (=length of a random x axis), choose a different victory move where car x needs to be to win.
+        victory_move = []
 
-        while ['X', [5, 2]] not in self.list_of_moves:
+        while victory_move not in self.list_of_moves:
             
             
-
             # Find empty spaces in board
             self.find_empty_spaces()
             
@@ -287,6 +276,14 @@ class Randomise:
 
             # Create a list for all the X values and Y values connected to this empty space
             self.get_relevant_rows()
+
+            # for each board size (=length of a random x axis), choose a different victory move where car x needs to be to win.
+            if len(self.x_values) == 6:
+                victory_move = ['X', [5, 2]]
+            elif len(self.x_values) == 9:
+                victory_move = ['X', [8, 4]]
+            elif len(self.x_values) == 12:
+                victory_move = ['X', [11, 5]]
 
             # Create a list with the cars left, up, right, down to the empty space and Choose random car from this list that can move to the empty space
             self.choose_random_car()   
@@ -299,17 +296,11 @@ class Randomise:
                 
                 # move the car
                 self.move_car()
-                
-                self.x_values = []
-                self.y_values = []
-                self.left =[]
-                self.right = []
-                self.upper = []
-                self.lower = []
-                self.possible_cars = []
+                                
                 self.random_car = ""
                 self.random_position = []
                 self.empty_spaces = []
+                
         print(f"final board")
         for line in self.grid:
             print(line)
