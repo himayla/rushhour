@@ -1,214 +1,317 @@
 import random
 import copy
-"""
-Pseudocode:
-1. While [x, (5,2)] not in list_of_moves                                                run(new_grid) #als laatste
-    2. Find empty spaces in board                                                       find_empty_spaces(new_grid), return empty_spaces
-    3. Choose a random space out of the empty spaces                                    get_random_space(empty_spaces), return random_space
-    4. Create a list for all the X values and Y values connected to this empty space    get_relevant_rows_cols(new_grid, random_space) return, list and cols
-        5.  Create a list with the cars left, up, right, down to the empty space         
-            Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
-            If list is empty, go back to step 3 and choose a new random place
-        6. Move the car, add to list_of_moves and update the grid                        move_car(new_grid, random_car)
-"""
 
 
-def random_assignment(grid):
+class Randomise:
     """
-    Random
+    A random algorithm that moves random cars to random empty spaces until the red car reaches the end.
     """
-    # List with coordinates of empty spaces
-    empty_spaces_coor = []
+    def __init__(self, grid):
+        self.grid = copy.deepcopy(grid)
+        self.x_values = []
+        self.y_values = []
+        self.left =[]
+        self.right = []
+        self.upper = []
+        self.lower = []
+        self.possible_cars = []
+        self.random_car = ""
+        self.list_of_moves = []
+        self.random_position = []
+        self.empty_spaces = []
 
-    # Loop through the 2D grid to find an empty space, append to list of empty spaces
-    for x in range(len(grid.coordinates)):
-        for y in range(len(grid.coordinates[x])):
-            if grid.coordinates[y][x] == "0":
-                empty_space = [x,y]
-                empty_spaces_coor.append(empty_space)
+    def find_empty_spaces(self):
+        # print("start empty spaces")
+        """
+        Lists all empty spaces in the grid.
+        """
+        # Loop through the 2D grid to find an empty space, append to the list of empty spaces
+        for x in range(len(self.grid)):
+            for y in range(len(self.grid[x])):
+                if self.grid[y][x] == "0":
+                    empty_space = [x,y]
+                    self.empty_spaces.append(empty_space)
 
-    # Amount of empty spaces -1 to account for indexing
-    total_empty = len(empty_spaces_coor) - 1
 
-    # Get coordinates for random empty space on the grid
-    random_value = random.randint(0, total_empty)
-    random_position = empty_spaces_coor[random_value]
-    print(f"random position:{random_position}")
+    def get_random_space(self):
+        """
+        Chooses a random empty space from a list of empty spaces.
+        """
+        
+        
+        # Amount of empty spaces -1 to account for indexing
+        total_empty = len(self.empty_spaces) - 1
+
+        # Get coordinates for random empty space on the grid
+        random_value = random.randint(0, total_empty)
+        self.random_position = self.empty_spaces[random_value]
+        
+        # print(f"random position:{self.random_position}")
     
-    # The coordinates of the empty spot
-    empty_x = random_position[0]
-    empty_y = random_position[1]
 
-    # Lists for the possiblities based on coordinates
-    x_values = []
-    y_values = []
+    def get_relevant_rows(self):
+        """
+        Lists x and y axis connected to the selected empty space.
+        """
+        # print("start get relevant rows")
+        x_val = []
+        y_val = []
+        # Lists for the possiblities based on coordinates
+        for x in self.grid[self.random_position[1]]:
+            x_val.append(x)
 
-    for x in grid.coordinates[empty_y]:
-        x_values.append(x)
+        for y in range(len(self.grid)):
+            y_val.append(self.grid[y][self.random_position[0]])
 
-    for y in range(len(grid.coordinates)):
-        y_values.append(grid.coordinates[y][empty_x])
-    
+        self.x_values = x_val
+        self.y_values = y_val
 
-    counter_x = 0
-    before_x = []
-    after_x = []
+        left = []
+        right = []
+        counter_x = 0
+        for value in self.x_values:
 
-    for value in x_values:
+            # If the car is to the left of the empty space and it's value is not 0, add to list
+            if counter_x < self.random_position[0]:
+                if value != "0":
+                    left.append(value)
 
-        # If the car is to the left of the empty space and it's value is not 0, add to list
-        if counter_x < empty_x:
-            if value != "0":
-                before_x.append(value)
+            # If the car is to the right of the empty space and it's value is not 0, add to other list
+            else:
+                if value != "0":
+                    right.append(value)
+            counter_x += 1 
 
-        # If the car is to the right of the empty space and it's value is not 0, add to other list
-        else:
-            if value != "0":
-                after_x.append(value)
-        counter_x += 1
+        counter_y = 0
+        self.right = right
+        self.left = left
+
+        upper = []
+        lower = []
+        for value in self.y_values:
+
+            # If the car is lower than the empty space and it's value is not zero, add to list
+            if counter_y < self.random_position[1]:
+                if value != "0":
+                    upper.append(value)
+                    
+
+            # If the car is higher than the empty space and it's value is not zero, add to other list
+            else:
+                if value != "0":
+                    lower.append(value)
+                    
+            counter_y += 1
+        self.lower = lower
+        self.upper = upper
         
 
-    counter_y = 0
-    before_y = []
-    after_y = []
+    def choose_random_car(self):
+        """
+        Lists all possible cars from the x and y axis of the empty spot, and chooses one at random.
+        """
+        
 
-    for value in y_values:
-
-        # If the car is lower than the empty space and it's value is not zero, add to list
-        if counter_y < empty_y:
-            if value != "0":
-                before_y.append(value)
-
-        # If the car is higher than the empty space and it's value is not zero, add to other list
-        else:
-            if value != "0":
-                after_y.append(value)
-        counter_y += 1
-
-    possible_cars = []
-    
-    # If there are cars lower than the empty space: 
-    if before_y:
-        last_place = len(before_y) -1
-        before_car_y = before_y[last_place]
-        count_by = 0
-        for car in before_y:
-            if car == before_car_y:
-                count_by += 1
-        # Take the car to the right of the list, closest to the empty space and add to list
-        if count_by > 1:
-            possible_cars.append(before_car_y)
-
-    # If there are any cars higher than the empty space: 
-    if after_y:
-        after_car_y = after_y[0]
-        count_ay = 0
-        for car in after_y:
-            if car == after_car_y:
-                count_ay += 1
-
-        #  Take the first car after the empty space and add it to the list. 
-        if count_ay > 1:
-            possible_cars.append(after_car_y)
-
-    # If there are cars to the left of the empty space
-    if before_x:
-        last_place = len(before_x) -1
-        before_car_x = before_x[last_place]
-        count_bx = 0
-        for car in before_x:
-            if car == before_car_x:
-                count_bx += 1
-        # Take the carname to the left of the empty space 
-        if count_bx > 1:
-            possible_cars.append(before_car_x)
-
-    # If there are cars to the right of the empty space
-    if after_x:
-        after_car_x = after_x[0]
-        count_ax = 0
-        for car in after_x:
-            if car == after_car_x:
-                count_ax += 1
-
-        # Add the first car to the right of the empty space to the list. 
-        if count_ax > 1:
-            possible_cars.append(after_car_x)
-
-    print(f"possible cars: {possible_cars}")
-
-    # move car to random empty space    
-    
-    count_lengthbx = 0
-    count_lengthax = 0
-    count_lengthby = 0
-    count_lengthay = 0
-    
-    # Move every car in the list (change later to random car)
-    for car in possible_cars:
-
-        # If the car is to the left of the empty space in the grid
-        if car in before_x:
-            for x_car in before_x:
-                if car == x_car:
-                    index = x_values.index(x_car)
-                    count_lengthbx += 1
-
-            # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
-            if count_lengthbx > 1:
-                for a in range(count_lengthbx):
-                    grid.coordinates[empty_y][index + a] = "0"
-                for a in range(count_lengthbx):
-                    grid.coordinates[empty_y][empty_x - a] = car
-                    
-
-        #  If the car is to the right of the empty space
-        if car in after_x:
-            for x_car in after_x: 
-                if car == x_car:
-                    index = x_values.index(x_car)
-                    count_lengthax += 1
-
-            # check the  car's orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
-            if count_lengthax > 1:
-                for a in range(count_lengthax):
-                    grid.coordinates[empty_y][index + a] = "0"
-                for a in range(count_lengthax):
-                    grid.coordinates[empty_y][empty_x + a] = car
-                    
-        # If the car is lower than the empty space
-        if car in before_y:
-            for y_car in before_y:
-                if car == y_car:
-                    index = y_values.index(y_car)
-                    count_lengthby += 1
-
-            # again, check orientation, then move the length of the car first zero's then car-names
-            if count_lengthby > 1:
-                for a in range(count_lengthby):
-                    grid.coordinates[index + a][empty_x] = "0"
-                for a in range(count_lengthby):
-                    grid.coordinates[empty_y - a][empty_x] = car
-        #  If the car is to the right of the empty space: 
-        if car in after_y:
-            for y_car in after_y:
-                if car == y_car:
-                    index = y_values.index(y_car)
-                    count_lengthay += 1
-
-            # Check orientation and then move the car 
-            if count_lengthay > 1:
-                for a in range(count_lengthay):
-                    grid.coordinates[index + a][empty_x] = "0"
-                for a in range(count_lengthay):
-                    grid.coordinates[empty_y + a][empty_x] = car
+        # 5.  Create a list with the cars left, up, right, down to the empty space         
+        # Choose random car from this list that can move to the empty space           choose_random_car(new_grid) return random_car
+        possible = []
+        # If there are cars lower than the empty space: 
+        
+        if self.upper:            
+            last_place = len(self.upper) -1
+            before_car_y = self.upper[last_place]
+            count_by = 0
+            for car in self.upper:
+                if car == before_car_y:
                    
+                    count_by += 1
+                else:
+                    count_by = 0
                 
-        for line in grid.coordinates:
-            print(line)
-    
-    
-    
-    
-    
+            # Take the car to the right of the list, closest to the empty space and add to list
+                if count_by > 1 and before_car_y not in possible:
+                    possible.append(before_car_y)
+            
 
+        # If there are any cars higher than the empty space: 
+        if self.lower:
+            after_car_y = self.lower[0]
+            count_ay = 0
+            for car in self.lower:
+                if car == after_car_y:
+                    
+                    count_ay += 1
+                else:
+                    count_ay = 0
+                           
+                #  Take the first car after the empty space and add it to the list. 
+                if count_ay > 1 and after_car_y not in possible:
+                    possible.append(after_car_y)
+
+        # If there are cars to the left of the empty space
+        if self.left:
+            last_place = len(self.left) -1
+            before_car_x = self.left[last_place]
+            count_bx = 0
+            for car in self.left:
+                if car == before_car_x:
+                    count_bx += 1
+                else:
+                    count_bx = 0   
+                
+                # Take the carname to the left of the empty space 
+                if count_bx > 1 and before_car_x not in possible:
+                    possible.append(before_car_x)
+
+        # If there are cars to the right of the empty space
+        if self.right:
+            after_car_x = self.right[0]
+            count_ax = 0
+            for car in self.right:
+                if car == after_car_x:
+                    count_ax += 1
+                else:
+                    count_ax = 0
+                
+                # Add the first car to the right of the empty space to the list. 
+                if count_ax > 1 and after_car_x not in possible:
+                    possible.append(after_car_x)
+        count_by = 0
+        count_ay = 0
+        count_bx = 0
+        count_ax = 0
+
+        self.possible_cars = possible
+        
+        # choose random car from list of possible cars.
+        if self.possible_cars:
+            self.random_car = random.choice(self.possible_cars)
+            
+
+        else:
+            self.random_car = ""
+        
+
+    def move_car(self):
+        """
+        Moves the selected car to the random empty spot by updating the current grid.
+        """
+        
+        count_left = 0
+        count_right = 0
+        count_upper = 0
+        count_lower = 0
+        if self.random_car in self.left:
+            
+            for x_car in self.left:
+                if self.random_car == x_car:
+                    index = self.x_values.index(x_car)
+                    count_left += 1
+            # If the car is in the right orientation, change the old coordinates to 0 and the new coordinates to the name of the car
+            if count_left > 1:
+                
+                for a in range(count_left):
+                    self.grid[self.random_position[1]][index + a] = "0"
+                    
+                for a in range(count_left):
+                    self.grid[self.random_position[1]][self.random_position[0] - a] = self.random_car
+                   
+            count_left = 0
+        #  If the car is to the right of the empty space
+        elif self.random_car in self.right:
+            for x_car in self.right:
+                if self.random_car == x_car:
+                    index = self.x_values.index(x_car)
+                    count_right += 1
+            # check the  car’s orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
+            if count_right > 1:
+                
+                for a in range(count_right):
+                    self.grid[self.random_position[1]][index + a] = "0"
+                    
+                for a in range(count_right):
+                    self.grid[self.random_position[1]][self.random_position[0] + a] = self.random_car
+                    
+            count_right = 0
+        # If the car is lower than the empty space
+        elif self.random_car in self.lower:
+            for y_car in self.lower:
+                if self.random_car == y_car:
+                    index = self.y_values.index(y_car)
+                    count_lower += 1
+            # again, check orientation, then move the length of the car first zero’s then car-names
+            if count_lower > 1:
+                
+                for a in range(count_lower):
+                    self.grid[index + a][self.random_position[0]] = "0"
+                    
+                for a in range(count_lower):
+                    self.grid[self.random_position[1] + a][self.random_position[0]] = self.random_car
+                    
+            count_lower = 0
+        #  If the car is to the right of the empty space:
+        elif self.random_car in self.upper:
+            for y_car in self.upper:
+                if self.random_car == y_car:
+                    index = self.y_values.index(y_car)
+                    count_upper += 1
+            # Check orientation and then move the car
+            if count_upper > 1:
+                
+                for a in range(count_upper):
+                    self.grid[index + a][self.random_position[0]] = "0"
+                    
+                for a in range(count_upper):
+                    self.grid[self.random_position[1] - a][self.random_position[0]] = self.random_car
+                    
+            count_upper = 0
+        
+
+
+    def run(self):
+        """
+        Run all the funcitons to find a empty space and move a car to that space.
+        Stops when car x (red car) is in the winning position.
+        """
+        
+
+        while ['X', [5, 2]] not in self.list_of_moves:
+            
+            
+
+            # Find empty spaces in board
+            self.find_empty_spaces()
+            
+            # Choose a random space out of the empty spaces
+            self.get_random_space()
+
+            # Create a list for all the X values and Y values connected to this empty space
+            self.get_relevant_rows()
+
+            # Create a list with the cars left, up, right, down to the empty space and Choose random car from this list that can move to the empty space
+            self.choose_random_car()   
+
+            if self.random_car != "":
+    
+                # add the new move to the list of moves.
+                new_move = [self.random_car, self.random_position]
+                self.list_of_moves.append(new_move)
+                
+                # move the car
+                self.move_car()
+                
+                self.x_values = []
+                self.y_values = []
+                self.left =[]
+                self.right = []
+                self.upper = []
+                self.lower = []
+                self.possible_cars = []
+                self.random_car = ""
+                self.random_position = []
+                self.empty_spaces = []
+        print(f"final board")
+        for line in self.grid:
+            print(line)
+        moves = len(self.list_of_moves)
+        print(f"amount of moves: {moves}")
