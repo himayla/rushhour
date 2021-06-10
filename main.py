@@ -1,6 +1,6 @@
 from code.classes import grid
 from code.algorithms import randomise as rn
-
+from code.algorithms import depth as dp
 
 
 if __name__ == "__main__":
@@ -17,4 +17,7 @@ if __name__ == "__main__":
 
     test_random = rn.Randomise(test_grid.coordinates)
     test_random.run()
-    #print(test_random)
+
+    # test_depth = dp.Depthfirst(test_grid.coordinates)
+    # test_depth.run()
+    # print(test_random)
