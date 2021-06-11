@@ -259,15 +259,9 @@ class Randomise:
                 for a in range(count_upper):
                     grid[index + a][position[0]] = "0"
                 for a in range(count_upper):
-<<<<<<< HEAD
                     self.grid[position[1] - a][position[0]] = random_car 
 
         return self.grid
-=======
-                    grid[position[1] - a][position[0]] = random_car
-        self.grid = grid
-        return grid
->>>>>>> 0f2cb2853e4be1d228d02258555594c06a204a85
 
 
     def run(self):
@@ -288,7 +282,7 @@ class Randomise:
             position = self.get_random_space(empty_spaces)
             # print(f"position:{position}")
             # Create a list for all the X values and Y values connected to this empty space
-            directions = self.get_relevant_rows(position)
+            directions = self.get_relevant_rows(position, self.grid)
             # print(f"directions: {directions}")
             x_values = directions[0]
             y_values = directions[1]
