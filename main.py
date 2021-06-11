@@ -15,9 +15,9 @@ if __name__ == "__main__":
 
     #random_board = randomise.random_assignment(test_grid)
 
-    test_random = rn.Randomise(test_grid.coordinates)
-    test_random.run()
+    # test_random = rn.Randomise(test_grid.coordinates)
+    # test_random.run()
 
-    # test_depth = dp.Depthfirst(test_grid.coordinates)
-    # test_depth.run()
+    test_depth = dp.Depthfirst(test_grid.coordinates)
+    test_depth.run()
     # print(test_random)
