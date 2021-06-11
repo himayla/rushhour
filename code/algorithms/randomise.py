@@ -258,7 +258,9 @@ class Randomise:
                 for a in range(count_upper):
                     self.grid[index + a][position[0]] = "0"
                 for a in range(count_upper):
-                    self.grid[position[1] - a][position[0]] = random_car          
+                    self.grid[position[1] - a][position[0]] = random_car 
+
+        return self.grid
 
 
     def run(self):
@@ -316,6 +318,9 @@ class Randomise:
                 random_car = ""
                 position = []
                 self.empty_spaces = []
+                for line in self.grid:
+                    print(line)
+                print("")
 
         # Print final results
         print(f"Final board:")
