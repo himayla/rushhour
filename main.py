@@ -9,15 +9,11 @@ if __name__ == "__main__":
     map_name = "6x6_1"
 
     # Create a grid from our data
-    test_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
-    
-    test_grid.print()
+    new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
+    new_grid.print()
 
-    #random_board = randomise.random_assignment(test_grid)
+    # random_solver = rn.Randomise(test_grid.coordinates)
+    # random_solver.run()
 
-    # test_random = rn.Randomise(test_grid.coordinates)
-    # test_random.run()
-
-    test_depth = dp.Depthfirst(test_grid.coordinates)
+    test_depth = dp.Depthfirst(new_grid.board)
     test_depth.run()
-    # print(test_random)
