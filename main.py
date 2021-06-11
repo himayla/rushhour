@@ -12,8 +12,8 @@ if __name__ == "__main__":
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
     new_grid.print()
 
-    random_solver = rn.Randomise(new_grid.board)
-    random_solver.run()
+    # random_solver = rn.Randomise(new_grid.board)
+    # random_solver.run()
 
-    # test_depth = dp.Depthfirst(new_grid.board)
-    # test_depth.run()
+    test_depth = dp.Depthfirst(new_grid.board)
+    test_depth.run()

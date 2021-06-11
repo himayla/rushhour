@@ -26,8 +26,8 @@ class Depthfirst:
             3. move each one and store the new grid
         4. if not:
             5. check next empty space
-        
         """
+
         rand_func = rn.Randomise(graph)
         empty_spaces = rand_func.find_empty_spaces(graph)
         
@@ -47,13 +47,11 @@ class Depthfirst:
                 new_graph[car] = copy.deepcopy(graph)
                 
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                if child not in self.states and self.tried:
-                    self.states.append(child)
-                self.tried.append(child)
+                self.states.append(child)              
                 self.solution.append([empty_spaces[space], car])
-                # print("grid")
-                # for line in child:
-                #     print(line)
+                print("grid")
+                for line in child:
+                    print(line)
         count_layers +=1
         return count_layers
           
