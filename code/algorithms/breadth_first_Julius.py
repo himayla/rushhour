@@ -15,14 +15,19 @@ class DepthFirst:
         self.all_moves = []
         self.visited_states = []
 
-        self.solution = []
+        self.solution = {}
+        self.generations = {}
+        self.generation_counter = 0
+
+        self.end_of_branch = False
+        
 
 
     def get_next_state(self):
         """
         Method that gets the next state from the list of states.
         """
-        return self.states.pop(0)
+        return self.states.pop()
 
     def build_children(self, grid):
         """
@@ -36,36 +41,55 @@ class DepthFirst:
 
         """
         # Retrieve randomise.py Randomise class for usefull funcitons
-        Randomise = randomise.Randomise(grid)
+        rand_func = randomise.Randomise(grid)
 
         # Make a list of all empty spaces
-        empty_spaces_list = Randomise.find_empty_spaces(grid)
-
+        empty_spaces = rand_func.find_empty_spaces(grid)
+        
         # For all spaces find all possible moves
-        for space in empty_spaces_list:
+        for space in range(len(empty_spaces)):
 
             # get the x and y axis of each empty spot
-            relevant_rows = Randomise.get_relevant_rows(space, grid)
-
+            directions = rand_func.get_relevant_rows(empty_spaces[space], grid)
+            x_values = directions[0]
+            y_values = directions[1]
+            lower = directions[2]
+            upper = directions[3]
+            right = directions[4]
+            left = directions[5]
+            
             # find cars that can move to the empty spot
-            possible_cars = Randomise.get_possible_cars(relevant_rows[3],relevant_rows[2], relevant_rows[4],relevant_rows[5])
+            cars = rand_func.get_possible_cars(upper, lower, right, left)
+            children = []  
+            new_grid = {} 
 
-            # for each car in possible cars, move the car and create a new grid (child)
-            for car in possible_cars:
+            self.generation_counter += 1
 
-                grid = Randomise.move_car(space, car, relevant_rows[0], relevant_rows[1], relevant_rows[5], relevant_rows[4], relevant_rows[3], relevant_rows[2], grid)
+            # variable used to check if any child states are added, otherwise its an end of branch
+            end_of_branch = copy.deepcopy(self.states)
 
-                # add the move to a list of all moves
-                self.all_moves.append(space)
+            for car in cars:
+                
+                new_grid[car] = copy.deepcopy(grid)
+                
+                child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
 
-                # Add an instance of the graph to the stack, with each unique value assigned to the node.
-                new_grid = copy.deepcopy(grid)
-                self.states.append(new_grid)
+                # child cannot be an already existing state, or the previous move
+                if child not in self.states and child not in self.visited_states:
+                    self.visited_states.append(child)
+                    self.states.append(child)
+                    children.append(child)   
 
-                # add grid to visited states
-                self.visited_states.append(grid)
+            # if there are no child states added, it is the end of the branch
+            if len(end_of_branch) == len(self.states):
+                self.end_of_branch = True
+                print("end of branch")
 
-
+            # if there are children, add them to the generations dictionary
+            else:
+                parent = grid       
+                self.generations[str(parent)] = children
+        
     def check_is_visited(self, new_grid):
         """
         Checks if a child is already visited before.
@@ -103,10 +127,9 @@ class DepthFirst:
         """
         Runs the algorithm untill all possible states are visited.
         """
-        # counter = 0
-
+        counter = 0
         while self.states:
-            # counter += 1
+            counter = counter + 1
             new_grid = self.get_next_state()
 
             for line in new_grid:
@@ -114,16 +137,29 @@ class DepthFirst:
             print("")
 
             # if the grid is not already visited before, check for a solution and build new children
-            # if self.check_is_visited(new_grid) == False:
-                    
-
             if self.check_solution(new_grid) == True:
+                print(counter)
+                
+                
+                # for generation, children in self.generations.items():
+                #     if str(new_grid) in children:
+                #         print(generation)
 
+                
+                
                 return True
 
             self.build_children(new_grid)
 
-        return False
+        else:
+            return False
+
+        # for state in self.states:
+        #     for line in state:
+        #         print(line)
+        #     print("")
+
+        
 
                 # else:
                 #     self.solution = new_grid
