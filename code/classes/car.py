@@ -5,6 +5,3 @@ class Car():
         self.x = x
         self.y = y
         self.length = length
-
-    def __str__(self):
-        return f"Car: {self.name}, {self.orientation}, {self.x}, {self.y}, {self.length}"
