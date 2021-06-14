@@ -25,9 +25,18 @@ if __name__ == "__main__":
 
     counter = 1
 
+    # Create a dictionary of colors for the cars:
+    car_ids = {}
+    id = 0
+    for x in range(len(paths[0])):
+        for y in range(len(paths[0])):
+            car = paths[0][y][x] 
+            if car not in car_ids:
+                car_ids[paths[0][y][x]] = id
+                id += 1
     # Visualise the different boards and save them in folder 
     for path in paths:
-        vs.Visualisation(path).save_as(f"{image_dir}/{counter}")
+        vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter}")
         counter += 1
 
     # Create gif from images in the folder
