@@ -8,8 +8,7 @@ class Grid():
     def __init__(self, source_file):
         self.cars = self.load_cars(source_file)
         self.board = self.load_grid(source_file)
-        self.draw_board()
-
+        #self.draw_board()
 
     def load_cars(self, source_file):
         """
@@ -24,7 +23,6 @@ class Grid():
                 cars[row['car']] = Car(row['car'],row['orientation'], int(row['col']), int(row['row']), int(row['length']))
 
         return cars
-
 
     def load_grid(self, source_file):
         """
@@ -81,50 +79,8 @@ class Grid():
                     array[car.y][car.x-1] = car.name
                     array[car.y+1][car.x-1] = car.name
                     car.color = "yellow"
+
         return array
-
-
-    def draw_board(self):
-
-        # Initialise empty plot
-        plt.plot()
-        plt.xticks([])
-        plt.yticks([])
-
-        size = len(self.board)
-
-        #Loop over the 2D array and checks the value at each place
-        for x in range(size):
-            for y in range(size):
-                for car in self.cars.values():
-                    if self.board[y][x] != "0":
-
-                        # Check if the coordinates correspond with a car object
-                        if car.name == self.board[y][x]:
-
-                            #plt.text(x + 0.3, size + 0.2-y,car.name, fontsize=10, color="gray")
-                            rect = patches.Rectangle((x, size-y), 1, 1, 
-                                                    fill = True,
-                                                    color = car.color,
-                                                    linewidth=0.4,
-                                                    alpha=0.35,
-                                                    capstyle ='round',
-                                                    linestyle='solid')
-                            plt.gca().add_patch(rect)
-                    else:
-                        rect = patches.Rectangle((x, size-y), 1, 1, 
-                                                fill = False, 
-                                                color = "lightgrey",
-                                                linewidth=0.4,
-                                                alpha=0.55,
-                                                capstyle='round')
-                        plt.gca().add_patch(rect)
-
-        # Save the plot as a file
-        plt.savefig('board.png')
-
-        # Pop up
-        #plt.show()
 
     def print(self):      
         for car in self.board:
