@@ -2,7 +2,7 @@ import csv
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 from .car import Car
-#import numpy as np
+import numpy as np
 
 class Grid():
     def __init__(self, source_file):
