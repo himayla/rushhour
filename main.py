@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     image_dir = "visualisation/boards"
 
-    counter = 1
+    counter = 1.0
 
     # Create a dictionary of colors for the cars:
     car_ids = {}
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # Visualise the different boards and save them in folder 
     for path in paths:
         vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter}")
-        counter += 1
+        counter += 0.1
 
     # Create gif from images in the folder
     vs.Visualisation.create_gif(image_dir)

@@ -93,5 +93,6 @@ class Visualisation():
         for file_name in os.listdir(image_dir):
             file_path = os.path.join(image_dir, file_name)
             images.append(imageio.imread(file_path))
+            
 
         imageio.mimsave(f"{image_dir}/board.gif", images)
