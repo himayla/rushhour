@@ -1,5 +1,5 @@
 '''
-
+Algorithms that uses the breadth first approach to find the shortest possible path to the answer
 '''
 import copy
 from code.algorithms import randomise as rn
@@ -21,18 +21,15 @@ class Depthfirst:
 
     def build_children(self, graph):
         """
-        Attaches new grids to the self.states
-        pseudocode:
-        1. Check which empty spaces exist
-        2. if cars can move there:
-            3. move each one and store the new grid
-        4. if not:
-            5. check next empty space
+        Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
         
         rand_func = rn.Randomise(graph)
+
+        # Creates a list with all empty spaces that exist on the graph
         empty_spaces = rand_func.find_empty_spaces(graph)
-        generation = []
+
+        # For each empty space that exists in the list of empty spaces
         for space in range(len(empty_spaces)):
             directions = rand_func.get_relevant_rows(empty_spaces[space], graph)
             x_values = directions[0]
@@ -41,28 +38,33 @@ class Depthfirst:
             upper = directions[3]
             right = directions[4]
             left = directions[5]
-            
+
+            # Creates a list of all cars that can move to that empty space
             cars = rand_func.get_possible_cars(upper, lower, right, left)
-            children = []  
-            new_graph = {}       
+            new_graph = {}     
+
+            # For each car that can move to that same empty space:   
             for car in cars:
-                
                 new_graph[car] = copy.deepcopy(graph)
-                
+
+                # Move each car and save the result of the movement in variable child
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                if child not in self.solution.values():
-                    children.append(child)
+                
+                # If the new graph is not yet added to the dictionary of paths, add it. 
+                if str(child) not in self.solution:
+                    self.solution[str(child)] = graph
+                
+                # If the new graph is not yet in the list of states to visit, add it.
                 if child not in self.states and self.tried:
-                    
                     self.states.append(child)   
                 self.tried.append(child)          
-            if children:
-                generation.append(children)    
-        if generation:
-            self.solution[str(graph)] = generation
-            
+        
                 
     def check_car_x(self, new_graph):
+        """
+        Create victory coordinates based on the size of the graph
+        If the car X reaches the victory coordinates, return True 
+        """
         if len(self.grid[0]) == 6:
             victory_coor = [5, 2]
         elif len(self.grid[0]) == 9:
@@ -76,62 +78,44 @@ class Depthfirst:
             return False
 
     def find_solution_seq(self, final_graph):
-        
-        counter = 0
-        while str(final_graph) not in str(self.grid):
-            
-            if counter == 20:
-                break
-            
-            for i in self.solution:
-                if str(final_graph) in str(self.solution[i]):
-                    print("found")
-                    print(f"previous board: {i}")
-                    print(f"moves: {counter}")
-                    counter +=1
-                    self.find_solution_seq(i)
-                    
-                
-            
-        
+        """
+        Based on the final graph, trace back the previous graphs using the self.solution nested dictionary. 
+        If the original graph is found, return the list of all graphs used to reach the final graph, in chronological order
+        """
+        path = [final_graph]
+        if str(final_graph) not in str(self.grid):
+            previous_state = self.solution[str(final_graph)]
+            path = self.find_solution_seq(previous_state) + path   
+                   
+        return path
 
     def run(self):
         """
         Runs the algorithm untill all possible states are visited.
         """
-        
-        childcounter = 0
+        # While there are still states to visit, stay in the loop
         while self.states:
-            
+
+            # Pick a new graph
             new_graph = self.get_next_state()
-            # print("grids:")
-            # for line in new_graph:
-            #     print(line)
-            
+
+            # Check if the graph is an acceptable result, if so, print out the solution
             if self.check_car_x(new_graph):
                 print(f"final board")
                 for line in new_graph:
                     print(line)
-                self.find_solution_seq(new_graph)
-                
-                # print(f"amount of moves: {layers}")
+                path = self.find_solution_seq(new_graph)
+                print(f"path is:")
+                count = 0
+                for board in path:
+                    print("new board")
+                    count += 1
+                    for line in board:
+                        print(line)
+                print(f"moves: {count}")
                 break
+            
+            # If the graph is not an acceptable result, create possible "children" of the graph so more options can be visited
             else:
                 self.build_children(new_graph)
-            # if childcounter == 10:
-            #     break
-            #     print("new generation:")
-            #     for line in self.solution:
-            #         print(line) 
-            childcounter +=1
-            # print(f'last_gen: {last_graph}')
-            # print(f"new gen: {new_graph}")
-            # if childcounter % 1000 == 0: 
-            #     print(f"new grid: {childcounter}")
-            #     for line in new_graph:
-            #         print(line)
-                
             
-                
-        
-        
