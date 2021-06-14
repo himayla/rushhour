@@ -3,7 +3,7 @@
 '''
 import copy
 from code.algorithms import randomise as rn
-from collections import deque
+
 
 class Depthfirst:
     def __init__(self, grid):
@@ -11,6 +11,7 @@ class Depthfirst:
         self.states = [copy.deepcopy(self.grid)]
         self.solution = {}
         self.tried = []
+        self.board_til_final = []
         
     def get_next_state(self):
         """
@@ -28,10 +29,10 @@ class Depthfirst:
         4. if not:
             5. check next empty space
         """
-
+        
         rand_func = rn.Randomise(graph)
         empty_spaces = rand_func.find_empty_spaces(graph)
-        
+        generation = []
         for space in range(len(empty_spaces)):
             directions = rand_func.get_relevant_rows(empty_spaces[space], graph)
             x_values = directions[0]
@@ -49,19 +50,17 @@ class Depthfirst:
                 new_graph[car] = copy.deepcopy(graph)
                 
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                if child not in self.states:
-                    self.states.append(child)
-                    children.append(child)   
-                # self.tried.append(child)          
-                
-                # print("grid")
-                # for line in child:
-                #     print(line)
-                
-                self.solution[str(new_graph[car])] = children
-
-        
-          
+                if child not in self.solution.values():
+                    children.append(child)
+                if child not in self.states and self.tried:
+                    
+                    self.states.append(child)   
+                self.tried.append(child)          
+            if children:
+                generation.append(children)    
+        if generation:
+            self.solution[str(graph)] = generation
+            
                 
     def check_car_x(self, new_graph):
         if len(self.grid[0]) == 6:
@@ -70,18 +69,31 @@ class Depthfirst:
             victory_coor = [8, 4]
         elif len(self.grid[0]) == 12:
             victory_coor = [11, 5]
-        # print(f"vic_coor: {new_graph[victory_coor[1]][victory_coor[0]]}")
+      
         if new_graph[victory_coor[1]][victory_coor[0]] == 'X':
             return True
         else:
             return False
 
     def find_solution_seq(self, final_graph):
+        
         counter = 0
-        for generation in self.solution:
-            counter +=1
-            if str(final_graph) in generation:
-                print(f"moves: {counter}")  
+        while str(final_graph) not in str(self.grid):
+            
+            if counter == 20:
+                break
+            
+            for i in self.solution:
+                if str(final_graph) in str(self.solution[i]):
+                    print("found")
+                    print(f"previous board: {i}")
+                    print(f"moves: {counter}")
+                    counter +=1
+                    self.find_solution_seq(i)
+                    
+                
+            
+        
 
     def run(self):
         """
@@ -90,6 +102,7 @@ class Depthfirst:
         
         childcounter = 0
         while self.states:
+            
             new_graph = self.get_next_state()
             # print("grids:")
             # for line in new_graph:
@@ -105,12 +118,14 @@ class Depthfirst:
                 break
             else:
                 self.build_children(new_graph)
-            # if childcounter < 10:
+            # if childcounter == 10:
+            #     break
             #     print("new generation:")
             #     for line in self.solution:
             #         print(line) 
             childcounter +=1
-
+            # print(f'last_gen: {last_graph}')
+            # print(f"new gen: {new_graph}")
             # if childcounter % 1000 == 0: 
             #     print(f"new grid: {childcounter}")
             #     for line in new_graph:
