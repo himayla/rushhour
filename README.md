@@ -8,13 +8,13 @@ This code aims algorithimically solve this puzzle using the least amount of move
 - [x] Read data from CSV-file
 - [x] Visualise data in a grid
 - [x] Algorithm which generates random solutions
-- [ ] First algorithm 
+- [x] First algorithm 
 - [ ] Second algorithm
 - [ ] Find the quickest the solution
 
 ### Getting started
 To run this code the package matplotlib is required, you can download this with this command:
-```pip install matplotlib``` or or ```pip3 install matplotlib```.
+```pip install matplotlib``` or ```pip3 install matplotlib```.
 After cloning the Git code you can run a board by running:
 ```python main.py``` or ```python3 main.py```.
 
@@ -25,6 +25,7 @@ The Git repository is structured as follows:
 * **/code:**: all code of this project
     *  **/code/algorithms**: code for algorithms
         * Randomise.py: solves the board by finding empty spots and moves cars there until car X is at final destination.
+        * Breadth.py: solves the board by checking each generation from left to right.
     * **/code/classes**: contains a car and a grid class.
 * **/data**: contains different starting positions from cars to fill a grid
 
