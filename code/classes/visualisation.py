@@ -38,18 +38,18 @@ class Visualisation():
         for x in range(size):
             for y in range(size):
                     if board[y][x] != "0":
-                        if board[y][x] == "X":
+                        # if board[y][x] == "X":
 
-                            rect = patches.Rectangle((x, size-y), 1, 1, 
-                                                    fill = True,
-                                                    color = "red",
-                                                    linewidth=0.4,
-                                                    alpha=0.35,
-                                                    capstyle ='round',
-                                                    linestyle='solid')
-                            plt.gca().add_patch(rect)
+                        #     rect = patches.Rectangle((x, size-y), 1, 1, 
+                        #                             fill = True,
+                        #                             color = "red",
+                        #                             linewidth=0.4,
+                        #                             alpha=0.35,
+                        #                             capstyle ='round',
+                        #                             linestyle='solid')
+                        #     plt.gca().add_patch(rect)
                         
-                        else:
+                        #else:
 
                         rect = patches.Rectangle((x, size-y), 1, 1, 
                                                 fill = True,
@@ -68,7 +68,7 @@ class Visualisation():
                                                 linewidth=0.4,
                                                 alpha=0.55,
                                                 capstyle='round')
-                        plt.gca().add_patch(rect)
+                    plt.gca().add_patch(rect)
 
     def save_as(self, title):       
         # Save the plot as a file
