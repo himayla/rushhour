@@ -3,12 +3,13 @@
 '''
 import copy
 from code.algorithms import randomise as rn
+from collections import deque
 
 class Depthfirst:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
         self.states = [copy.deepcopy(self.grid)]
-        self.solution = []
+        self.solution = {}
         self.tried = []
         
     def get_next_state(self):
@@ -17,7 +18,7 @@ class Depthfirst:
         """
         return self.states.pop(0)
 
-    def build_children(self, graph, count_layers):
+    def build_children(self, graph):
         """
         Attaches new grids to the self.states
         pseudocode:
@@ -41,22 +42,28 @@ class Depthfirst:
             left = directions[5]
             
             cars = rand_func.get_possible_cars(upper, lower, right, left)
-                     
+            children = []  
+            new_graph = {}       
             for car in cars:
-                new_graph = {}
+                
                 new_graph[car] = copy.deepcopy(graph)
                 
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                self.states.append(child)              
-                self.solution.append([empty_spaces[space], car])
-                print("grid")
-                for line in child:
-                    print(line)
-        count_layers +=1
-        return count_layers
+                if child not in self.states:
+                    self.states.append(child)
+                    children.append(child)   
+                # self.tried.append(child)          
+                
+                # print("grid")
+                # for line in child:
+                #     print(line)
+                
+                self.solution[str(new_graph[car])] = children
+
+        
           
                 
-    def check_solution(self, new_graph):
+    def check_car_x(self, new_graph):
         if len(self.grid[0]) == 6:
             victory_coor = [5, 2]
         elif len(self.grid[0]) == 9:
@@ -69,32 +76,46 @@ class Depthfirst:
         else:
             return False
 
+    def find_solution_seq(self, final_graph):
+        counter = 0
+        for generation in self.solution:
+            counter +=1
+            if str(final_graph) in generation:
+                print(f"moves: {counter}")  
+
     def run(self):
         """
         Runs the algorithm untill all possible states are visited.
         """
-        counter = 0
+        
+        childcounter = 0
         while self.states:
             new_graph = self.get_next_state()
             # print("grids:")
             # for line in new_graph:
             #     print(line)
-            if self.check_solution(new_graph):
+            
+            if self.check_car_x(new_graph):
                 print(f"final board")
                 for line in new_graph:
                     print(line)
+                self.find_solution_seq(new_graph)
                 
-                print(f"amount of moves: {layers}")
+                # print(f"amount of moves: {layers}")
                 break
             else:
-                layers = self.build_children(new_graph, counter)
+                self.build_children(new_graph)
+            # if childcounter < 10:
+            #     print("new generation:")
+            #     for line in self.solution:
+            #         print(line) 
+            childcounter +=1
 
-            counter +=1
-            if counter % 10000 == 0:
-                print(counter)
-                for line in new_graph:
-                    print(line)
-            
+            # if childcounter % 1000 == 0: 
+            #     print(f"new grid: {childcounter}")
+            #     for line in new_graph:
+            #         print(line)
+                
             
                 
         
