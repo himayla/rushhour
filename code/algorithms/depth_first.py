@@ -1,3 +1,6 @@
+'''
+Depth first algorithm to find the first possible solution.
+'''
 import copy
 from code.algorithms import randomise as randomise
 
@@ -129,15 +132,11 @@ class DepthFirst:
                 # find the path for this solution
                 path = self.find_solution_seq(new_grid)
 
-                count = 0
-                for board in path:
-                    count += 1
-                    # for line in board:
-                    #     print(line)
-                print(f"The found solution has {count} moves")
-
                 break
 
             # build new children
             else:
                 self.build_children(new_grid)
+
+        if path: 
+            return path

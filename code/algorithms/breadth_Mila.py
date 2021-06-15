@@ -1,11 +1,10 @@
 '''
-Algorithms that uses the breadth first approach to find the shortest possible path to the answer
+Algorithm that uses the breadth first approach to find the shortest possible path to the answer
 '''
 import copy
 from code.algorithms import randomise as rn
 
-
-class Depthfirst:
+class Breadthfirst:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
         self.states = [copy.deepcopy(self.grid)]

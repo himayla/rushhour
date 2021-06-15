@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     # --------------------------- Breadth first --------------------------------- #
 
-    # paths = dp.Depthfirst(new_grid.board).run()
+    # paths = dp.Breadthfirst(new_grid.board).run()
 
     # image_dir = "visualisation/boards"
 
