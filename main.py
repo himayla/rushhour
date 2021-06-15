@@ -7,7 +7,7 @@ from code.algorithms import depth_first as DF
 if __name__ == "__main__":
     map_name = "6x6_1"
 
-    # --------------------------- Random reassignment -------------------------- #
+    # --------------------------- Random Reassignment -------------------------- #
     
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
     #new_grid.print()

@@ -22,7 +22,7 @@ class Breadthfirst:
         """
         Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
-        
+        # Retrieve randomise.py Randomise class for usefull funcitons
         rand_func = rn.Randomise(graph)
 
         # Creates a list with all empty spaces that exist on the graph
@@ -46,7 +46,7 @@ class Breadthfirst:
             for car in cars:
                 new_graph[car] = copy.deepcopy(graph)
 
-                # Move each car and save the result of the movement in variable child
+                # Move each car and save the result of the movement in child variable
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
                 
                 # If the new graph is not yet added to the dictionary of paths, add it. 
@@ -61,7 +61,7 @@ class Breadthfirst:
                 
     def check_car_x(self, new_graph):
         """
-        Create victory coordinates based on the size of the graph
+        Create victory coordinates based on the size of the graph.
         If the car X reaches the victory coordinates, return True 
         """
         if len(self.grid[0]) == 6:
@@ -90,7 +90,7 @@ class Breadthfirst:
 
     def run(self):
         """
-        Runs the algorithm untill all possible states are visited.
+        Runs the algorithm untill a solution is found in a breadth first manner
         """
         # While there are still states to visit, stay in the loop
         while self.states:
@@ -100,18 +100,11 @@ class Breadthfirst:
 
             # Check if the graph is an acceptable result, if so, print out the solution
             if self.check_car_x(new_graph):
+
                 print(f"final board")
-                # for line in new_graph:
-                #     print(line)
+
                 path = self.find_solution_seq(new_graph)
-                # print(f"path is:")
-                # count = 0
-                # for board in path:
-                #     print("new board")
-                #     count += 1
-                #     for line in board:
-                #         print(line)
-                # print(f"moves: {count}")
+
                 return path
             
             # If the graph is not an acceptable result, create possible "children" of the graph so more options can be visited
