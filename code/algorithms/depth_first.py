@@ -8,13 +8,9 @@ class DepthFirst:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
         self.states = [copy.deepcopy(self.grid)]
-
         self.visited_states = []
-
         self.generations = {}
-
         self.shortest_path= []
-
 
     def get_next_state(self):
         """
@@ -24,14 +20,7 @@ class DepthFirst:
 
     def build_children(self, grid):
         """
-        Creates all possible child-states and adds them to the list of states.
-
-        Pseudo:
-        grid  -> 
-        list of empty spaces -> 
-        for all spaces find all possible moves ->
-        add to list of states.
-
+        Creates all possible child-states and adds them to the list of states and builds a dictionary of generations. 
         """
         # Retrieve randomise.py Randomise class for usefull funcitons
         rand_func = randomise.Randomise(grid)
@@ -56,19 +45,19 @@ class DepthFirst:
             children = []  
             new_grid = {} 
 
+            # for each car, move the car on the grid to create a child state.
             for car in cars:
-                
+
                 new_grid[car] = copy.deepcopy(grid)
-                
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
                 
+                # the child cannot be already generated
                 if child not in self.states and child not in self.visited_states:
                     self.states.append(child)
 
                 # if we already came across the child, but this child has a shorter path, then pick this new path
                 if child in self.visited_states:
                     path_child = self.find_solution_seq(child)
-
                     path_parent = self.find_solution_seq(grid)
 
                     child_path_count = 0
@@ -82,6 +71,7 @@ class DepthFirst:
                     if parent_path_count + 1 < child_path_count:
                         self.generations[str(child)] = grid
 
+                # if the child is not new, add it to the list of visited states and add it to the generations dictionary
                 else:
                     self.generations[str(child)] = grid
                     self.visited_states.append(child)
@@ -108,47 +98,9 @@ class DepthFirst:
                    
         return path
 
-    def check_best_solution(self, new_path):
-        """
-        keeps track of all solutions, and selects the best.
-        """
-        # count how many boards the current saved shortest path is
-        shortest_path_count = 0
-        for board in self.shortest_path:
-            shortest_path_count += 1
-
-        # count how many boards the new path is
-        new_path_count = 0
-        for board in new_path:
-            new_path_count += 1
-
-        # if the current saved shortest path is empty, the first new_path will become the new shortest
-        if shortest_path_count < 1:
-            self.shortest_path = new_path
-
-            count = 0
-            for board in self.shortest_path:
-                count += 1
-            print(f"first shortest path: {count}")
-
-        
-        # if the new solution is shorter than the shortest saved solution, it will become the new shortest
-        elif new_path_count < shortest_path_count:
-            self.shortest_path = new_path
-
-            shortest_path_count = 0
-            for board in self.shortest_path:
-                shortest_path_count += 1
-            print(f"new shortest path: {shortest_path_count}")
-
     def check_solution(self, new_grid):
         """
-        Check if the current state is a solution
-
-        Checks and accepts better solutions than the current solution.
-
-        Based on the amount of steps it took to reach a solution, save the best solution.
-        keep track of the amount of steps it takes to go there
+        Check if the current state is a solution.
         """
         if len(self.grid[0]) == 6:
             victory_coordinates = [5, 2]
@@ -162,12 +114,10 @@ class DepthFirst:
         else:
             return False
 
-
     def run(self):
         """
-        Runs the algorithm untill all possible states are visited.
+        Runs the algorithm untill a solution is found.
         """
-        
         while len(self.states) != 0:
 
             # if there is a map on the top of the stack, get it
@@ -179,29 +129,15 @@ class DepthFirst:
                 # find the path for this solution
                 path = self.find_solution_seq(new_grid)
 
-                print(f"Path is:")
                 count = 0
                 for board in path:
                     count += 1
                     # for line in board:
                     #     print(line)
-                print(f"moves: {count}")
+                print(f"The found solution has {count} moves")
 
                 break
-
-                # check if this is the best path
-                self.check_best_solution(path)
 
             # build new children
             else:
                 self.build_children(new_grid)
-
-       
-
-        
-
-        
-        
-        
-    
-    

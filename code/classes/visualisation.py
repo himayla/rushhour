@@ -1,7 +1,7 @@
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
-import imageio
-import os
+# import imageio
+# import os
 #import numpy as np
 
 class Visualisation():
