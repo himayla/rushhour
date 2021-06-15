@@ -9,18 +9,11 @@ class DepthFirst:
         self.grid = copy.deepcopy(grid)
         self.states = [copy.deepcopy(self.grid)]
 
-        # self.best_solution = None
-        # self.best_value = float('inf')
-
-        self.all_moves = []
         self.visited_states = []
 
-        self.solution = {}
         self.generations = {}
-        self.generation_counter = 0
 
-        self.end_of_branch = False
-        
+        self.shortest_path= []
 
 
     def get_next_state(self):
@@ -63,32 +56,41 @@ class DepthFirst:
             children = []  
             new_grid = {} 
 
-            self.generation_counter += 1
-
-            # variable used to check if any child states are added, otherwise its an end of branch
-            end_of_branch = copy.deepcopy(self.states)
-
             for car in cars:
                 
                 new_grid[car] = copy.deepcopy(grid)
                 
                 child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
 
-                # child cannot be an already existing state, or the previous move
+                # If the new graph is not yet added to the dictionary of paths, add it. 
+                # if str(child) not in self.generations:
+                #     self.generations[str(child)] = grid
+                
+                # If the new graph is not yet in the list of states to visit, add it.
+                
                 if child not in self.states and child not in self.visited_states:
+                    self.states.append(child)   
+
+                if child in self.visited_states:
+                    path_child = self.find_solution_seq(child)
+
+                    path_parent = self.find_solution_seq(grid)
+
+                    child_path_count = 0
+                    for board in path_child:
+                        child_path_count += 1
+
+                    parent_path_count = 0
+                    for board in path_parent:
+                        parent_path_count += 1
+
+                    if parent_path_count + 1 < child_path_count:
+                        self.generations[str(child)] = grid
+
+                else:
+                    self.generations[str(child)] = grid
                     self.visited_states.append(child)
-                    self.states.append(child)
-                    children.append(child)   
 
-            # if there are no child states added, it is the end of the branch
-            if len(end_of_branch) == len(self.states):
-                self.end_of_branch = True
-                print("end of branch")
-
-            # if there are children, add them to the generations dictionary
-            else:
-                parent = grid       
-                self.generations[str(parent)] = children
         
     def check_is_visited(self, new_grid):
         """
@@ -99,7 +101,39 @@ class DepthFirst:
         else:
             return False
 
+    def find_solution_seq(self, final_graph):
+        """
+        Based on the final graph, trace back the previous graphs using the self.solution nested dictionary. 
+        If the original graph is found, return the list of all graphs used to reach the final graph, in chronological order
+        """
+        path = [final_graph]
+        if str(final_graph) not in str(self.grid):
+            previous_state = self.generations[str(final_graph)]
+            path = self.find_solution_seq(previous_state) + path   
+                   
+        return path
 
+    def check_best_solution(self, new_path):
+        """
+        keeps track of all solutions, and selects the best.
+        """
+        # count how many boards the current saved shortest path is
+        shortest_path_count = 0
+        for board in self.shortest_path:
+            shortest_path_count += 1
+
+        # count how many boards the new path is
+        new_path_count = 0
+        for board in new_path:
+            new_path_count += 1
+
+        # if the current saved shortest path is empty, the first new_path will become the new shortest
+        if shortest_path_count < 1:
+            self.shortest_path = new_path
+
+        # if the new solution is shorter than the shortest saved solution, it will become the new shortest
+        elif new_path_count < shortest_path_count:
+            self.shortest_path = new_path
 
     def check_solution(self, new_grid):
         """
@@ -127,55 +161,37 @@ class DepthFirst:
         """
         Runs the algorithm untill all possible states are visited.
         """
-        counter = 0
-        while self.states:
-            counter = counter + 1
+        
+        while len(self.states) != 0:
+
+            print(len(self.states))
+
+            # if there is a map on the top of the stack, get it
             new_grid = self.get_next_state()
 
-            for line in new_grid:
-                print(line)
-            print("")
-
-            # if the grid is not already visited before, check for a solution and build new children
+            # check if this grid is a solution  
             if self.check_solution(new_grid) == True:
-                print(counter)
-                
-                
-                # for generation, children in self.generations.items():
-                #     if str(new_grid) in children:
-                #         print(generation)
 
-                
-                
-                return True
+                # find the path for this solution
+                path = self.find_solution_seq(new_grid)
 
+                # check if this is the best path
+                self.check_best_solution(path)
+
+            # build new children
             self.build_children(new_grid)
 
-        else:
-            return False
-
-        # for state in self.states:
-        #     for line in state:
-        #         print(line)
-        #     print("")
-
         
 
-                # else:
-                #     self.solution = new_grid
-                #     for line in self.solution:
-                #         print(line)
-                #     print("")
-
-        # print("------------self.states-----------")
-        # for state in self.states:
-        #     for line in state:
-        #         print(line)
-        #     print("")
         
+        print(f"-------------path is:-----------------")
+        count = 0
+        for board in self.shortest_path:
+            print("new board")
+            count += 1
+            for line in board:
+                print(line)
+        print(f"moves: {count}")
         
     
-
-        # Update the input graph with the best result found.
-        #self.grid = self.best_solution
-        #print(self.grid)
+    
