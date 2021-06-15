@@ -20,7 +20,7 @@ class DepthFirst:
         """
         Method that gets the next state from the list of states.
         """
-        return self.states.pop(0)
+        return self.states.pop()
 
     def build_children(self, grid):
         """
@@ -187,7 +187,7 @@ class DepthFirst:
                     #     print(line)
                 print(f"moves: {count}")
 
-                return True
+                break
 
                 # check if this is the best path
                 self.check_best_solution(path)
@@ -196,7 +196,7 @@ class DepthFirst:
             else:
                 self.build_children(new_grid)
 
-        return False
+       
 
         
 
