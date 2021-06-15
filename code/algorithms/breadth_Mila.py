@@ -102,18 +102,18 @@ class Depthfirst:
             # Check if the graph is an acceptable result, if so, print out the solution
             if self.check_car_x(new_graph):
                 print(f"final board")
-                for line in new_graph:
-                    print(line)
+                # for line in new_graph:
+                #     print(line)
                 path = self.find_solution_seq(new_graph)
-                print(f"path is:")
-                count = 0
-                for board in path:
-                    print("new board")
-                    count += 1
-                    for line in board:
-                        print(line)
-                print(f"moves: {count}")
-                break
+                # print(f"path is:")
+                # count = 0
+                # for board in path:
+                #     print("new board")
+                #     count += 1
+                #     for line in board:
+                #         print(line)
+                # print(f"moves: {count}")
+                return path
             
             # If the graph is not an acceptable result, create possible "children" of the graph so more options can be visited
             else:
