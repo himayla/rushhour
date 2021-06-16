@@ -24,10 +24,10 @@ if __name__ == "__main__":
         return car_ids
 
     # --------------------------- Breadth first ------------------------------- #
-    # paths = dp.Breadthfirst(new_grid.board).run()
+    paths = dp.Breadthfirst(new_grid.board).run()
     
-    # --------------------------- Depth first --------------------------------- #
-    paths = DF.DepthFirst(new_grid.board).run()
+    # # --------------------------- Depth first --------------------------------- #
+    # paths = DF.DepthFirst(new_grid.board).run()
 
     # --------------------------- Randomise ----------------------------------- #
     # rn.Randomise(new_grid.board).run()
