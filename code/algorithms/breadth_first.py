@@ -1,6 +1,7 @@
 """
 Algorithm that uses the breadth first approach to find the shortest possible path to the answer
 """
+import csv
 import copy
 from code.algorithms import randomise as rn
 
@@ -11,6 +12,7 @@ class Breadthfirst:
         self.solution = {}
         self.tried = []
         self.board_til_final = []
+        self.moves = [["car", "move"]]
         
     def get_next_state(self):
         """
@@ -47,11 +49,20 @@ class Breadthfirst:
                 new_graph[car] = copy.deepcopy(graph)
 
                 # Move each car and save the result of the movement in child variable
-                child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                
+                move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
+                child = move[0]
+                rel_move = move[1]
+                if rel_move[1] == "H":
+                    rel_distance = empty_spaces[space][0] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                elif rel_move[1] == "V":
+                    rel_distance = empty_spaces[space][1] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
                 # If the new graph is not yet added to the dictionary of paths, add it. 
                 if str(child) not in self.solution:
-                    self.solution[str(child)] = graph
+                    self.solution[str(child)] = [graph, car_move]
                 
                 # If the new graph is not yet in the list of states to visit, add it.
                 if child not in self.states and self.tried:
@@ -83,9 +94,9 @@ class Breadthfirst:
         """
         path = [final_graph]
         if str(final_graph) not in str(self.grid):
-            previous_state = self.solution[str(final_graph)]
+            previous_state = self.solution[str(final_graph)][0]
             path = self.find_solution_seq(previous_state) + path   
-                   
+            self.moves = self.moves + [self.solution[str(final_graph)][1]]       
         return path
 
     def run(self):
@@ -105,7 +116,16 @@ class Breadthfirst:
                 count = 0
                 for board in path:
                     count += 1
+                print(f"moves: {self.moves}")
                 print(count)
+                
+                file = open('output.csv', 'w+', newline='')
+                with file:
+                    write = csv.writer(file)
+                    write.writerows(self.moves)
+                # with open("output.csv", 'w') as f:
+                #     fc = csv.writer(f)
+                # fc.writerows(self.moves)
 
                 return path
 

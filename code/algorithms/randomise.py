@@ -215,7 +215,7 @@ class Randomise:
         count_right = 0
         count_upper = 0
         count_lower = 0
-
+        location = []
         # If the car is to the left of the empty space
         if random_car in left:
             for x_car in left:
@@ -227,8 +227,10 @@ class Randomise:
             if count_left > 1:
                 for a in range(count_left):
                     grid[position[1]][index + a] = "0"
+                    location = [index + 1, "H"]
                 for a in range(count_left):
                     grid[position[1]][position[0] - a] = random_car
+                    
                    
         #  If the car is to the right of the empty space
         elif random_car in right:
@@ -241,6 +243,7 @@ class Randomise:
             if count_right > 1:
                 for a in range(count_right):
                     grid[position[1]][index + a] = "0"
+                    location = [index, "H"]
                 for a in range(count_right):
                     grid[position[1]][position[0] + a] = random_car
                     
@@ -255,6 +258,7 @@ class Randomise:
             if count_lower > 1:
                 for a in range(count_lower):
                     grid[index + a][position[0]] = "0"
+                    location = [index, "V"]
                 for a in range(count_lower):
                     grid[position[1] + a][position[0]] = random_car
                     
@@ -268,11 +272,12 @@ class Randomise:
             if count_upper > 1:
                 for a in range(count_upper):
                     grid[index + a][position[0]] = "0"
+                    location = [index + 1, "V"]
                 for a in range(count_upper):
                     grid[position[1] - a][position[0]] = random_car 
         self.grid = grid
         
-        return grid
+        return grid, location
 
 
     def run(self):

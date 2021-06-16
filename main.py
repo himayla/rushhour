@@ -33,18 +33,18 @@ if __name__ == "__main__":
     # rn.Randomise(new_grid.board).run()
     
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
-    car_ids = get_car_ids(paths)
+    # car_ids = get_car_ids(paths)
     
-    image_dir = "visualisation/boards"
+    # image_dir = "visualisation/boards"
 
-    # Visualise the different boards and save them in folder 
-    counter = 1.0
-    for path in paths:
-        vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter}")
-        counter += 0.1
+    # # Visualise the different boards and save them in folder 
+    # counter = 1.0
+    # for path in paths:
+    #     vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter}")
+    #     counter += 0.1
 
-    # Create gif from images in the folder
-    vs.Visualisation.create_gif(image_dir)
+    # # Create gif from images in the folder
+    # vs.Visualisation.create_gif(image_dir)
  
 
     
