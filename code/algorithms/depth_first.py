@@ -1,6 +1,6 @@
-'''
+"""
 Depth first algorithm to find the first possible solution.
-'''
+"""
 import copy
 from code.algorithms import randomise as randomise
 
@@ -23,7 +23,7 @@ class DepthFirst:
 
     def build_children(self, grid):
         """
-       Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
+        Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
         # Retrieve randomise.py Randomise class for usefull funcitons
         rand_func = randomise.Randomise(grid)
@@ -89,6 +89,7 @@ class DepthFirst:
         else:
             return False
 
+
     def find_solution_seq(self, final_graph):
         """
         Based on the final graph, trace back the previous graphs using the self.generations nested dictionary. 
@@ -100,6 +101,7 @@ class DepthFirst:
             path = self.find_solution_seq(previous_state) + path   
                    
         return path
+
 
     def check_solution(self, new_grid):
         """
@@ -117,6 +119,7 @@ class DepthFirst:
         else:
             return False
 
+
     def run(self):
         """
         Runs the algorithm untill a solution is found.
@@ -132,9 +135,14 @@ class DepthFirst:
                 # Find the path for this solution
                 path = self.find_solution_seq(new_grid)
 
+                count = 0
+                for board in path:
+                    count += 1
+                print(count)
+
                 return path
+
 
             # Build new children
             else:
                 self.build_children(new_grid)
-

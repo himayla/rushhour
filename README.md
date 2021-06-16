@@ -1,6 +1,6 @@
 # Rush hour 
 
-<i>Implementation by team: Unjamming my Jam</i>
+<i>Implementation by team: Unjam my Jam</i>
 
 Rush Hour is a logic game where the goal is to slide the cars in such a way that the car (X) is able to drive to the exit. 
 This project aims to algorithimically solve this puzzle using the least amount of moves. To achieve this we have set ourselves the following sub-goals:
@@ -20,7 +20,7 @@ To run this code the package matplotlib is required, you can download this with 
 In order to create GIFs of the solutions, another package is required called imageio. Which can be downloaded with this command: 
 ```pip install imageio``` or ```pip3 install imageio```.
 
-A visualisation will be shown in the terminal as well as in a pop-up.
+A visualisation will of the board will be available in **visualisation/boards**
 
 ### Structure
 The Git repository is structured as follows:
