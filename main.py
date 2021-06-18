@@ -4,9 +4,10 @@ from code.algorithms import randomise as rn
 from code.algorithms import breadth_first as dp
 from code.algorithms import depth_first as DF
 from code.algorithms import best_first as BF
+from code.algorithms import beam_search as BS
 
 if __name__ == "__main__":
-    map_name = "6x6_3"
+    map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     def get_car_ids(paths):
@@ -34,7 +35,9 @@ if __name__ == "__main__":
     # rn.Randomise(new_grid.board).run()
 
     # --------------------------- best first  --------------------------------- #
-    paths = BF.BestFirst(new_grid.board).run()
+    # paths = BF.BestFirst(new_grid.board).run()
+    # --------------------------- beam search  --------------------------------- #
+    paths = BS.BeamSearch(new_grid.board).run()
     
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
     # car_ids = get_car_ids(paths)

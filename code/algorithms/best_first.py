@@ -72,14 +72,8 @@ class BestFirst(Breadthfirst):
         
         # pick only the grid, not the score and loop through the list
         for move in sorted_scores:
-            
             for key, value in move.items():
-                
-                
-                
-
         #-------------------------------------- end Best first implementation ------------------------------------#
-                
                 # If the new graph is not yet in the list of states to visit, add it.
                 if value[1] not in self.states and self.tried:
                     self.states.append(value[1])
