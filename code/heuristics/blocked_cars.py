@@ -20,14 +20,7 @@ class BlockCar:
         """
         elke auto rechts van de rode auto, sla de naam vd auto op en op welke verticale waarde ie staat
         """
-        print("grid:", grid)
-
-        print(len(grid[0]))
-
-
         length = len(grid[0])
-
-        print(f"length:{length}")
         
         if length == 6: 
             self.row_x = 2
@@ -36,12 +29,6 @@ class BlockCar:
         elif length == 12:
             self.row_x = 5
 
-        # if len(grid[0]) == 6: 
-        #     self.row_x = 2
-        # elif len(grid[0]) == 9:
-        #     self.row_x = 4
-        # elif len(grid[0]) == 12:
-        #     self.row_x = 5
         
         hort_value = ""
         counter =0

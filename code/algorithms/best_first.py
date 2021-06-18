@@ -17,6 +17,7 @@ class BestFirst(Breadthfirst):
 
         # Creates a list with all empty spaces that exist on the graph
         empty_spaces = rand_func.find_empty_spaces(graph)
+        scored_list = []
 
         # For each empty space that exists in the list of empty spaces
         for space in range(len(empty_spaces)):
@@ -32,8 +33,6 @@ class BestFirst(Breadthfirst):
             cars = rand_func.get_possible_cars(upper, lower, right, left)
             new_graph = {}     
 
-            scored_list = []
-
             # For each car that can move to that same empty space:   
             for car in cars:
                 new_graph[car] = copy.deepcopy(graph)
@@ -45,40 +44,40 @@ class BestFirst(Breadthfirst):
                 # score grid based on a heuristic
 
                 scored_child = blocked_cars.BlockCar().run(move[0])
-
+                # print(f"scored_child: {scored_child}")
                 # add move to a list of scored grids
 
                 scored_list.append(scored_child) 
 
-            print(f"scored list: {scored_list}")
+        print(f"scored list: {scored_list}")
 
-            # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
+        # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
 
-            # sort the list of dictionaries, higest first
+        # sort the list of dictionaries, higest first
 
-            sorted_scores = sorted(scored_list.items(), key=lambda x: x[0], reverse=True)
-            
-            # pick only the grid, not the score and loop through the list
-            for move in sorted_scores:
-                for key in move:
+        sorted_scores = sorted(scored_list.items(), key=lambda x: x[0], reverse=True)
+        
+        # pick only the grid, not the score and loop through the list
+        for move in sorted_scores:
+            for key in move:
 
-            #-------------------------------------- end Best first implementation ------------------------------------#
+        #-------------------------------------- end Best first implementation ------------------------------------#
 
-                    child = key[0]
-                    rel_move = key[1]
-                    if rel_move[1] == "H":
-                        rel_distance = empty_spaces[space][0] - rel_move[0]
-                        car_move = [car, rel_distance]
-                        
-                    elif rel_move[1] == "V":
-                        rel_distance = empty_spaces[space][1] - rel_move[0]
-                        car_move = [car, rel_distance]
-                        
-                    # If the new graph is not yet added to the dictionary of paths, add it. 
-                    if str(child) not in self.solution:
-                        self.solution[str(child)] = [graph, car_move]
+                child = key[0]
+                rel_move = key[1]
+                if rel_move[1] == "H":
+                    rel_distance = empty_spaces[space][0] - rel_move[0]
+                    car_move = [car, rel_distance]
                     
-                    # If the new graph is not yet in the list of states to visit, add it.
-                    if child not in self.states and self.tried:
-                        self.states.append(child)
-                    self.tried.append(child)
+                elif rel_move[1] == "V":
+                    rel_distance = empty_spaces[space][1] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                # If the new graph is not yet added to the dictionary of paths, add it. 
+                if str(child) not in self.solution:
+                    self.solution[str(child)] = [graph, car_move]
+                
+                # If the new graph is not yet in the list of states to visit, add it.
+                if child not in self.states and self.tried:
+                    self.states.append(child)
+                self.tried.append(child)
