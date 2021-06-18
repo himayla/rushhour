@@ -15,17 +15,33 @@ class BlockCar:
         self.pos_car_row_x = {}
         self.board_score = 0
 
+
     def check_red_car(self, grid):
         """
         elke auto rechts van de rode auto, sla de naam vd auto op en op welke verticale waarde ie staat
         """
+        print("grid:", grid)
+
+        print(len(grid[0]))
+
+
+        length = len(grid[0])
+
+        print(f"length:{length}")
         
-        if len(grid[0]) == 6: 
+        if length == 6: 
             self.row_x = 2
-        elif len(grid[0]) == 9:
+        elif length == 9:
             self.row_x = 4
-        elif len(grid[0]) == 12:
+        elif length == 12:
             self.row_x = 5
+
+        # if len(grid[0]) == 6: 
+        #     self.row_x = 2
+        # elif len(grid[0]) == 9:
+        #     self.row_x = 4
+        # elif len(grid[0]) == 12:
+        #     self.row_x = 5
         
         hort_value = ""
         counter =0
@@ -44,7 +60,7 @@ class BlockCar:
         return self.right_x
         
 
-    def relevant_moves(self, right_x):
+    def relevant_moves(self, right_x, grid):
         """
         for each car, checks the relative position to see how far up or down it needs to move 
         to free up the space to the right of the red car
@@ -110,14 +126,13 @@ class BlockCar:
         self.pos_car_row_x = {}
         self.board_score = 0
 
-    def run(self, grids):
-        scores = {}
-        for grid in grids:
-            right_x = self.check_red_car(grid)
-            rel_moves = self.relevant_moves(right_x)
-            score = self.check_moves(rel_moves[0], rel_moves[1])
-            scores[grid] = score
-            self.reset()
+    def run(self, grid):
+        scores = {}   
+        right_x = self.check_red_car(grid)
+        rel_moves = self.relevant_moves(right_x, grid)
+        score = self.check_moves(rel_moves[0], rel_moves[1])
+        self.reset()
+        scores[str(grid)] = score
         return scores
             
 

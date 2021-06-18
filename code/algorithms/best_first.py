@@ -1,8 +1,11 @@
-from .breadth_first import BreadthFirst
-# from ... import BlockCar
+from .breadth_first import Breadthfirst
+from code.heuristics import blocked_cars
+from code.algorithms import randomise as rn
+import csv
+import copy
 
 
-class BestFirst(BreadthFirst):
+class BestFirst(Breadthfirst):
 
     def build_children(self, graph):
         """
@@ -29,6 +32,8 @@ class BestFirst(BreadthFirst):
             cars = rand_func.get_possible_cars(upper, lower, right, left)
             new_graph = {}     
 
+            scored_list = []
+
             # For each car that can move to that same empty space:   
             for car in cars:
                 new_graph[car] = copy.deepcopy(graph)
@@ -39,17 +44,19 @@ class BestFirst(BreadthFirst):
                 #-------------------------------------- Best first implementation ------------------------------------#
                 # score grid based on a heuristic
 
-                check = BlockCar.check_red_car(move)
-
-                scored_child = BlockCar.relevant_moves(check)
+                scored_child = blocked_cars.BlockCar().run(move[0])
 
                 # add move to a list of scored grids
 
-                scored_list.append(scored_child)
-                
+                scored_list.append(scored_child) 
+
+            print(f"scored list: {scored_list}")
+
+            # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
+
             # sort the list of dictionaries, higest first
 
-            sorted_scores = sorted(scored_list.items(), key=lambda x: x[1], reverse=True)
+            sorted_scores = sorted(scored_list.items(), key=lambda x: x[0], reverse=True)
             
             # pick only the grid, not the score and loop through the list
             for move in sorted_scores:

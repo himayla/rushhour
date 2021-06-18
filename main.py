@@ -3,6 +3,7 @@ from code.classes import visualisation as vs
 from code.algorithms import randomise as rn
 from code.algorithms import breadth_first as dp
 from code.algorithms import depth_first as DF
+from code.algorithms import best_first as BF
 
 if __name__ == "__main__":
     map_name = "6x6_1"
@@ -24,13 +25,16 @@ if __name__ == "__main__":
         return car_ids
 
     # --------------------------- Breadth first ------------------------------- #
-    paths = dp.Breadthfirst(new_grid.board).run()
+    # paths = dp.Breadthfirst(new_grid.board).run()
     
     # # --------------------------- Depth first --------------------------------- #
     # paths = DF.DepthFirst(new_grid.board).run()
 
     # --------------------------- Randomise ----------------------------------- #
     # rn.Randomise(new_grid.board).run()
+
+    # --------------------------- best first  --------------------------------- #
+    paths = BF.BestFirst(new_grid.board).run()
     
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
     # car_ids = get_car_ids(paths)

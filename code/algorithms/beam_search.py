@@ -1,8 +1,12 @@
-from .breadth_first import BreadthFirst
-# from ... import BlockCar
+from .breadth_first import Breadthfirst
+from code.heuristics import blocked_cars
+from code.algorithms import randomise as rn
+import csv
+import copy
 
 
-class BeamSearch(BreadthFirst):
+
+class BeamSearch(Breadthfirst):
 
     def build_children(self, graph):
         """
@@ -27,7 +31,9 @@ class BeamSearch(BreadthFirst):
 
             # Creates a list of all cars that can move to that empty space
             cars = rand_func.get_possible_cars(upper, lower, right, left)
-            new_graph = {}     
+            new_graph = {} 
+
+            scored_list = []    
 
             # For each car that can move to that same empty space:   
             for car in cars:
@@ -39,9 +45,7 @@ class BeamSearch(BreadthFirst):
                 #--------------------------------------beam search implementation ------------------------------------#
                 # score grid based on a heuristic
 
-                check = BlockCar.check_red_car(move)
-
-                scored_child = BlockCar.relevant_moves(check)
+                scored_child = blocked_cars.run(move)
 
                 # add move to a list of scored grids
 
