@@ -75,26 +75,12 @@ class BestFirst(Breadthfirst):
             
             for key, value in move.items():
                 
-                self.states.append(value[1])
+                
                 
 
         #-------------------------------------- end Best first implementation ------------------------------------#
                 
-                # child = key[0]
-                # rel_move = key[1]
-                # if rel_move[1] == "H":
-                #     rel_distance = empty_spaces[space][0] - rel_move[0]
-                #     car_move = [car, rel_distance]
-                    
-                # elif rel_move[1] == "V":
-                #     rel_distance = empty_spaces[space][1] - rel_move[0]
-                #     car_move = [car, rel_distance]
-                    
-                # If the new graph is not yet added to the dictionary of paths, add it. 
-                # if str(child) not in self.solution:
-                #     self.solution[str(child)] = [graph, car_move]
-                
                 # If the new graph is not yet in the list of states to visit, add it.
-                if child not in self.states and self.tried:
-                    self.states.append(child)
-                self.tried.append(child)
+                if value[1] not in self.states and self.tried:
+                    self.states.append(value[1])
+                self.tried.append(value[1])

@@ -81,8 +81,6 @@ class Breadthfirst:
             victory_coor = [8, 4]
         elif len(self.grid[0]) == 12:
             victory_coor = [11, 5]
-        # print(f"new_graph: {new_graph}")
-        # print(f"new_graph.x: {new_graph[0]}")
         if new_graph[victory_coor[1]][victory_coor[0]] == 'X':
             return True
         else:

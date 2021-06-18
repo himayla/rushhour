@@ -6,7 +6,7 @@ from code.algorithms import depth_first as DF
 from code.algorithms import best_first as BF
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     def get_car_ids(paths):
