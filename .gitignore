@@ -2,6 +2,8 @@
 
 __pycache__
 
+# time analysis profiles
+*.prof
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
