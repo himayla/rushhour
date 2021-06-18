@@ -39,30 +39,31 @@ class BestFirst(Breadthfirst):
 
                 # Move each car and save the result of the movement in child variable
                 move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-
+                
                 #-------------------------------------- Best first implementation ------------------------------------#
                 # score grid based on a heuristic
 
                 scored_child = blocked_cars.BlockCar().run(move[0])
-                # print(f"scored_child: {scored_child}")
+                
                 # add move to a list of scored grids
 
                 scored_list.append(scored_child) 
 
-        print(f"scored list: {scored_list}")
+        
 
         # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
 
         # sort the list of dictionaries, higest first
-
-        sorted_scores = sorted(scored_list.items(), key=lambda x: x[0], reverse=True)
+        
+        sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
         
         # pick only the grid, not the score and loop through the list
         for move in sorted_scores:
+            
             for key in move:
 
         #-------------------------------------- end Best first implementation ------------------------------------#
-
+                
                 child = key[0]
                 rel_move = key[1]
                 if rel_move[1] == "H":
