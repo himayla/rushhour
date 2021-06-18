@@ -119,7 +119,7 @@ class BlockCar:
         rel_moves = self.relevant_moves(right_x, grid)
         score = self.check_moves(rel_moves[0], rel_moves[1])
         self.reset()
-        scores[str(grid)] = score
+        scores[str(grid)] = [score, grid]
         return scores
             
 

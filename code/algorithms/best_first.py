@@ -39,11 +39,24 @@ class BestFirst(Breadthfirst):
 
                 # Move each car and save the result of the movement in child variable
                 move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_graph[car])
-                
+                child = move[0]
+                rel_move = move[1]
+                if rel_move[1] == "H":
+                    rel_distance = empty_spaces[space][0] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                elif rel_move[1] == "V":
+                    rel_distance = empty_spaces[space][1] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                # If the new graph is not yet added to the dictionary of paths, add it. 
+                if str(child) not in self.solution:
+                    self.solution[str(child)] = [graph, car_move]
+
                 #-------------------------------------- Best first implementation ------------------------------------#
                 # score grid based on a heuristic
 
-                scored_child = blocked_cars.BlockCar().run(move[0])
+                scored_child = blocked_cars.BlockCar().run(child)
                 
                 # add move to a list of scored grids
 
@@ -60,23 +73,26 @@ class BestFirst(Breadthfirst):
         # pick only the grid, not the score and loop through the list
         for move in sorted_scores:
             
-            for key in move:
+            for key, value in move.items():
+                
+                self.states.append(value[1])
+                
 
         #-------------------------------------- end Best first implementation ------------------------------------#
                 
-                child = key[0]
-                rel_move = key[1]
-                if rel_move[1] == "H":
-                    rel_distance = empty_spaces[space][0] - rel_move[0]
-                    car_move = [car, rel_distance]
+                # child = key[0]
+                # rel_move = key[1]
+                # if rel_move[1] == "H":
+                #     rel_distance = empty_spaces[space][0] - rel_move[0]
+                #     car_move = [car, rel_distance]
                     
-                elif rel_move[1] == "V":
-                    rel_distance = empty_spaces[space][1] - rel_move[0]
-                    car_move = [car, rel_distance]
+                # elif rel_move[1] == "V":
+                #     rel_distance = empty_spaces[space][1] - rel_move[0]
+                #     car_move = [car, rel_distance]
                     
                 # If the new graph is not yet added to the dictionary of paths, add it. 
-                if str(child) not in self.solution:
-                    self.solution[str(child)] = [graph, car_move]
+                # if str(child) not in self.solution:
+                #     self.solution[str(child)] = [graph, car_move]
                 
                 # If the new graph is not yet in the list of states to visit, add it.
                 if child not in self.states and self.tried:
