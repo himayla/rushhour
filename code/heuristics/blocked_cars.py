@@ -75,11 +75,14 @@ class BlockCar:
         return needs_up, needs_down
             
     def check_moves(self, needs_up, needs_down):
-        
+        """
+        Give one point for each way a car that blocks the red car to move up to free the x-axis. 
+        Gives a half point for each way a car that blocks the red car to be able to move at all.
+        Gives a tenth of a point for every empty spot that is in the car of a car that blocks the red car. 
+        """
         
         for key, value in self.pos_car_row_x.items():
-            # For each key, move down to the first mention of the key on the list:
-            
+                     
             count_empty_up = 0
             count_empty_low = 0
             count_vert = 0

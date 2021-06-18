@@ -54,7 +54,7 @@ class BeamSearch(Breadthfirst):
                 if str(child) not in self.solution:
                     self.solution[str(child)] = [graph, car_move]
 
-                #-------------------------------------- Best first implementation ------------------------------------#
+                #-------------------------------------- Beam search implementation ------------------------------------#
                 # score grid based on a heuristic
 
                 scored_child = blocked_cars.BlockCar().run(child)
@@ -83,7 +83,7 @@ class BeamSearch(Breadthfirst):
             # pick only the grid, not the score and loop through the list
         for move in ranking:
             for key, value in move.items():
-    #-------------------------------------- end Best first implementation ------------------------------------#
+    #-------------------------------------- end beam search implementation ------------------------------------#
             # If the new graph is not yet in the list of states to visit, add it.
                 if value[1] not in self.states and self.tried:
                     self.states.append(value[1])
