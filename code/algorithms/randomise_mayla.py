@@ -54,34 +54,27 @@ def get_possible_cars(upper, lower, left, right):
     """
     Returns a random car from a all cars that could move to the empty spot.
     """
-    possible = []
-    up_left = [upper, left]
-    low_right  = [lower, right]
-   
-    for direction in up_left: 
-        if direction:   
-            last_place = len(direction) -1
-            car_direction = direction[last_place]
-            count_car = 0
-            for car in direction:
-                if car == car_direction:
-                    count_car += 1
-                else:
-                    count_car = 0
-                if count_car > 1 and car_direction not in possible:
-                    possible.append(car_direction)
-    for direction in low_right: 
-        if direction:   
-            car_direction = direction[0]
-            count_car = 0
-            for car in direction:
-                if car == car_direction:
-                    count_car += 1
-                else:
-                    count_car = 0
-                if count_car > 1 and car_direction not in possible:
-                    possible.append(car_direction)
     
+    directions = [upper, left, lower, right]
+    possible = []
+    count = 0
+    for direction in directions:
+        if direction: 
+            if count < 2:
+                last_place = len(direction) -1
+                car_direction = direction[last_place]
+            else:
+                car_direction = direction[0] 
+            count_car = 0
+            for car in direction:
+                if car == car_direction:
+                    count_car += 1
+                else:
+                    count_car = 0
+                if count_car > 1 and car_direction not in possible:
+                    possible.append(car_direction)
+        count += 1
+            
     return possible
 
 def choose_random(possibilities):  
@@ -212,7 +205,7 @@ def random_solver(grid):
     while grid.solution not in grid.list_of_moves:
         rearrange_board(grid)
         count += 1
-        # if count == 20:
+        # if count == 40:
         #     break
 
     # Print final results
