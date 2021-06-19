@@ -94,11 +94,13 @@ def move_car(grid, position, random_car, upper, lower, left, right):
     Returns the new grid.
     """
     y_values = [grid[y][position[0]] for y in range(len(grid))]
-
+    x_values = grid[position[1]]
     count_upper = 0
     count_lower = 0
+    count_left = 0
+    count_right = 0
     location = []
-
+    
     # If the car is higher than the empty space
     if random_car in upper:
         for y_car in upper:
@@ -129,10 +131,6 @@ def move_car(grid, position, random_car, upper, lower, left, right):
             for a in range(count_lower):
                 grid[position[1] + a][position[0]] = random_car
 
-    x_values = grid[position[1]]
-    count_left = 0
-    count_right = 0
-
     # If the car is to the left of the empty space
     if random_car in left:
         for x_car in left:
@@ -147,8 +145,7 @@ def move_car(grid, position, random_car, upper, lower, left, right):
                 location = [index + 1, "H"]
             for a in range(count_left):
                 x_values[position[0] - a] = random_car
-                
-                
+                   
     #  If the car is to the right of the empty space
     elif random_car in right:
         for x_car in right:
@@ -171,11 +168,8 @@ def rearrange_board(grid):
     Rearranges the board by finding an empty space and the different directions
     """
     # Choose a random space out of the empty spaces
-    # for line in grid.board: 
-    #     print(line)
     empty_spaces = get_empty_spaces(grid.board)
     position = choose_random(empty_spaces)
-    # print(f"empty space: {position}")
     # Create a list for all the X values and Y values connected to this empty space
     directions = get_relevant_rows(position, grid.board)
     
@@ -187,7 +181,6 @@ def rearrange_board(grid):
     # Create a list with the cars left, up, right, down to the empty space and Choose random car from this list that can move to the empty space
     possible_cars = get_possible_cars(upper, lower, left, right)
     random_car = choose_random(possible_cars)
-    # print(f"car: {random_car}")
     if random_car != "":
 
         # Add the new move to the list of moves
@@ -200,14 +193,10 @@ def rearrange_board(grid):
 def random_solver(grid):
     """
     Solve the game by looking for empty spots, until car X (red car) is in the winning position.
-    """
-    count = 0    
+    """  
     while grid.solution not in grid.list_of_moves:
         rearrange_board(grid)
-        count += 1
-        # if count == 40:
-        #     break
-
+        
     # Print final results
     print(f"Final board:")
     for line in grid.board:
