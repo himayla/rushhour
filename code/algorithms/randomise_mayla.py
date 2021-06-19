@@ -132,7 +132,7 @@ def move_car(grid, position, random_car, upper, lower, left, right):
                 grid[position[1] + a][position[0]] = random_car
 
     # If the car is to the left of the empty space
-    if random_car in left:
+    elif random_car in left:
         for x_car in left:
             if random_car == x_car:
                 index = x_values.index(x_car)
@@ -141,11 +141,11 @@ def move_car(grid, position, random_car, upper, lower, left, right):
         # If the car is in the correct orientation, change the old coordinates to 0 and the new coordinates to the name of the car
         if count_left > 1:
             for a in range(count_left):
-                x_values[index + a] = "0"
+                grid[position[1]][index + a] = "0"
                 location = [index + 1, "H"]
             for a in range(count_left):
-                x_values[position[0] - a] = random_car
-                   
+                grid[position[1]][position[0] - a] = random_car
+                            
     #  If the car is to the right of the empty space
     elif random_car in right:
         for x_car in right:
