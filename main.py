@@ -5,18 +5,30 @@ from code.algorithms import breadth_first as dp
 from code.algorithms import depth_first as DF
 from code.algorithms import best_first as BF
 from code.algorithms import beam_search as BS
-
+from code.algorithms import hillclimber as hc
 
 from code.algorithms import randomise_mayla #
 
 if __name__ == "__main__":
     map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
-    # --------------------------- Randomise3Mayla ----------------------------------- #
-    #randomise_mayla.random_solver(new_grid)
 
+    # --------------------------- Randomise by Mayla ----------------------------------- #
     randomise_mayla.random_solver(model.Model(new_grid))
+
+    # --------------------------- Hill Climber ---------------------------------
+    # print("Setting up Hill Climber...")
+    # climber = hc.HillClimber(random_model)
+
+    # print("Running Hill Climber...")
+    # climber.run(20000, verbose=False)
+
+    # print(f"Value of the configuration after Hill Climber: "
+    #       f"{climber.model.calculate_value()}")
+
     
+
+
 
     # def get_car_ids(paths):
     #     """

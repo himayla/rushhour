@@ -4,6 +4,21 @@ class Model():
         self.solution = self.grid.solution
         self.states = []
 
+    # --------------------------- General ----------------------------------- #
+    def solution(self, grid):
+        if len(grid) == 6:
+            self.solution = ['X', [5, 2]]
+        elif len(grid) == 9:
+            self.solution = ['X', [8, 4]]
+        elif len(grid) == 12:
+            self.solution = ['X', [11, 5]]
+
+    def is_solution(self):
+        print(self.solution)
+        if self.solution not in self.states:
+            return True
+        return False
+
     # --------------------------- Random ----------------------------------- #
     def get_empty_spaces(self, grid):
         """
@@ -51,7 +66,7 @@ class Model():
                     left.append(value) 
                 else: 
                     right.append(value)
-                counter_x += 1 
+            counter_x += 1 
 
         return [upper, lower, left, right]
 
@@ -157,16 +172,4 @@ class Model():
 
         return grid, location
 
-    def solution(self, grid):
-        if len(grid) == 6:
-            self.solution = ['X', [5, 2]]
-        elif len(grid) == 9:
-            self.solution = ['X', [8, 4]]
-        elif len(grid) == 12:
-            self.solution = ['X', [11, 5]]
-
-    def is_solution(self):
-        print(self.solution)
-        if self.solution not in self.states:
-            return True
-        return False
+    # --------------------------- Random ----------------------------------- #

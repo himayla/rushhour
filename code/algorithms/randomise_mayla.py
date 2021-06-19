@@ -46,6 +46,12 @@ def random_solver(model):
     """
     Solve the game by looking for empty spots, until car X (red car) is in the winning position.
     """
+    print(f"Starting board:")
+    for line in model.grid.board:
+        print(line)
+    moves = len(model.states)
+    #print(f"Amount of moves: {moves}")
+
     while model.solution not in model.states:
         rearrange_board(model, model.grid)
        
