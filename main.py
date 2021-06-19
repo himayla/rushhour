@@ -14,40 +14,21 @@ if __name__ == "__main__":
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
-    randomise_mayla.random_solver(model.Model(new_grid))
+    random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
     # --------------------------- Hill Climber ---------------------------------
     # print("Setting up Hill Climber...")
     # climber = hc.HillClimber(random_model)
 
     # print("Running Hill Climber...")
-    # climber.run(20000, verbose=False)
+    # climber.run(10, verbose=False)
 
     # print(f"Value of the configuration after Hill Climber: "
     #       f"{climber.model.calculate_value()}")
 
-    
-
-
-
-    # def get_car_ids(paths):
-    #     """
-    #     Returns a dictionary with the cars and car ID's
-    #     """
-    #     car_ids = {}
-    #     id = 0
-    #     for x in range(len(paths[0])):
-    #         for y in range(len(paths[0])):
-    #             car = paths[0][y][x] 
-    #             if car not in car_ids:
-    #                 car_ids[paths[0][y][x]] = id
-    #                 id += 1
-
-    #     return car_ids
-
-
     # --------------------------- Breadth first ------------------------------- #
     # paths = dp.Breadthfirst(new_grid.board).run()
+    # name = "breadth"
     
     # # --------------------------- Depth first --------------------------------- #
     # paths = DF.DepthFirst(new_grid.board).run()
@@ -61,18 +42,17 @@ if __name__ == "__main__":
     # paths = BS.BeamSearch(new_grid.board).run()
     
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
-    # car_ids = get_car_ids(paths)
+    # car_ids = model.Model.get_car_ids(paths)
+    # image_dir = f"visualisation/{name}"
     
-    # image_dir = "visualisation/boards"
-
     # # Visualise the different boards and save them in folder 
     # counter = 1.0
     # for path in paths:
-    #     vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter}")
+    #     vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter:.1f}")
     #     counter += 0.1
 
     # # Create gif from images in the folder
-    # vs.Visualisation.create_gif(image_dir)
+    # vs.Visualisation.create_gif(f"{image_dir}")
  
 
     

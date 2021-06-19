@@ -71,7 +71,6 @@ class Visualisation():
         plt.savefig(f"{title}.png")
         plt.clf()
 
-
     def create_gif(image_dir):
         """
         Creates a gif from the different paths in the solution. Source: https://stackoverflow.com/questions/753190/programmatically-generate-video-or-animated-gif-in-python

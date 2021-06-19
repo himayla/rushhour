@@ -1,11 +1,18 @@
+"""
+This file includes ...
+"""
+
 class Model():
     def __init__(self, grid):
         self.grid = grid
         self.solution = self.grid.solution
         self.states = []
 
-    # --------------------------- General ----------------------------------- #
+    # ----------------------------- General ----------------------------------- # 
     def solution(self, grid):
+        """
+        The solution of the game depends on the size of the grid.
+        """
         if len(grid) == 6:
             self.solution = ['X', [5, 2]]
         elif len(grid) == 9:
@@ -13,16 +20,52 @@ class Model():
         elif len(grid) == 12:
             self.solution = ['X', [11, 5]]
 
+
     def is_solution(self):
-        print(self.solution)
+        """
+        The game is solved if the winning move is included in the states.
+        """
         if self.solution not in self.states:
             return True
         return False
 
+
+    def get_car_ids(paths):
+        """
+        Returns a dictionary with the cars and car ID's.
+        """
+        car_ids = {}
+        id = 0
+        for x in range(len(paths[0])):
+            for y in range(len(paths[0])):
+                car = paths[0][y][x] 
+                if car not in car_ids:
+                    car_ids[paths[0][y][x]] = id
+                    id += 1
+
+        return car_ids
+
+    def copy(self):
+        """
+        Returns a copy of self.
+        """
+        new = Model(self.grid)
+
+        return new
+
+    def print(self):
+        """
+        Prints board.
+        """
+        print(f"Final board:")
+        for line in self.grid.board:
+            print(line)
+        print(f"Amount of moves: {len(self.states)}")
+
     # --------------------------- Random ----------------------------------- #
     def get_empty_spaces(self, grid):
         """
-        Returns the coordinates a random empty space in the grid, from a list with of empty spaces in board.
+        Returns a list of the coordinates of the empty spaces in the grid.
         """
         empty_spaces = []
 
@@ -34,35 +77,39 @@ class Model():
 
         return empty_spaces
 
-    def get_relevant_rows(self, random_position, grid):
+    def get_relevant_rows(self, empty_space, grid):
         """
-        Returns a list with cars horizontally and vertical from empty space.
-        """    
+        Returns lists with the cars above, below and to the left and right from the empty space.
+        """
+
+        # Initialize lists for the cars below or above the empty space
         upper = []
         lower = []
 
-        # The vertical row from empty space
-        y_values = [grid[y][random_position[0]] for y in range(len(grid))]
+        # The vertical row the empty space is in
+        y_values = [grid[y][empty_space[0]] for y in range(len(grid))]
 
+        # Get the cars in vertical row the empty space is in
         counter_y = 0
         for value in y_values:
             if value != "0":
-                if counter_y < random_position[1]:
-                    upper.append(value)                
+                if counter_y < empty_space[1]:
+                    upper.append(value)
                 else:
-                    lower.append(value)  
+                    lower.append(value)
             counter_y += 1
         
-        x_values = grid[random_position[1]]
+        x_values = grid[empty_space[1]]
 
+        # Initialize lists for the cars to the left or right from the empty space
         left = []
         right = []
 
-        # The cars in the horizontal row from empty space
+        # Get the cars in the horizontal row from the empty space
         counter_x = 0
         for value in x_values:
             if value != "0":
-                if counter_x < random_position[0]:
+                if counter_x < empty_space[0]:
                     left.append(value) 
                 else: 
                     right.append(value)
@@ -72,44 +119,49 @@ class Model():
 
     def get_possible_cars(self, upper, lower, left, right):
         """
-        Returns a random car from a all cars that could move to the empty spot.
+        Returns a list with cars that can move to the empty spot.
         """
-        
+
+        # List the directions
         directions = [upper, left, lower, right]
-        possible = []
+
+        # Initialize list for the different moves
+        valid_moves = []
+
         count = 0
         for direction in directions:
-            if direction: 
+            if direction:
+
                 if count < 2:
-                    last_place = len(direction) -1
+                    last_place = len(direction) - 1
                     car_direction = direction[last_place]
                 else:
-                    car_direction = direction[0] 
+                    car_direction = direction[0]
+
                 count_car = 0
                 for car in direction:
                     if car == car_direction:
                         count_car += 1
                     else:
                         count_car = 0
-                    if count_car > 1 and car_direction not in possible:
-                        possible.append(car_direction)
+                    if count_car > 1 and car_direction not in valid_moves:
+                        valid_moves.append(car_direction)
             count += 1
                 
-        return possible
+        return valid_moves
 
     def move_car(self, grid, position, random_car, upper, lower, left, right):
         """
         Moves the selected car to the random empty spot by updating the current grid.
         Returns the new grid.
         """
-        y_values = [grid[y][position[0]] for y in range(len(grid))]
-        x_values = grid[position[1]]
+
+        # Check if the selected car is above or below the empty spot
         count_upper = 0
         count_lower = 0
-        count_left = 0
-        count_right = 0
-        location = []
-        
+
+        y_values = [grid[y][position[0]] for y in range(len(grid))]
+
         # If the car is higher than the empty space
         if random_car in upper:
             for y_car in upper:
@@ -140,8 +192,14 @@ class Model():
                 for a in range(count_lower):
                     grid[position[1] + a][position[0]] = random_car
 
+        x_values = grid[position[1]]
+    
+        # If the selected car is to the left or right from the empty spot
+        count_left = 0
+        count_right = 0
+
         # If the car is to the left of the empty space
-        elif random_car in left:
+        if random_car in left:
             for x_car in left:
                 if random_car == x_car:
                     index = x_values.index(x_car)
@@ -154,8 +212,8 @@ class Model():
                     location = [index + 1, "H"]
                 for a in range(count_left):
                     grid[position[1]][position[0] - a] = random_car
-                                
-        #  If the car is to the right of the empty space
+
+        # If the car is to the right of the empty space
         elif random_car in right:
             for x_car in right:
                 if random_car == x_car:
@@ -172,4 +230,4 @@ class Model():
 
         return grid, location
 
-    # --------------------------- Random ----------------------------------- #
+    # ----------------------------------------------------------------- #
