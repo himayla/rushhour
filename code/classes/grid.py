@@ -6,7 +6,6 @@ class Grid():
         self.cars = self.load_cars(source_file)
         self.board = self.load_grid(source_file)
         self.solution
-        self.list_of_moves = []
 
     def load_cars(self, source_file):
         """

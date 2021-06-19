@@ -12,9 +12,11 @@ from code.algorithms import randomise_mayla #
 if __name__ == "__main__":
     map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
-
     # --------------------------- Randomise3Mayla ----------------------------------- #
-    randomise_mayla.random_solver(new_grid)
+    #randomise_mayla.random_solver(new_grid)
+
+    randomise_mayla.random_solver(model.Model(new_grid))
+    
 
     # def get_car_ids(paths):
     #     """
