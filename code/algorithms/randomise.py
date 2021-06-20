@@ -227,7 +227,7 @@ class Randomise:
             if count_left > 1:
                 for a in range(count_left):
                     grid[position[1]][index + a] = "0"
-                    location = [index + 1, "H"]
+                location = [index + count_left - 1, "H"]
                 for a in range(count_left):
                     grid[position[1]][position[0] - a] = random_car
                     
@@ -272,7 +272,7 @@ class Randomise:
             if count_upper > 1:
                 for a in range(count_upper):
                     grid[index + a][position[0]] = "0"
-                    location = [index + 1, "V"]
+                location = [index + count_upper - 1, "V"]
                 for a in range(count_upper):
                     grid[position[1] - a][position[0]] = random_car 
         self.grid = grid

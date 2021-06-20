@@ -52,8 +52,8 @@ class DepthFirst:
             for car in cars:
 
                 new_grid[car] = copy.deepcopy(grid)
-                child = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
-                
+                move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
+                child = move[0]
                 # The child cannot be already generated
                 if child not in self.states and child not in self.visited_states:
                     self.states.append(child)
