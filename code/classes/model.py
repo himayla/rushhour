@@ -39,7 +39,7 @@ class Model():
         Returns a copy of self.
         """
         new = Model(self.grid)
-
+        
         return new
 
     def print(self):
@@ -138,16 +138,16 @@ class Model():
                     possible.append(upper_car)
 
         if lower:
-            car_left = lower[0]
+            car_lower = lower[0]
             count_lower = 0
             for car in lower:
-                if car == car_left:
+                if car == car_lower:
                     count_lower += 1
                 else:
                     count_lower = 0
 
-                if count_lower > 1 and car_left not in possible:
-                    possible.append(car_left)
+                if count_lower > 1 and car_lower not in possible:
+                    possible.append(car_lower)
 
         if left:
             last_place = len(left) -1
@@ -265,3 +265,4 @@ class Model():
         return grid, location
 
     # ----------------------------- Depth First ----------------------------------- #
+
