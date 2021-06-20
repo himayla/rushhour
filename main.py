@@ -10,7 +10,7 @@ from code.algorithms import hillclimber as hc
 from code.algorithms import randomise_mayla #
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
