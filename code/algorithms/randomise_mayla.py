@@ -11,7 +11,7 @@ def random_solver(model):
     while model.solution not in model.states:
         rearrange_board(model, model.grid)
     
-    # Print out the final board and moves in terminal
+    # Print out the final board and amount of moves in the terminal
     model.print()
 
 
@@ -30,14 +30,8 @@ def rearrange_board(model, grid):
     # List all horizontal and vertical cars connected to the empty space
     directions = model.get_relevant_rows(position, board)
 
-    # Initialise the different directions from the empty spot
-    upper = directions[0]
-    lower = directions[1]
-    left = directions[2]
-    right = directions[3]
-
     # Create a list for the cars that can move to the empty space
-    possible_cars =  model.get_possible_cars(upper, lower, left, right)
+    possible_cars =  model.get_possible_cars(directions)
 
     # Choose a car that to move to the empty space
     random_car = choose_random_car(possible_cars)
@@ -52,7 +46,7 @@ def rearrange_board(model, grid):
         model.states.append(new_move)
         
         # Swap the car with an empty spot
-        model.move_car(board, position, random_car, upper, lower, left, right)
+        model.move_car(board, position, random_car, directions)
 
 
 def choose_random_car(possible_cars):  

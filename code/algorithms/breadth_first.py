@@ -11,7 +11,6 @@ class Breadthfirst:
         self.states = [copy.deepcopy(self.grid)]
         self.solution = {}
         self.tried = []
-        self.board_til_final = []
         self.moves = [["car", "move"]]
         
     def get_next_state(self):

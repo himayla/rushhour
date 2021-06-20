@@ -1,6 +1,7 @@
 """
 This file includes ...
 """
+import csv
 
 class Model():
     def __init__(self, grid):
@@ -9,18 +10,6 @@ class Model():
         self.states = []
 
     # ----------------------------- General ----------------------------------- # 
-    def solution(self, grid):
-        """
-        The solution of the game depends on the size of the grid.
-        """
-        if len(grid) == 6:
-            self.solution = ['X', [5, 2]]
-        elif len(grid) == 9:
-            self.solution = ['X', [8, 4]]
-        elif len(grid) == 12:
-            self.solution = ['X', [11, 5]]
-
-
     def is_solution(self):
         """
         The game is solved if the winning move is included in the states.
@@ -57,10 +46,16 @@ class Model():
         """
         Prints board.
         """
-        print(f"Final board:")
+        print(f"Board:")
         for line in self.grid.board:
             print(line)
         print(f"Amount of moves: {len(self.states)}")
+
+    def write_output(self):
+        file = open('output.csv', 'w+', newline='')
+        with file:
+            write = csv.writer(file)
+            write.writerows(self.states)
 
     # --------------------------- Random ----------------------------------- #
     def get_empty_spaces(self, grid):
@@ -117,44 +112,83 @@ class Model():
 
         return [upper, lower, left, right]
 
-    def get_possible_cars(self, upper, lower, left, right):
+    def get_possible_cars(self, directions):
         """
         Returns a list with cars that can move to the empty spot.
         """
+        # Initialise the different directions from the empty spot
+        upper = directions[0]
+        lower = directions[1]
+        left = directions[2]
+        right = directions[3]
 
-        # List the directions
-        directions = [upper, left, lower, right]
+        possible = []
 
-        # Initialize list for the different moves
-        valid_moves = []
-
-        count = 0
-        for direction in directions:
-            if direction:
-
-                if count < 2:
-                    last_place = len(direction) - 1
-                    car_direction = direction[last_place]
+        if upper:            
+            last_place = len(upper) -1
+            upper_car = upper[last_place]
+            count_upper = 0
+            for car in upper:
+                if car == upper_car:
+                    count_upper += 1
                 else:
-                    car_direction = direction[0]
+                    count_upper = 0
 
-                count_car = 0
-                for car in direction:
-                    if car == car_direction:
-                        count_car += 1
-                    else:
-                        count_car = 0
-                    if count_car > 1 and car_direction not in valid_moves:
-                        valid_moves.append(car_direction)
-            count += 1
-                
-        return valid_moves
+                if count_upper > 1 and upper_car not in possible:
+                    possible.append(upper_car)
 
-    def move_car(self, grid, position, random_car, upper, lower, left, right):
+        if lower:
+            car_left = lower[0]
+            count_lower = 0
+            for car in lower:
+                if car == car_left:
+                    count_lower += 1
+                else:
+                    count_lower = 0
+
+                if count_lower > 1 and car_left not in possible:
+                    possible.append(car_left)
+
+        if left:
+            last_place = len(left) -1
+            left_car = left[last_place]
+            count_left = 0
+            for car in left:
+                if car == left_car:
+                    count_left += 1
+                else:
+                    count_left = 0   
+
+                if count_left > 1 and left_car not in possible:
+                    possible.append(left_car)
+
+        # If there are cars to the right of the empty space
+        if right:
+            right_car = right[0]
+            count_right = 0
+            for car in right:
+                if car == right_car:
+                    count_right += 1
+                else:
+                    count_right = 0
+
+                # Add the first car to the right of the empty space to the list if it's not in there yet 
+                if count_right > 1 and right_car not in possible:
+                    possible.append(right_car)
+        
+        return possible
+
+
+    def move_car(self, grid, position, random_car, directions):
         """
         Moves the selected car to the random empty spot by updating the current grid.
         Returns the new grid.
         """
+        upper = directions[0]
+        lower = directions[1]
+        left = directions[2]
+        right = directions[3]
+
 
         # Check if the selected car is above or below the empty spot
         count_upper = 0
@@ -230,4 +264,4 @@ class Model():
 
         return grid, location
 
-    # ----------------------------------------------------------------- #
+    # ----------------------------- Depth First ----------------------------------- #
