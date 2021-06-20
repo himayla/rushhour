@@ -12,7 +12,7 @@ from code.algorithms import depth_first_mayla as df
 
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
