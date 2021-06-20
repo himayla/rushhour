@@ -2,7 +2,7 @@ from code.classes import grid, model
 from code.classes import visualisation as vs
 from code.algorithms import randomise as rn
 from code.algorithms import breadth_first as dp
-#from code.algorithms import depth_first as DF
+from code.algorithms import depth_first as DF
 from code.algorithms import best_first as BF
 from code.algorithms import beam_search as BS
 from code.algorithms import hillclimber as hc
@@ -12,14 +12,14 @@ from code.algorithms import depth_first_mayla as df
 
 
 if __name__ == "__main__":
-    map_name = "6x6_3"
+    map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
-    #random_model = randomise_mayla.random_solver(model.Model(new_grid))
+    random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
-    depth = df.DepthFirst(model.Model(new_grid))
-    depth.run()
+    # depth = df.DepthFirst(model.Model(new_grid))
+    # depth.run()
     
 
     # --------------------------- Hill Climber ---------------------------------

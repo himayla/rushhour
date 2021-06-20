@@ -15,6 +15,4 @@ count = 0
     count = 0
 9. if count = 100 / 1000 / 100000:
     return path
-
-
 """
