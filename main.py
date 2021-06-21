@@ -17,7 +17,7 @@ if __name__ == "__main__":
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
-    #random_model = randomise_mayla.random_solver(model.Model(new_grid))
+    random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
     # depth = df.DepthFirst(model.Model(new_grid))
     # depth.run()

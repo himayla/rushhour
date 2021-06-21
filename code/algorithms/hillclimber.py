@@ -1,14 +1,21 @@
 """
-NIET AF!
-Pseudocode:
-    While True:
-        1. Kies een random (geldige) staat:
-        2. Herhaal x iteraties
-            2.1 Kopieer de staat
-            2.2 Muteer de kopie
-            2.3 Check of staat is verbeterd. [len(moves to exit?) < len(moves)]
-                2.4 Indien beter vervang oude staat door nieuwe
+pseudo van mila
+input is path
+count = 0
+1. Get a random board from the path that's at least 25 moves away from the final board. 
+2. Choose another board between 15 and 25 further down the path. 
+3. Do a breath first algorithms on the first chosen board and save the steps in a dictionary. 
+4. When the final board is found:
+5. If the path to the final board is smaller than the path that was given originally to the algorithm. 
+    6. Put the moves of the breadth first algorithm into the place of the original path
+    count += 1
+7. Else:
+    8. Repeat with another combination of boards. 
+    count = 0
+9. if count = 100 / 1000 / 100000:
+    return path
 """
+
 import copy
 import random
 
@@ -18,33 +25,55 @@ class HillClimber:
     
     def __init__(self, model):
         self.model = model.copy()
+        self.solution = {}
+
+    def get_random_solution(self, new_model):
+        pass
+        #1. Get a random board from the path 
+
+        # 1. One that's at least 25 moves away from the final board.
+
+        # 2. Another board between 15 and 25 further down the path
 
     def check_solution(self, new_model):
-        """
-        Checks and accepts better solutions than the current solution.
-        """
-        new_value = new_model.calculate_value()
-        old_value = self.value
+        pass
+        # Breadth search the first chosen board and save the steps in a dictionary. 
 
-        # We are looking for maps that cost less!
-        if new_value <= old_value:
-            self.model = new_model
-            self.value = new_value
+        # dict[board] = steps
 
-    def run(self, iterations, verbose=False):
+        # when the final board is found:
+            #return
+
+    def compare_solutions(self, solution):
+        pass
+        #If the path to the final board is smaller than the path that was given originally to the algorithm. 
+        # 6. Put the moves of the breadth first algorithm into the place of the original path
+        #count += 1
+
+        #Else:
+        #8. Repeat with another combination of boards. 
+        #count = 0
+
+        #9. if count = 100 / 1000 / 100000:
+        #return path
+        
+
+    def run(self, iterations, paths):
         """
         Runs the hillclimber algorithm for a specific amount of iterations.
         """
         self.iterations = iterations
 
         for iteration in range(iterations):
-            # Nice trick to only print if variable is set to True
-            print(f'Iteration {iteration}/{iterations}, current value: {self.value}') if verbose else None
 
             # Create a copy of the model to simulate the change
             new_model = self.model.copy()
 
-            self.mutate(new_model)
+            #1. Get 2 random boards
+            solution = self.get_random_board(new_model)
 
-            # Accept it if it is better
-            self.check_solution(new_model)
+            #3. Breadth search these boards
+            solution_1 = self.check_solution(solution)
+
+            # Compare solutions
+            self.compare_solutions(solution_1)
