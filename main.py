@@ -9,18 +9,18 @@ from code.algorithms import concatenated_search as CS
 from code.algorithms import hillclimber as hc
 
 from code.algorithms import randomise_mayla 
-from code.algorithms import depth_first_mayla as df
+from code.algorithms import depth_first_mayla2 as df
 
 
 if __name__ == "__main__":
-    map_name = "6x6_3"
+    map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
-    # --------------------------- Randomise by Mayla ----------------------------------- #
-    # random_model = randomise_mayla.random_solver(model.Model(new_grid))
+    # --------------------------- Randomise and Depth by Mayla ----------------------------------- #
+    #random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
-    # depth = df.DepthFirst(model.Model(new_grid))
-    # depth.run()
+    depth = df.DepthFirst(model.Model(new_grid))
+    depth.run()
     
 
     # --------------------------- Hill Climber ---------------------------------
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     # --------------------------- beam search  --------------------------------- #
 
-    paths = BS.BeamSearch(new_grid.board).run()
+    #paths = BS.BeamSearch(new_grid.board).run()
 
     # --------------------------- concatenated search  --------------------------------- #
     # paths = CS.BeamSearch(new_grid.board).run()

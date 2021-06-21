@@ -19,24 +19,6 @@ class Model():
         return self.__str__()
 
     # ----------------------------- General ----------------------------------- # 
-    def is_solution(self, board):
-        """
-        The game is solved if the winning move is included in the states.
-        """
-        #print(f'in is_solution')
-        if len(board[0]) == 6:
-            victory_coor = [5, 2]
-        elif len(board[0]) == 9:
-            victory_coor = [8, 4]
-        elif len(board[0]) == 12:
-            victory_coor = [11, 5]
-
-        #print(board[victory_coor[1]][victory_coor[0]])
-
-        if board[victory_coor[1]][victory_coor[0]] == 'X':
-            return True
-        else:
-            return False
 
     def get_car_ids(paths):
         """
@@ -281,7 +263,9 @@ class Model():
                     self.board[position[1]][index + a] = "0"
                     location = [index, "H"]
                 for a in range(count_right):
-                    self.board[position[1]][position[0] + a] = random_car  
+                    self.board[position[1]][position[0] + a] = random_car
+        
+        return self
 
     # ----------------------------- Depth First ----------------------------------- #
     def add_to_stack(self, child):            

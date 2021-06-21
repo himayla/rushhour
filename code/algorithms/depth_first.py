@@ -80,6 +80,8 @@ class DepthFirst:
                     self.visited_states.append(child)
 
         
+
+        
     def check_is_visited(self, new_grid):
         """
         Checks if a child is already visited before.

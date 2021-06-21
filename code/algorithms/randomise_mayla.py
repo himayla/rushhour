@@ -8,26 +8,24 @@ def random_solver(model):
     Rearrange the board by looking for empty spots until solution is found.
     """
     while model.victory_move not in model.list_of_moves:
-        rearrange_board(model, model.grid)
+        rearrange_board(model)
     
     # Print out the final board and amount of moves in the terminal
     model.print(moves=True)
 
 
-def rearrange_board(model, grid):
+def rearrange_board(model):
     """
     Chooses an empty space and a car that can move to this place and swaps these.
     """
-    board = grid.board
-
-    # List all the empty spaces on the board
-    empty_spaces = model.get_empty_spaces(board)
+      # List all the empty spaces on the board
+    empty_spaces = model.get_empty_spaces(model.board)
 
     # Choose a random spaces from the empty spaces
     position = choose_random_car(empty_spaces)
 
     # List all horizontal and vertical cars connected to the empty space
-    directions = model.get_relevant_rows(position, board)
+    directions = model.get_relevant_rows(position)
 
     # Create a list for the cars that can move to the empty space
     possible_cars =  model.get_possible_cars(directions)
@@ -45,7 +43,7 @@ def rearrange_board(model, grid):
         model.list_of_moves.append(new_move)
         
         # Swap the car with an empty spot
-        model.move_car(board, position, random_car, directions)
+        model.move_car(position, random_car, directions)
 
 
 def choose_random_car(possible_cars):  
