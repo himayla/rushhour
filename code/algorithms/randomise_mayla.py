@@ -7,11 +7,11 @@ def random_solver(model):
     """
     Rearrange the board by looking for empty spots until solution is found.
     """
-    while model.solution not in model.list_of_moves:
+    while model.victory_move not in model.list_of_moves:
         rearrange_board(model, model.grid)
     
-        # Print out the final board and amount of moves in the terminal
-        model.print(moves=True)
+    # Print out the final board and amount of moves in the terminal
+    model.print(moves=True)
 
 
 def rearrange_board(model, grid):

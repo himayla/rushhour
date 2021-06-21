@@ -5,7 +5,7 @@ class Grid():
     def __init__(self, source_file):
         self.cars = self.load_cars(source_file)
         self.board = self.load_grid(source_file)
-        self.solution
+        self.victory_move
 
     def load_cars(self, source_file):
         """
@@ -28,13 +28,13 @@ class Grid():
         """
         if "6x6" in source_file:
             size = 6
-            self.solution = ['X', [5, 2]]
+            self.victory_move = ['X', [5, 2]]
         elif "9x9" in source_file:
             size = 9 
-            self.solution = ['X', [8, 4]]
+            self.victory_move = ['X', [8, 4]]
         elif "12x12" in source_file:
             size = 12
-            self.solution = ['X', [11, 5]]
+            self.victory_move = ['X', [11, 5]]
         else:
             print("Invalid size of board")
     
@@ -70,6 +70,7 @@ class Grid():
                     array[car.y+1][car.x-1] = car.name
 
         return array
+
 
     def print(self):      
         for car in self.board:
