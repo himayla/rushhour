@@ -77,11 +77,11 @@ class BeamSearch(Breadthfirst):
 
         standard_dev = np.std(numbers)
         # CALIBRATE THIS SHIT
-        if standard_dev > 10:
+        if standard_dev > 4:
 
             ranking = []
             # pick amount of children you want to select
-            n = 3
+            n = 4
             # for beam search, pick only the first n items in the list
             for number in range(0, len(sorted_scores)):
                 if number <= n:

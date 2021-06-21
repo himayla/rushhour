@@ -1,5 +1,6 @@
 from .breadth_first import Breadthfirst
 from code.heuristics import blocked_cars
+from code.heuristics import advanced_block
 from code.algorithms import randomise as rn
 import csv
 import copy
@@ -53,13 +54,14 @@ class BestFirst(Breadthfirst):
                 if str(child) not in self.solution:
                     self.solution[str(child)] = [graph, car_move]
 
-                #-------------------------------------- Best first implementation ------------------------------------#
-                # score grid based on a heuristic
-
-                scored_child = blocked_cars.BlockCar().run(child)
                 
+                # score grid based on a heuristic
+                 #-------------------------------------- Block car heuristic ------------------------------------#
+                # scored_child = blocked_cars.BlockCar().run(child)
+                 #-------------------------------------- Advanced block car heuristic ------------------------------------#
+                scored_child = advanced_block.BlockCar().run(child)
                 # add move to a list of scored grids
-
+                #-------------------------------------- Best first implementation ------------------------------------#
                 scored_list.append(scored_child) 
 
         

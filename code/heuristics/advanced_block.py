@@ -36,13 +36,17 @@ class BlockCar:
             if value == "X":
                 hort_value = counter
             counter +=1
-        
+        count = 0
         for value in range(hort_value + 1, len(grid[self.row_x])):
             car_place = grid[self.row_x][value], value
             if grid[self.row_x][value] != "0":
                 self.right_x.append(car_place)
-            else:
+            # Only take the first three spaces into account when checking empty spaces in front of the red car. 
+            elif count < 4:
                 self.board_score = self.board_score + 10
+            count += 1
+        # The distance to the end of the board influences the score:
+        self.board_score = self.board_score - (1 * count)
         return self.right_x
         
 

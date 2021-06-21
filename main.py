@@ -13,11 +13,11 @@ from code.algorithms import depth_first_mayla as df
 
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_2"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise by Mayla ----------------------------------- #
-    random_model = randomise_mayla.random_solver(model.Model(new_grid))
+    # random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
     # depth = df.DepthFirst(model.Model(new_grid))
     # depth.run()
@@ -44,13 +44,13 @@ if __name__ == "__main__":
     #rn.Randomise(new_grid.board).run()
 
     # --------------------------- best first  --------------------------------- #
-    # paths = BF.BestFirst(new_grid.board).run()
+    paths = BF.BestFirst(new_grid.board).run()
 
     # --------------------------- beam search  --------------------------------- #
     # paths = BS.BeamSearch(new_grid.board).run()
 
     # --------------------------- concatenated search  --------------------------------- #
-    paths = CS.BeamSearch(new_grid.board).run()
+    # paths = CS.BeamSearch(new_grid.board).run()
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
     # car_ids = model.Model.get_car_ids(paths)
     # image_dir = f"visualisation/{name}"
