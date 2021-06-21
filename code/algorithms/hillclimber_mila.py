@@ -16,3 +16,41 @@ count = 0
 9. if count = 100 / 1000 / 100000:
     return path
 """
+from code.classes.model import Model
+from .breadth_firstmayla import Breadthfirst
+import random
+
+class Hillclimber(Breadthfirst):
+    def __init__(self):
+        self.start_grid = ""
+        self.end_grid = "" 
+        self.path_check = ""
+
+    def determine_path(self, path):
+        length = len(path)
+        self.path_check = random.randint(15, 25)
+        start_value = random.randint(0, length - path_check)
+        self.start_grid = path[start_value]
+        self.end_grid = path[start_value + path_check]
+
+    def check_path(self, grid):
+        alt_path = self.find_solution_seq(grid)
+        if len(alt_path) < self.path_check:
+            self.alt_path = alt_path
+            return True
+        else:
+            return False
+
+    def check_solution(self, grid):
+        if grid == self.end_grid:
+            return True
+        else:
+            return False
+
+    def go (self, path):
+        self.determine_path(path)
+        while self.tried < self.check_path:
+            self.run()
+            if self.check_solution(grid):
+                self.check_path(grid)
+
