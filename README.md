@@ -9,8 +9,8 @@ This project aims to algorithimically solve this puzzle using the least amount o
 - [x] Visualise data in a grid
 - [x] Algorithm which generates random solutions
 - [x] First algorithm 
-- [ ] Second algorithm
-- [ ] Find the quickest the solution
+- [x] Second algorithm
+- [?] Find the quickest the solution
 
 ### Getting started
 After cloning the Git code you can run a board by running:
@@ -26,15 +26,17 @@ A visualisation will of the board will be available in **visualisation/boards**
 The Git repository is structured as follows:
 * **/code:**: all code of this project
     *  **/code/algorithms**: code for algorithms
+        * Best_first.py: solve the board by sorting the children based on their score.
+        * Beam_search.py: solve the board by removing children based on their score.
+        * Breadth_first.py: solves the board by checking each generation from left to right (horizontally).
+        * Depth_first.py: solves the board by checking the generations vertically. It selects the first possible next state of the original board and then the next state of that board until a solution is reached or there are no more states to check. 
+        * Concatenated_search.py: solves the board by adapting to the situation it's presented with.
         * Randomise.py: solves the board by finding empty spots and moves cars there until car X is at final destination.
-        * Breadth.py: solves the board by checking each generation from left to right (horizontally).
-        * Depth.py: solves the board by checking the generations vertically. It selects the first possible next state of the original board and then the next state of that board until a solution is reached or there are no more states to check. 
     * **/code/classes**: contains a car, grid and visualisation class.
+    * **/code/heuristics**: heuristics for algorithms
 * **/data**: contains different starting positions from cars to fill a grid
 
 ### Authors
 * Mila Sparreboom
 * Julius Kemmer
 * Mayla Kersten
-
-Our group currently uses [this](https://drive.google.com/drive/folders/1weqj6__kEpObx-_6V2E9ijmGJZKb-iqt) folder to work in.
