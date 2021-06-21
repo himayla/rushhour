@@ -74,12 +74,16 @@ class BeamSearch(Breadthfirst):
         ranking = []
 
         # pick amount of children you want to select
-        n = 3
+        n = 100
 
         # for beam search, pick only the first n items in the list
-        for number in range(0, n):
-            ranking.append(sorted_scores[number])
-            
+        if len(sorted_scores) <= n:
+            for number in range(0, len(sorted_scores)):
+                ranking.append(sorted_scores[number])
+        else:
+            for number in range(0, n):
+                ranking.append(sorted_scores[number])
+                
             # pick only the grid, not the score and loop through the list
         for move in ranking:
             for key, value in move.items():

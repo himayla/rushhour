@@ -64,7 +64,6 @@ class BestFirst(Breadthfirst):
                 #-------------------------------------- Best first implementation ------------------------------------#
                 scored_list.append(scored_child) 
 
-        
 
         # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
 
