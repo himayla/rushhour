@@ -1,5 +1,6 @@
 from .breadth_first import Breadthfirst
 from code.heuristics import blocked_cars
+from code.heuristics import advanced_block
 from code.algorithms import randomise as rn
 import csv
 import copy
@@ -54,11 +55,12 @@ class BeamSearch(Breadthfirst):
                 if str(child) not in self.solution:
                     self.solution[str(child)] = [graph, car_move]
 
-                #-------------------------------------- Beam search implementation ------------------------------------#
-                # score grid based on a heuristic
-
-                scored_child = blocked_cars.BlockCar().run(child)
                 
+                # score grid based on a heuristic
+                #-------------------------------------- blocked car heuristic ------------------------------------#
+                # scored_child = blocked_cars.BlockCar().run(child)
+                #-------------------------------------- Advanced block heuristic ------------------------------------#
+                scored_child = advanced_block.BlockCar().run(child)
                 # add move to a list of scored grids
 
                 scored_list.append(scored_child) 
@@ -67,7 +69,7 @@ class BeamSearch(Breadthfirst):
         # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
 
         # sort the list of dictionaries, higest first
-        
+        #-------------------------------------- Sort the scores ------------------------------------#
         sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
         numbers = []
         # Make a list of scores and determine their standard deviation
@@ -89,16 +91,17 @@ class BeamSearch(Breadthfirst):
                 # pick only the grid, not the score and loop through the list
             for move in ranking:
                 for key, value in move.items():
-    #-------------------------------------- end beam search implementation ------------------------------------#
+   
                 # If the new graph is not yet in the list of states to visit, add it.
                     if value[1] not in self.states and self.tried:
                         self.states.append(value[1])
                     self.tried.append(value[1])
+         #-------------------------------------- end beam search implementation ------------------------------------#
         else:
             for move in sorted_scores:
                 for key, value in move.items():
    
-            # If the new graph is not yet in the list of states to visit, add it.
+                    # If the new graph is not yet in the list of states to visit, add it.
                     if value[1] not in self.states and self.tried:
                         self.states.append(value[1])
                     self.tried.append(value[1])

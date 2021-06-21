@@ -12,7 +12,7 @@ class BlockCar:
         self.right_x = []
         self.row_x = ""
         self.pos_car_row_x = {}
-        self.board_score = 0
+        self.board_score = 1000
 
 
     def check_red_car(self, grid):
@@ -46,7 +46,7 @@ class BlockCar:
                 self.board_score = self.board_score + 10
             count += 1
         # The distance to the end of the board influences the score:
-        self.board_score = self.board_score - (1 * count)
+        self.board_score = self.board_score - (50 * count)
         return self.right_x
         
 
@@ -102,7 +102,7 @@ class BlockCar:
             for letter in range(self.row_x, len(value)):
                 if value[letter] != key:
                     count_vert += 1
-                    if value[letter] == 0:
+                    if value[letter] == "0":
                         self.board_score += 0.5
                         count_empty_low += 1
                         if count_vert == 1:
