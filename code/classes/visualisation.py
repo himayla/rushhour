@@ -12,7 +12,6 @@ class Visualisation():
         self.car_ids = car_ids
         self.board = self.draw_board(board)
 
-
     def draw_board(self, board):
         """
         Visualises the 2D array by creating a plot and filling this with different colors

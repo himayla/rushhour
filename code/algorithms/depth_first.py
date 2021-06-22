@@ -1,12 +1,15 @@
 """
 Depth first algorithm to find the first possible solution.
 """
+
+# Optie: This algorithm solves the game by exploring every path as far, vertically, as possible. En daar dan nog de Docstring aan toevoegen?
+
 import copy
 from code.algorithms import randomise as randomise
 
 class DepthFirst:
     """
-    A Depth First algorithm that builds a stack of graphs with a unique assignment of nodes for each instance.
+    A depth first algorithm that builds a stack of graphs with a unique assignment of nodes for each instance.
     """
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
@@ -25,13 +28,13 @@ class DepthFirst:
         """
         Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
-        # Retrieve randomise.py Randomise class for usefull funcitons
+        # Retrieve randomise.py Randomise class for useful funcitons
         rand_func = randomise.Randomise(grid)
 
-        # Make a list of all empty spaces
+        # A list with all the empty spaces in the board
         empty_spaces = rand_func.find_empty_spaces(grid)
         
-        # For all spaces find all possible moves
+        # For all the empty spaces find all possible moves
         for space in range(len(empty_spaces)):
 
             # Get the x and y axis of each empty spot
@@ -54,6 +57,7 @@ class DepthFirst:
                 new_grid[car] = copy.deepcopy(grid)
                 move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
                 child = move[0]
+
                 # The child cannot be already generated
                 if child not in self.states and child not in self.visited_states:
                     self.states.append(child)
@@ -79,9 +83,7 @@ class DepthFirst:
                     self.generations[str(child)] = grid
                     self.visited_states.append(child)
 
-        
 
-        
     def check_is_visited(self, new_grid):
         """
         Checks if a child is already visited before.

@@ -8,6 +8,7 @@ from code.algorithms import beam_search as BS
 from code.algorithms import concatenated_search as CS
 from code.algorithms import hillclimber as hc
 
+# Mayla's dingen:
 from code.algorithms import randomise_mayla 
 from code.algorithms import depth_first_mayla2 as df
 
@@ -22,7 +23,6 @@ if __name__ == "__main__":
     depth = df.DepthFirst(model.Model(new_grid))
     depth.run()
     
-
     # --------------------------- Hill Climber ---------------------------------
     # print("Setting up Hill Climber...")
     # climber = hc.HillClimber(random_model)

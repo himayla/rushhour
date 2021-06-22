@@ -1,5 +1,5 @@
 """
-pseudo van mila
+pseudocode: 
 input is path
 count = 0
 1. Get a random board from the path that's at least 25 moves away from the final board. 
@@ -15,65 +15,52 @@ count = 0
 9. if count = 100 / 1000 / 100000:
     return path
 """
-
-import copy
+from code.classes.model import Model
+from .breadth_firstmayla import Breadthfirst
 import random
 
-from code.algorithms import randomise_mayla as rn
+class Hillclimber(Breadthfirst):
+    def __init__(self, path):
+        self.start_board = ""
+        self.end_board = ""
+        self.path_check = ""
+        self.path = path
+        self.stat_value = ""
+        self.count = 0
 
-class HillClimber:
-    
-    def __init__(self, model):
-        self.model = model.copy()
-        self.solution = {}
+    def determine_path(self, path):
+        length = len(path)
+        self.path_check = random.randint(15, 25)
+        self.start_value = random.randint(0, length - self.path_check)
+        self.start_board = path[self.start_value]
+        self.end_board = path[self.start_value + self.path_check]
 
-    def get_random_solution(self, new_model):
-        pass
-        #1. Get a random board from the path 
+    def check_path(self, board):
+        alt_path = self.find_solution_seq(board)
+        if len(alt_path) < self.path_check:
+            for board in range(self.start_value, self.start_value + self.path_check):
+                self.path[board] = alt_path[board]
+                if board > len(alt_path):
+                    del self.path[board]
+            self.count = 0
+            return True
+        else:
+            self.count +=1
+            return False
 
-        # 1. One that's at least 25 moves away from the final board.
+    def check_solution(self, board):
+        if board == self.end_board:
+            return True
+        else:
+            return False
 
-        # 2. Another board between 15 and 25 further down the path
-
-    def check_solution(self, new_model):
-        pass
-        # Breadth search the first chosen board and save the steps in a dictionary. 
-
-        # dict[board] = steps
-
-        # when the final board is found:
-            #return
-
-    def compare_solutions(self, solution):
-        pass
-        #If the path to the final board is smaller than the path that was given originally to the algorithm. 
-        # 6. Put the moves of the breadth first algorithm into the place of the original path
-        #count += 1
-
-        #Else:
-        #8. Repeat with another combination of boards. 
-        #count = 0
-
-        #9. if count = 100 / 1000 / 100000:
-        #return path
-        
-
-    def run(self, iterations, paths):
-        """
-        Runs the hillclimber algorithm for a specific amount of iterations.
-        """
-        self.iterations = iterations
-
-        for iteration in range(iterations):
-
-            # Create a copy of the model to simulate the change
-            new_model = self.model.copy()
-
-            #1. Get 2 random boards
-            solution = self.get_random_board(new_model)
-
-            #3. Breadth search these boards
-            solution_1 = self.check_solution(solution)
-
-            # Compare solutions
-            self.compare_solutions(solution_1)
+    def run(self, iterations):
+        self.determine_path(self.path)
+        for state in self.check_path:
+            if self.count == iterations:
+                return self.path
+            new_model = self.path[state]
+            if self.check_solution(new_model):
+                self.check_path(new_model, self.count)
+            else:
+                self.build_children(new_model)

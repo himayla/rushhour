@@ -1,10 +1,12 @@
 """
-Algorithm that uses the breadth first approach to find the shortest possible path to the answer
+Algorithm that uses the breadth first approach to find the shortest possible path to the answer.
 """
+#MK: ^ een betere uitleg van 'breadth first approach', iets in trant van: zoekt de oplossingen door elke generatie horizontaal te bekijken?
 import csv
 import copy
 from code.algorithms import randomise as rn
 
+#MK: Term graph veranderen naar board? En termen: solution, tried bespreken.
 class Breadthfirst:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)

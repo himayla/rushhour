@@ -18,7 +18,7 @@ def rearrange_board(model):
     """
     Chooses an empty space and a car that can move to this place and swaps these.
     """
-      # List all the empty spaces on the board
+    # List all the empty spaces on the board
     empty_spaces = model.get_empty_spaces(model.board)
 
     # Choose a random spaces from the empty spaces

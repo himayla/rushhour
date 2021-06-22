@@ -6,10 +6,10 @@ import copy
 
 class Model():
     def __init__(self, grid):
-        self.grid = grid                        # grid object
-        self.board = copy.deepcopy(grid.board)                 # the board in grid object
-        self.list_of_moves = []                 # for randomise
-        self.victory_move = grid.victory_move # for randomise
+        self.grid = grid                                # grid object
+        self.board = copy.deepcopy(grid.board)          # the board in grid object
+        self.list_of_moves = []                         # for now only for randomise
+        self.victory_move = grid.victory_move           # for now only for randomise
 
     def __str__(self):
         self.print()
@@ -17,6 +17,16 @@ class Model():
     
     def __repr__(self):
         return self.__str__()
+
+    def __hash__(self):
+        return hash(str(self.board))
+
+    def __eq__(self, other):
+        return str(self.board) == str(other.board)
+
+    def __ne__(self, other):
+        return str(self.board) != str(other.board)
+
 
     # ----------------------------- General ----------------------------------- # 
 
@@ -56,16 +66,20 @@ class Model():
         if moves:
             print(f"Amount of moves: {len(self.list_of_moves)}")
 
+
     def write_output(self):
+        """
+        Writes relative distance of cars in a CSV file.
+        """
         file = open('output.csv', 'w+', newline='')
         with file:
             write = csv.writer(file)
             write.writerows(self.moves)
 
-    # --------------------------- Random ----------------------------------- #
+    # ---------------------------- Random Algorithm ----------------------------------- #
     def get_empty_spaces(self, grid):
         """
-        Returns a list of the coordinates of the empty spaces in the grid.
+        Returns a list of coordinates for the empty spaces in the grid.
         """
         empty_spaces = []
 
@@ -77,9 +91,10 @@ class Model():
 
         return empty_spaces
 
+
     def get_relevant_rows(self, empty_space):
         """
-        Returns lists with the cars above, below and to the left and right from the empty space.
+        Returns a list with the cars above, below, to the left and right from the empty space.
         """
 
         # Initialize lists for the cars below or above the empty space
@@ -93,6 +108,8 @@ class Model():
         counter_y = 0
         for value in y_values:
             if value != "0":
+
+                # Check if the car is either upper or below the empty space
                 if counter_y < empty_space[1]:
                     upper.append(value)
                 else:
@@ -105,10 +122,12 @@ class Model():
         left = []
         right = []
 
-        # Get the cars in the horizontal row from the empty space
+        # Find the cars in the horizontal row from the empty space
         counter_x = 0
         for value in x_values:
             if value != "0":
+
+                # Check if the car is either left or right from the empty space
                 if counter_x < empty_space[0]:
                     left.append(value) 
                 else: 
@@ -117,19 +136,16 @@ class Model():
 
         return [upper, lower, left, right]
 
+
     def get_possible_cars(self, directions):
         """
         Returns a list with cars that can move to the empty spot.
         """
+        valid_cars = []
+
         upper = directions[0]
-        lower = directions[1]
-        left = directions[2]
-        right = directions[3]
-
-        possible = []
-
         if upper:            
-            last_place = len(upper) -1
+            last_place = len(upper) - 1
             upper_car = upper[last_place]
             count_upper = 0
             for car in upper:
@@ -138,23 +154,25 @@ class Model():
                 else:
                     count_upper = 0
 
-                if count_upper > 1 and upper_car not in possible:
-                    possible.append(upper_car)
-
+                if count_upper > 1 and upper_car not in valid_cars:
+                    valid_cars.append(upper_car)
+        
+        lower = directions[1]
         if lower:
-            car_left = lower[0]
+            car_lower = lower[0]
             count_lower = 0
             for car in lower:
-                if car == car_left:
+                if car == car_lower:
                     count_lower += 1
                 else:
                     count_lower = 0
 
-                if count_lower > 1 and car_left not in possible:
-                    possible.append(car_left)
+                if count_lower > 1 and car_lower not in valid_cars:
+                    valid_cars.append(car_lower)
 
+        left = directions[2]
         if left:
-            last_place = len(left) -1
+            last_place = len(left) - 1
             left_car = left[last_place]
             count_left = 0
             for car in left:
@@ -163,10 +181,10 @@ class Model():
                 else:
                     count_left = 0   
 
-                if count_left > 1 and left_car not in possible:
-                    possible.append(left_car)
+                if count_left > 1 and left_car not in valid_cars:
+                    valid_cars.append(left_car)
 
-        # If there are cars to the right of the empty space
+        right = directions[3]
         if right:
             right_car = right[0]
             count_right = 0
@@ -176,11 +194,10 @@ class Model():
                 else:
                     count_right = 0
 
-                # Add the first car to the right of the empty space to the list if it's not in there yet 
-                if count_right > 1 and right_car not in possible:
-                    possible.append(right_car)
+                if count_right > 1 and right_car not in valid_cars:
+                    valid_cars.append(right_car)
 
-        return possible
+        return valid_cars
 
 
     def move_car(self, position, random_car, directions):
@@ -190,8 +207,6 @@ class Model():
         """
         upper = directions[0]
         lower = directions[1]
-        left = directions[2]
-        right = directions[3]
 
         # Check if the selected car is above or below the empty spot
         count_upper = 0
@@ -210,7 +225,7 @@ class Model():
             if count_upper > 1:
                 for a in range(count_upper):
                     self.board[index + a][position[0]] = "0"
-                    location = [index + 1, "V"]
+                location = [index - count_upper + 1, "V"]
                 for a in range(count_upper):
                     self.board[position[1] - a][position[0]] = random_car 
 
@@ -230,6 +245,9 @@ class Model():
                     self.board[position[1] + a][position[0]] = random_car
 
         x_values = self.board[position[1]]
+
+        left = directions[2]
+        right = directions[3]
     
         # If the selected car is to the left or right from the empty spot
         count_left = 0
@@ -246,7 +264,7 @@ class Model():
             if count_left > 1:
                 for a in range(count_left):
                     self.board[position[1]][index + a] = "0"
-                    location = [index + 1, "H"]
+                location = [index - count_left + 1, "H"]
                 for a in range(count_left):
                     self.board[position[1]][position[0] - a] = random_car
 
@@ -265,7 +283,7 @@ class Model():
                 for a in range(count_right):
                     self.board[position[1]][position[0] + a] = random_car
         
-        return self
+        return self.board, location
 
     # ----------------------------- Depth First ----------------------------------- #
     def add_to_stack(self, child):            
