@@ -6,7 +6,20 @@ import csv
 import copy
 
 
+
 class BestFirst(Breadthfirst):
+    #    def __init__(self, grid):
+
+    #     # ---------- best first implementation -----# 
+    #     self.pqueue = PriorityQueue()
+    #     self.pqueue.put((1, copy.deepcopy(self.grid)))
+    #     # ---------- best first implementation -----# 
+
+    def get_next_state(self):
+        """
+        Method that gets the next state from the list of states.
+        """
+        return self.pqueue.get()
 
     def build_children(self, graph):
         """
@@ -55,27 +68,63 @@ class BestFirst(Breadthfirst):
                     self.solution[str(child)] = [graph, car_move]
 
                 
-                # score grid based on a heuristic
-                 #-------------------------------------- Block car heuristic ------------------------------------#
+                # score grid based on a heuristic:
+
+                #-------------------------------------- Block car heuristic ------------------------------------#
                 # scored_child = blocked_cars.BlockCar().run(child)
-                 #-------------------------------------- Advanced block car heuristic ------------------------------------#
+                #-------------------------------------- Advanced block car heuristic ------------------------------------#
                 scored_child = advanced_block.BlockCar().run(child)
-                # add move to a list of scored grids
+  
+                
                 #-------------------------------------- Best first implementation ------------------------------------#
+                # add move to a list of scored grids
                 scored_list.append(scored_child) 
-
-
-        # TODO: check of er een standaard afwijking zit in de scores, als zo is, sorteer dan en selecteer de beste
-
-        # sort the list of dictionaries, higest first
-        
-        sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
         
         # pick only the grid, not the score and loop through the list
-        for move in sorted_scores:
-            for key, value in move.items():
-        #-------------------------------------- end Best first implementation ------------------------------------#
-                # If the new graph is not yet in the list of states to visit, add it.
-                if value[1] not in self.states and self.tried:
-                    self.states.append(value[1])
-                self.tried.append(value[1])
+        for item in scored_list:
+            # If the new graph is not yet in the list of states to visit, add it.
+            if item not in self.pqueue.queue:
+                if item[1] not in self.tried:
+                    self.pqueue.put(item)
+            self.tried.append(item[1])
+
+         #-------------------------------------- end Best first implementation ------------------------------------#
+
+
+
+    def run(self):
+        """
+        Runs the algorithm untill a solution is found in a breadth first manner
+        """
+        # While there are still states to visit, stay in the loop
+        while not self.pqueue.empty():
+
+            # Pick a new graph
+            new_graph_list = self.get_next_state()
+
+            new_graph = new_graph_list[1]
+
+            # Check if the graph is an acceptable result, if so, print out the solution
+            if self.check_car_x(new_graph):
+                path = self.find_solution_seq(new_graph)
+
+                count = 0
+                for board in path:
+                    count += 1
+                print(f"moves: {self.moves}")
+                print(count)
+                
+                file = open('output.csv', 'w+', newline='')
+                with file:
+                    write = csv.writer(file)
+                    write.writerows(self.moves)
+                # with open("output.csv", 'w') as f:
+                #     fc = csv.writer(f)
+                # fc.writerows(self.moves)
+
+                return path
+
+            # If the graph is not an acceptable result, create possible "children" of the graph so more options can be visited
+            else:
+                self.build_children(new_graph)
+

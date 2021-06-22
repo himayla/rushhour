@@ -14,14 +14,14 @@ from code.algorithms import depth_first_mayla2 as df
 
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Randomise and Depth by Mayla ----------------------------------- #
     #random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
-    depth = df.DepthFirst(model.Model(new_grid))
-    depth.run()
+    # depth = df.DepthFirst(model.Model(new_grid))
+    # depth.run()
     
     # --------------------------- Hill Climber ---------------------------------
     # print("Setting up Hill Climber...")
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     #       f"{climber.model.calculate_value()}")
 
     # --------------------------- Breadth first ------------------------------- #
-    # paths = dp.Breadthfirst(new_grid.board).run()
+    paths = dp.Breadthfirst(new_grid.board).run()
     # name = "breadth"
     
     # --------------------------- Depth first --------------------------------- #

@@ -1,12 +1,11 @@
 """
-Algorithm that uses the breadth first approach to find the shortest possible path to the answer.
+Algorithm that uses the breadth first approach to find the shortest possible path to the answer
 """
-#MK: ^ een betere uitleg van 'breadth first approach', iets in trant van: zoekt de oplossingen door elke generatie horizontaal te bekijken?
 import csv
 import copy
 from code.algorithms import randomise as rn
+from queue import PriorityQueue
 
-#MK: Term graph veranderen naar board? En termen: solution, tried bespreken.
 class Breadthfirst:
     def __init__(self, grid):
         self.grid = copy.deepcopy(grid)
@@ -14,7 +13,12 @@ class Breadthfirst:
         self.solution = {}
         self.tried = []
         self.moves = [["car", "move"]]
-        
+
+        # ---------- best first implementation -----# 
+        self.pqueue = PriorityQueue()
+        self.pqueue.put((1, copy.deepcopy(self.grid)))
+        # ---------- best first implementation -----# 
+
     def get_next_state(self):
         """
         Method that gets the next state from the list of states.

@@ -1,18 +1,13 @@
-from .depth_first import DepthFirst
+"""
+Simple state space algorithm to calculate the state space for a playing board. 
+Loops in a breadth first manner through all possible child states.
+"""
+from .breadth_firstmayla import Breadthfirst
 
 
-class StateSpace(DepthFirst):
-    """
-    Loop breadth first through all the children, until no more children can be made
-    """
+# veranderen naar breadth first
+class StateSpace(Breadthfirst):
 
-    def get_next_state(self):
-        """
-        Method that gets the next state from the list of states.
-        """
-        return self.states.pop(0)
-
-    
     def run(self):
         """
         Runs the algorithm untill a solution is found.
