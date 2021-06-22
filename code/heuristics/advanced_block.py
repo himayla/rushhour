@@ -140,6 +140,7 @@ class BlockCar:
     #     self.reset()
     #     scores[str(grid)] = [score, grid]
     #     return scores
+    
      # ---------- best first ------------#
     def run(self, grid):
         scores = [] 

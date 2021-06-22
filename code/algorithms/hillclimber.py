@@ -16,7 +16,7 @@ count = 0
     return path
 """
 from code.classes.model import Model
-from .breadth_firstmayla import Breadthfirst
+from .breadth_first import Breadthfirst
 import random
 
 class HillClimber(Breadthfirst):

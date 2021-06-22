@@ -1,152 +1,121 @@
-"""
-Depth first algorithm to find the first possible solution.
-"""
 
-# Optie: This algorithm solves the game by exploring every path as far, vertically, as possible. En daar dan nog de Docstring aan toevoegen?
-
+import csv
 import copy
-from code.algorithms import randomise as randomise
 
 class DepthFirst:
-    """
-    A depth first algorithm that builds a stack of graphs with a unique assignment of nodes for each instance.
-    """
-    def __init__(self, grid):
-        self.grid = copy.deepcopy(grid)
-        self.states = [copy.deepcopy(self.grid)]
-        self.visited_states = []
-        self.generations = {}
-        self.shortest_path= []
+    def __init__(self, model):
+        self.model = model.copy()
+        self.states = [self.model] ## states = stack. kind genereren en 1 aanpassing op doen.
+        self.start_board = ""
+        self.tried = set()
+        self.solution = {}
+        self.moves = [["car", "move"]] 
 
     def get_next_state(self):
-        """
-        Method that gets the next state from the list of states.
-        """
         return self.states.pop()
 
-    def build_children(self, grid):
+    def build_children(self, model):
         """
         Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
-        # Retrieve randomise.py Randomise class for useful funcitons
-        rand_func = randomise.Randomise(grid)
+        empty_spaces = model.get_empty_spaces(model.board)
 
-        # A list with all the empty spaces in the board
-        empty_spaces = rand_func.find_empty_spaces(grid)
-        
-        # For all the empty spaces find all possible moves
         for space in range(len(empty_spaces)):
-
-            # Get the x and y axis of each empty spot
-            directions = rand_func.get_relevant_rows(empty_spaces[space], grid)
-            x_values = directions[0]
-            y_values = directions[1]
-            lower = directions[2]
-            upper = directions[3]
-            right = directions[4]
-            left = directions[5]
-            
+            directions = model.get_relevant_rows(empty_spaces[space])
+ 
             # Find cars that can move to the empty spot
-            cars = rand_func.get_possible_cars(upper, lower, right, left)
-            children = []  
-            new_grid = {} 
+            cars = model.get_possible_cars(directions)
 
             # For each car, move the car on the grid to create a child state.
             for car in cars:
+                new_model = model.copy()
 
-                new_grid[car] = copy.deepcopy(grid)
-                move = rand_func.move_car(empty_spaces[space], car, x_values, y_values, left, right, upper, lower, new_grid[car])
-                child = move[0]
+                # Move each car and save the result 
+                new_move = new_model.move_car(empty_spaces[space], car, directions)
 
-                # The child cannot be already generated
-                if child not in self.states and child not in self.visited_states:
-                    self.states.append(child)
+                new_board = new_move[0]
+                rel_move = new_move[1]
+                if rel_move[1] == "H":
+                    rel_distance = empty_spaces[space][0] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                elif rel_move[1] == "V":
+                    rel_distance = empty_spaces[space][1] - rel_move[0]
+                    car_move = [car, rel_distance]
+                    
+                # If the new graph is not yet added to the dictionary of paths, add it. 
+                if str(new_board) not in self.solution:
+                    self.solution[str(new_board)] = [model, car_move]
+                
+                # If the new graph is not yet in the list of states to visit, add it.
+                if new_model not in self.tried:
+                    self.states.append(new_model)
+                    self.tried.add(new_model)
 
-                # If we already came across the child, but this child has a shorter path, then pick this new path
-                if child in self.visited_states:
-                    path_child = self.find_solution_seq(child)
-                    path_parent = self.find_solution_seq(grid)
-
-                    child_path_count = 0
-                    for board in path_child:
-                        child_path_count += 1
-
-                    parent_path_count = 0
-                    for board in path_parent:
-                        parent_path_count += 1
-
-                    if parent_path_count + 1 < child_path_count:
-                        self.generations[str(child)] = grid
-
-                # If the child is not new, add it to the list of visited states and add it to the generations dictionary
-                else:
-                    self.generations[str(child)] = grid
-                    self.visited_states.append(child)
+                # self.states.append(new_model)
 
 
-    def check_is_visited(self, new_grid):
+    def is_solution(self, board):
         """
-        Checks if a child is already visited before.
+        The game is solved if the winning move is included in the states.
         """
-        if new_grid in self.visited_states:
+        if len(board[0]) == 6:
+            victory_coor = [5, 2]
+        elif len(board[0]) == 9:
+            victory_coor = [8, 4]
+        elif len(board[0]) == 12:
+            victory_coor = [11, 5]
+
+        #print(board[victory_coor[1]][victory_coor[0]])
+
+        if board[victory_coor[1]][victory_coor[0]] == 'X':
             return True
         else:
             return False
 
-
-    def find_solution_seq(self, final_graph):
+    def find_solution_seq(self, new_model):
         """
-        Based on the final graph, trace back the previous graphs using the self.generations nested dictionary. 
+        Based on the final graph, trace back the previous graphs using the self.solution nested dictionary. 
         If the original graph is found, return the list of all graphs used to reach the final graph, in chronological order
         """
-        path = [final_graph]
-        if str(final_graph) not in str(self.grid):
-            previous_state = self.generations[str(final_graph)]
-            path = self.find_solution_seq(previous_state) + path   
-                   
+        #board = new_model.board
+        path = [new_model]
+        # start_board = self.start_board
+
+        if new_model != self.start_board:
+            previous_state = self.solution[str(new_model.board)][0]
+            # breakpoint()
+            path = self.find_solution_seq(previous_state) + path
+            self.moves = self.moves + [self.solution[str(new_model.board)][1]]
+        
         return path
-
-
-    def check_solution(self, new_grid):
-        """
-        Check if the current state is a solution.
-        """
-        if len(self.grid[0]) == 6:
-            victory_coordinates = [5, 2]
-        elif len(self.grid[0]) == 9:
-            victory_coordinates = [8, 4]
-        elif len(self.grid[0]) == 12:
-            victory_coordinates = [11, 5]
-
-        if new_grid[victory_coordinates[1]][victory_coordinates[0]] == 'X':
-            return True
-        else:
-            return False
-
 
     def run(self):
         """
-        Runs the algorithm untill a solution is found.
+        Runs the algorithm until a solution is found.
         """
-        while len(self.states) != 0:
+        counter = 0
+        self.start_board = self.states[0]
 
-            # If there is a map on the top of the stack, get it
-            new_grid = self.get_next_state()
+        while self.states: 
+      
+            new_model = self.get_next_state()
+            if self.is_solution(new_model.board):
 
-            # Check if this grid is a solution  
-            if self.check_solution(new_grid) == True:
-
-                # Find the path for this solution
-                path = self.find_solution_seq(new_grid)
-
-                count = 0
-                for board in path:
-                    count += 1
-                print(count)
+                path = self.find_solution_seq(new_model)
+                print(f"moves: {len(path)}")
+            
+                file = open('output.csv', 'w+', newline='')
+                with file:
+                    write = csv.writer(file)
+                    write.writerows(self.moves)
 
                 return path
-
-
-            # Build new children
             else:
-                self.build_children(new_grid)
+                self.build_children(new_model)
+                #breakpoint()
+
+            counter +=1
+        # print(new_model.__hash__())
+
+        
