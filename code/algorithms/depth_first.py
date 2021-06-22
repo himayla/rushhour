@@ -52,9 +52,6 @@ class DepthFirst:
                     self.states.append(new_model)
                     self.tried.add(new_model)
 
-                # self.states.append(new_model)
-
-
     def is_solution(self, board):
         """
         The game is solved if the winning move is included in the states.

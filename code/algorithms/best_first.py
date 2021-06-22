@@ -8,12 +8,12 @@ import copy
 
 
 class BestFirst(Breadthfirst):
-    #    def __init__(self, grid):
+        def __init__(self, grid):
 
-    #     # ---------- best first implementation -----# 
-    #     self.pqueue = PriorityQueue()
-    #     self.pqueue.put((1, copy.deepcopy(self.grid)))
-    #     # ---------- best first implementation -----# 
+        # ---------- best first implementation -----# 
+        self.pqueue = PriorityQueue()
+        self.pqueue.put((1, copy.deepcopy(self.grid)))
+        # ---------- best first implementation -----# 
 
     def get_next_state(self):
         """
