@@ -15,7 +15,7 @@ if __name__ == "__main__":
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
-    paths = bs.BeamSearch(model.Model(new_grid)).run() 
+    #paths = bs.BeamSearch(model.Model(new_grid)).run() 
    
     # --------------------------- Best First  --------------------------------- #
     #paths = bf.BestFirst(model.Model(new_grid)).run() #!!!
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run() #!!
     
     # --------------------------- Depth first --------------------------------- #
-    # paths = df.DepthFirst(model.Model(new_grid)).run()
+    paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # # --------------------------- Hill Climber --------------------------------- #
     # print("Setting up Hill Climber...")
@@ -40,7 +40,11 @@ if __name__ == "__main__":
     # else:
     #     print(f"that's plenty efficient!")
 
-    # # --------------------------- Randomise ----------------------------------- #
+    #  --------------------------- Randomise ----------------------------------- #
+    #rn.random_solver(model.Model(new_grid))
+    
+     # --------------------------- Visualisation ----------------------------------- #
+
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
     

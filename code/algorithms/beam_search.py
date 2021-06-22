@@ -1,9 +1,7 @@
 """
 This algorithm...
 """
-
 from .breadth_first import Breadthfirst
-from code.heuristics import blocked_cars
 from code.heuristics import advanced_block
 
 class BeamSearch(Breadthfirst):
@@ -18,10 +16,11 @@ class BeamSearch(Breadthfirst):
             directions = model.get_relevant_rows(empty_spaces[space])
 
             # Find cars that can move to the empty spot
-            cars = model.get_possible_cars(directions)
+            possible_cars = model.get_possible_cars(directions)
+
 
             # For each car, move the car on the grid to create a child state.
-            for car in cars:
+            for car in possible_cars:
                 new_model = model.copy()
 
                 # Move each car and save the result 
@@ -36,13 +35,14 @@ class BeamSearch(Breadthfirst):
                 elif rel_move[1] == "V":
                     rel_distance = empty_spaces[space][1] - rel_move[0]
                     car_move = [car, rel_distance]
-                    
+                                    
                 # If the new graph is not yet added to the dictionary of paths, add it. 
                 if str(new_board) not in self.solution:
                     self.solution[str(new_board)] = [model, car_move]
                 
                 #-------------------------------------- Beam search implementation ------------------------------------#
                 scored_list = []
+
                 # Score the current board based on the heuristic
                 scored_child = advanced_block.BlockCar().run(new_model)
                 
@@ -55,7 +55,7 @@ class BeamSearch(Breadthfirst):
                 ranking = []
 
                 # Pick the amount of children to select
-                n = 10000
+                n = 3
 
                 # To perform a beam search, only use the first n items in the list
                 if len(sorted_scores) <= n:
@@ -65,15 +65,12 @@ class BeamSearch(Breadthfirst):
                     for number in range(0, n):
                         ranking.append(sorted_scores[number])
 
-                # print(type(ranking))
-
                 # Pick only the grid, not the score and loop through the list #MK: snap ik niet?
                 for move in ranking:
                     for key, value in move.items():
                         # print(f"value: {value[1]}")
             #-------------------------------------- End beam search implementation ------------------------------------
                         # If the new graph is not yet in the list of states to visit, add it
-                        if value[1] not in self.states and value[1] not in self.tried: #VALUE [1] GAAT HET MIS.
-                            # print(f"found this ")
+                        if value[1] not in self.states and value[1] not in self.tried:
                             self.states.append(value[1])
                             self.tried.add(value[1])

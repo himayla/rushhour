@@ -6,10 +6,13 @@ import copy
 
 class Model():
     def __init__(self, grid):
-        self.grid = grid                                # grid object
-        self.board = copy.deepcopy(grid.board)          # the board in grid object
-        self.list_of_moves = []                         # for now only for randomise
-        self.victory_move = grid.victory_move           # for now only for randomise
+        """ 
+        Initializes a model based on the grid class.
+        """ 
+        self.grid = grid
+        self.board = copy.deepcopy(grid.board)
+        self.list_of_moves = [["car", "move"]]
+        self.victory_move = grid.victory_move
 
     # def __str__(self):
     #     self.print()
@@ -35,6 +38,7 @@ class Model():
         Returns a dictionary with the cars and car ID's.
         """
         car_ids = {}
+
         id = 0
         for x in range(len(self.board)):
             for y in range(len(self.board)):
@@ -44,19 +48,23 @@ class Model():
                     id += 1
 
         return car_ids
-    
+
+
     def copy(self):
         """
         Returns a copy of self.
         """
         new = Model(self.grid)
+
+        # Update the board after copy
         for row in range(len(self.board)):
             for col in range(len(self.board[row])):
                 new.board[row][col] = self.board[row][col]
 
         return new
 
-    def print(self, moves=False):
+
+    def print(self, moves=False, path=False):
         """
         Prints board.
         """
@@ -65,27 +73,30 @@ class Model():
             print(line)
         if moves:
             print(f"Amount of moves: {len(self.list_of_moves)}")
+        if path:
+            print(f"Amount of moves in path: {len(path)}")
 
-
-    def write_output(self):
+    def write_output(self, moves):
         """
-        Writes relative distance of cars in a CSV file.
+        Writes the relative distance of cars in a CSV file.
         """
         file = open('output.csv', 'w+', newline='')
         with file:
             write = csv.writer(file)
-            write.writerows(self.moves)
+            write.writerows(moves)
+    
+    # ---------------------------- Algorithms ----------------------------------- #
 
-    # ---------------------------- Random Algorithm ----------------------------------- #
-    def get_empty_spaces(self, grid):
+    
+    def get_empty_spaces(self, board):
         """
         Returns a list of coordinates for the empty spaces in the grid.
         """
         empty_spaces = []
 
-        for x in range(len(grid)):
-            for y in range(len(grid[x])):
-                if grid[y][x] == "0":
+        for x in range(len(board)):
+            for y in range(len(board[x])):
+                if board[y][x] == "0":
                     empty_space = [x,y]
                     empty_spaces.append(empty_space)
 
@@ -203,7 +214,7 @@ class Model():
     def move_car(self, position, random_car, directions):
         """
         Moves the selected car to the random empty spot by updating the current grid.
-        Returns the new grid.
+        Returns the new board and the move.
         """
         upper = directions[0]
         lower = directions[1]
@@ -223,11 +234,11 @@ class Model():
 
             # Check orientation and then move the car
             if count_upper > 1:
-                for a in range(count_upper):
-                    self.board[index + a][position[0]] = "0"
+                for car in range(count_upper):
+                    self.board[index + car][position[0]] = "0"
                 location = [index - count_upper + 1, "V"]
-                for a in range(count_upper):
-                    self.board[position[1] - a][position[0]] = random_car 
+                for car in range(count_upper):
+                    self.board[position[1] - car][position[0]] = random_car 
 
         # If the car is lower than the empty space
         elif random_car in lower:
@@ -238,11 +249,11 @@ class Model():
                     
             # Check orientation, then move the length of the car first zero’s then car-names
             if count_lower > 1:
-                for a in range(count_lower):
-                    self.board[index + a][position[0]] = "0"
+                for car in range(count_lower):
+                    self.board[index + car][position[0]] = "0"
                     location = [index, "V"]
-                for a in range(count_lower):
-                    self.board[position[1] + a][position[0]] = random_car
+                for car in range(count_lower):
+                    self.board[position[1] + car][position[0]] = random_car
 
         x_values = self.board[position[1]]
 
@@ -262,11 +273,11 @@ class Model():
 
             # If the car is in the correct orientation, change the old coordinates to 0 and the new coordinates to the name of the car
             if count_left > 1:
-                for a in range(count_left):
-                    self.board[position[1]][index + a] = "0"
+                for car in range(count_left):
+                    self.board[position[1]][index + car] = "0"
                 location = [index - count_left + 1, "H"]
-                for a in range(count_left):
-                    self.board[position[1]][position[0] - a] = random_car
+                for car in range(count_left):
+                    self.board[position[1]][position[0] - car] = random_car
 
         # If the car is to the right of the empty space
         elif random_car in right:
@@ -277,13 +288,21 @@ class Model():
                     
             # Check the car’s orientation, then change the coordinates of the car to 0 and the empty space and relative coordinates to the name of the car
             if count_right > 1:
-                for a in range(count_right):
-                    self.board[position[1]][index + a] = "0"
+                for car in range(count_right):
+                    self.board[position[1]][index + car] = "0"
                     location = [index, "H"]
-                for a in range(count_right):
-                    self.board[position[1]][position[0] + a] = random_car
+                for car in range(count_right):
+                    self.board[position[1]][position[0] + car] = random_car
         
         return self.board, location
 
-    # ----------------------------- Depth First ----------------------------------- #
-
+    def get_victory_coor(self):
+        
+        if len(self.board) == 6:
+            victory_coor = [5, 2]
+        elif len(self.board) == 9:
+            victory_coor = [8, 4]
+        elif len(self.board) == 12:
+            victory_coor = [11, 5]
+        
+        return victory_coor
