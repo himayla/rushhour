@@ -63,15 +63,9 @@ class DepthFirst:
         """
         The game is solved if the winning move is included in the states.
         """
-        if len(board[0]) == 6:
-            victory_coor = [5, 2]
-        elif len(board[0]) == 9:
-            victory_coor = [8, 4]
-        elif len(board[0]) == 12:
-            victory_coor = [11, 5]
-
-        #print(board[victory_coor[1]][victory_coor[0]])
-
+        victory = new_model.board_victory
+        if new_model.board[1][0] == new_model.y:
+ 
         if board[victory_coor[1]][victory_coor[0]] == 'X':
             return True
         else:
