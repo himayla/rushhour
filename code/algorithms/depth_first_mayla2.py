@@ -1,4 +1,6 @@
-#werkt nog niet
+
+import csv
+import copy
 
 class DepthFirst:
     def __init__(self, model):
@@ -7,7 +9,7 @@ class DepthFirst:
         self.start_board = ""
         self.tried = set()
         self.solution = {}
-        
+        self.moves = [["car", "move"]] 
 
     def get_next_state(self):
         return self.states.pop()
@@ -43,7 +45,7 @@ class DepthFirst:
                     
                 # If the new graph is not yet added to the dictionary of paths, add it. 
                 if str(new_board) not in self.solution:
-                    self.solution[str(new_board)] = [model.board, car_move]
+                    self.solution[str(new_board)] = [model, car_move]
                 
                 # If the new graph is not yet in the list of states to visit, add it.
                 if new_model not in self.tried:
@@ -76,14 +78,17 @@ class DepthFirst:
         Based on the final graph, trace back the previous graphs using the self.solution nested dictionary. 
         If the original graph is found, return the list of all graphs used to reach the final graph, in chronological order
         """
-        new_model = new_model.board
+        #board = new_model.board
         path = [new_model]
-        
-        if str(new_model) not in str(self.start_board):
-            previous_state = self.solution[str(new_model)][0]
+        # start_board = self.start_board
+
+        if new_model != self.start_board:
+            previous_state = self.solution[str(new_model.board)][0]
+            # breakpoint()
             path = self.find_solution_seq(previous_state) + path
-            self.moves = self.moves + [self.solution[str(new_model)][1]]
-            return path
+            self.moves = self.moves + [self.solution[str(new_model.board)][1]]
+        
+        return path
 
     def run(self):
         """
@@ -91,20 +96,26 @@ class DepthFirst:
         """
         counter = 0
         self.start_board = self.states[0]
+
         while self.states: 
       
             new_model = self.get_next_state()
             if self.is_solution(new_model.board):
-                print("victory")
+
+                path = self.find_solution_seq(new_model)
+                print(f"moves: {len(path)}")
+            
+                file = open('output.csv', 'w+', newline='')
+                with file:
+                    write = csv.writer(file)
+                    write.writerows(self.moves)
+
                 break
             else:
                 self.build_children(new_model)
-                breakpoint()
-
-
+                #breakpoint()
 
             counter +=1
-            print(new_model)
-            print(new_model.__hash__())
+        # print(new_model.__hash__())
 
         

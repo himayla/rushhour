@@ -64,6 +64,3 @@ if __name__ == "__main__":
 
     # # Create gif from images in the folder
     # vs.Visualisation.create_gif(f"{image_dir}")
- 
-
-    
