@@ -41,17 +41,14 @@ if __name__ == "__main__":
         print(f"that's plenty efficient!")
 
     # --------------------------- Randomise ----------------------------------- #
-    #rn.random_solver(model.Model(new_grid))
-
-    # -------------------------- Visualisation (for depth and breadth) -------------------------------- #
-    # car_ids = model.Model.get_car_ids(paths) # !!!!!DOET HET NIET!
-    # image_dir = f"visualisation/{name}"
+    car_ids = model.Model.get_car_ids(new_grid)    
+    image_dir = f"visualisation/boards"
     
-    # # Visualise the different boards and save them in folder 
-    # counter = 1.0
-    # for path in paths:
-    #     vs.Visualisation(path, car_ids).save_as(f"{image_dir}/{counter:.1f}")
-    #     counter += 0.1
+    # Visualise the different boards and save them in folder 
+    counter = 1.0
+    for path in paths:
+        vs.Visualisation(path, car_ids).save_plot(f"{image_dir}/{counter:.1f}")
+        counter += 0.1
 
-    # # Create gif from images in the folder
-    # vs.Visualisation.create_gif(f"{image_dir}")
+    #Create gif from images in the folder
+    vs.Visualisation.create_gif(f"{image_dir}")

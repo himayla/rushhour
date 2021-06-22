@@ -11,12 +11,12 @@ class Model():
         self.list_of_moves = []                         # for now only for randomise
         self.victory_move = grid.victory_move           # for now only for randomise
 
-    # def __str__(self):
-    #     self.print()
-    #     return f''
+    def __str__(self):
+        self.print()
+        return f''
     
-    # def __repr__(self):
-    #     return self.__str__()
+    def __repr__(self):
+        return self.__str__()
 
     def __hash__(self):
         return hash(str(self.board))
@@ -29,22 +29,22 @@ class Model():
 
 
     # ----------------------------- General ----------------------------------- # 
-
-    def get_car_ids(paths):
+    
+    def get_car_ids(self):
         """
         Returns a dictionary with the cars and car ID's.
         """
         car_ids = {}
         id = 0
-        for x in range(len(paths[0])):
-            for y in range(len(paths[0])):
-                car = paths[0][y][x] 
+        for x in range(len(self.board)):
+            for y in range(len(self.board)):
+                car = self.board[y][x] 
                 if car not in car_ids:
-                    car_ids[paths[0][y][x]] = id
+                    car_ids[self.board[y][x]] = id
                     id += 1
 
         return car_ids
-
+    
     def copy(self):
         """
         Returns a copy of self.
@@ -286,8 +286,4 @@ class Model():
         return self.board, location
 
     # ----------------------------- Depth First ----------------------------------- #
-    def add_to_stack(self, child):            
-        # If the new graph is not yet in the list of states to visit, add it.
-        if child not in self.stack:
-            self.stack.append(child)
 
