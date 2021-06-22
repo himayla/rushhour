@@ -30,13 +30,15 @@ if __name__ == "__main__":
     # paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # --------------------------- Hill Climber --------------------------------- #
-    # print("Setting up Hill Climber...")
-    # climber = hc.HillClimber(paths).run(20)
-
-    # print("Running Hill Climber...")
-
-    # print(f"Value of the configuration after Hill Climber: "
-    #       f"{climber.model.calculate_value()}")
+    print("Setting up Hill Climber...")
+    model_path = []
+    for path in paths:
+        model_path.append(model.Model(path))      
+    climber = hc.HillClimber(model_path).run(100)
+    if climber:
+        print(f"faster path: {len(climber)}")
+    else:
+        print(f"that's plenty efficient!")
 
     # --------------------------- Randomise ----------------------------------- #
     #rn.random_solver(model.Model(new_grid))

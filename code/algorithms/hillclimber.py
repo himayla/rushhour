@@ -26,9 +26,12 @@ class HillClimber(Breadthfirst):
         self.path_check = ""
         self.path = path
         self.stat_value = ""
-        self.count = 0
+        self.count = int(0)
         self.states = [self]
         self.visited_states = []
+        self.solution = {}
+        self.tried = set()
+        self.moves = []
 
     def determine_path(self, path):
         length = len(path)
@@ -37,32 +40,48 @@ class HillClimber(Breadthfirst):
         self.start_board = path[self.start_value]
         self.end_board = path[self.start_value + self.path_check]
 
-    def check_path(self, board):
-        alt_path = self.find_solution_seq(board)
+    def check_path(self, final_model):
+        alt_path = self.find_solution_seq(final_model)
+        
         if len(alt_path) < self.path_check:
             for board in range(self.start_value, self.start_value + self.path_check):
                 self.path[board] = alt_path[board]
                 if board > len(alt_path):
                     del self.path[board]
+                    print(f"did something useful!")
             self.count = 0
+            # self.run(iterations)
             return True
         else:
             self.count +=1
+            # print(f"was not useful but still fun")
+            # self.run(iterations)
             return False
 
     def check_solution(self, board):
+        # print(f"board: {board.board}")
+        # print(f"end board: {self.end_board.board}")
         if board == self.end_board:
+            # print(f"found something!")
+            # breakpoint()
             return True
         else:
             return False
 
     def run(self, iterations):
-        self.determine_path(self.path)
-        for state in range(self.path_check):
-            if self.count == iterations:
-                return self.path
-            new_model = self.path[state]
-            if self.check_solution(new_model):
-                self.check_path(new_model, self.count)
-            else:
-                self.build_children(new_model.board)
+        for i in range(iterations):
+            count = 0
+            self.determine_path(self.path)
+            while self.states:
+                # for state in range(len(self.states*1000)):
+                new_model = self.path[count]
+                count +=1
+                if self.check_solution(new_model):
+                    self.check_path(new_model)
+                    break
+                else:
+                    self.build_children(new_model)
+        return self.path
+
+
+        
