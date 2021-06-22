@@ -27,7 +27,7 @@ class HillClimber(Breadthfirst):
         self.path = path
         self.stat_value = ""
         self.count = int(0)
-        self.states = [self]
+        self.states = [self.start_board]
         self.visited_states = []
         self.solution = {}
         self.tried = set()
@@ -35,52 +35,54 @@ class HillClimber(Breadthfirst):
 
     def determine_path(self, path):
         length = len(path)
-        self.path_check = random.randint(15, 25)
-        self.start_value = random.randint(0, length - self.path_check)
+        # self.path_check = random.randint(100, 120)
+        self.path_check = 194
+        # self.start_value = random.randint(0, length - self.path_check)
+        self.start_value = 0
         self.start_board = path[self.start_value]
         self.end_board = path[self.start_value + self.path_check - 1]
 
     def check_path(self, final_model):
         alt_path = self.find_solution_seq(final_model)
-        
         if len(alt_path) < self.path_check:
-            for board in range(self.start_value, self.start_value + self.path_check):
-                self.path[board] = alt_path[board]
-                if board > len(alt_path):
-                    del self.path[board]
-                    print(f"did something useful!")
+            for board in range(self.start_value, self.start_value + self.path_check - 1):
+                if board >= len(alt_path):
+                    # GET RID OF THE REST
+                    self.path.remove(board)
+                self.path[self.start_value + board] = alt_path[board]
             self.count = 0
-            # self.run(iterations)
             return True
         else:
             self.count +=1
-            # print(f"was not useful but still fun")
-            # self.run(iterations)
             return False
 
     def check_solution(self, board):
         # print(f"board: {board.board}")
-        # print(f"end board: {self.end_board.board}")
+        # print(f"end: {self.end_board.board}")
+        # print(f"start:{type(board)}")
+        # print(f"eind: {type(self.end_board)}")
         if board == self.end_board:
-            # print(f"found something!")
-            # breakpoint()
             return True
         else:
             return False
 
     def run(self, iterations):
         for i in range(iterations):
-            count = 0
             self.determine_path(self.path)
-            while self.states:
-                # for state in range(len(self.states*1000)):
-                new_model = self.path[count]
-                count +=1
+            new_model = self.start_board
+            # print(f"new_model1: {new_model}")
+            while self.states: 
+                
+                # print(f"new model: {new_model}")
                 if self.check_solution(new_model):
+                    print(f"laatste board gevond")
                     self.check_path(new_model)
                     break
                 else:
+                    # print(f"new_model2: {new_model}")
                     self.build_children(new_model)
+                    # print(f"self.states: {self.states}")
+                new_model = self.states.pop(1)
         return self.path
 
 
