@@ -21,36 +21,47 @@ from .breadth_firstmayla import Breadthfirst
 import random
 
 class Hillclimber(Breadthfirst):
-    def __init__(self):
-        self.start_grid = ""
-        self.end_grid = "" 
+    def __init__(self, path):
+        self.start_board = ""
+        self.end_board = ""
         self.path_check = ""
+        self.path = path
+        self.stat_value = ""
+        self.count = 0
 
     def determine_path(self, path):
         length = len(path)
         self.path_check = random.randint(15, 25)
-        start_value = random.randint(0, length - path_check)
-        self.start_grid = path[start_value]
-        self.end_grid = path[start_value + path_check]
+        self.start_value = random.randint(0, length - self.path_check)
+        self.start_board = path[self.start_value]
+        self.end_board = path[self.start_value + self.path_check]
 
-    def check_path(self, grid):
-        alt_path = self.find_solution_seq(grid)
+    def check_path(self, board):
+        alt_path = self.find_solution_seq(board)
         if len(alt_path) < self.path_check:
-            self.alt_path = alt_path
+            for board in range(self.start_value, self.start_value + self.path_check):
+                self.path[board] = alt_path[board]
+                if board > len(alt_path):
+                    del self.path[board]
+            self.count = 0
+            return True
+        else:
+            self.count +=1
+            return False
+
+    def check_solution(self, board):
+        if board == self.end_board:
             return True
         else:
             return False
 
-    def check_solution(self, grid):
-        if grid == self.end_grid:
-            return True
-        else:
-            return False
-
-    def go (self, path):
-        self.determine_path(path)
-        while self.tried < self.check_path:
-            self.run()
-            if self.check_solution(grid):
-                self.check_path(grid)
-
+    def run(self, iterations):
+        self.determine_path(self.path)
+        for state in self.check_path:
+            if self.count == iterations:
+                return self.path
+            new_model = self.path[state]
+            if self.check_solution(new_model):
+                self.check_path(new_model, self.count)
+            else:
+                self.build_children(new_model)
