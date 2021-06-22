@@ -43,18 +43,18 @@ class BeamSearch(Breadthfirst):
                 #-------------------------------------- Beam search implementation ------------------------------------#
                 scored_list = []
                 # Score the current board based on the heuristic
-                scored_child = blocked_cars.BlockCar().run(new_board)
-            
+                scored_child = blocked_cars.BlockCar().run(new_model.board)
+
                 # Add move to a list of scored grids
                 scored_list.append(scored_child) 
-
+    
                 # Sort the list of dictionaries, higest first
                 sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
 
                 ranking = []
 
                 # Pick the amount of children to select
-                n = 3
+                n = 10000
 
                 # To perform a beam search, only use the first n items in the list
                 if len(sorted_scores) <= n:
@@ -63,13 +63,13 @@ class BeamSearch(Breadthfirst):
                 else:
                     for number in range(0, n):
                         ranking.append(sorted_scores[number])
-                        
+
                 # Pick only the grid, not the score and loop through the list #MK: snap ik niet?
                 for move in ranking:
                     for key, value in move.items():
 
-            #-------------------------------------- End beam search implementation ------------------------------------#
-                        # If the new graph is not yet in the list of states to visit, add it.
-                        if new_model not in self.tried:
-                            self.states.append(new_model)
-                            self.tried.add(new_model)
+            #-------------------------------------- End beam search implementation ------------------------------------
+                        # If the new graph is not yet in the list of states to visit, add it
+                        if value[1] not in self.states and self.tried: #VALUE [1] GAAT HET MIS.
+                            self.states.append(value[1])
+                            self.tried.append(value[1])

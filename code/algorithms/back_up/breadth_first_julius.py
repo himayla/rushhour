@@ -1,10 +1,7 @@
 """
 Algorithm that uses the breadth first approach to find the shortest possible path to the answer
 """
-import csv
-import copy
 from code.algorithms import randomise as rn
-from queue import PriorityQueue
 
 class Breadthfirst:
     def __init__(self, grid):

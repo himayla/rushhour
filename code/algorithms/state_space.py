@@ -2,15 +2,13 @@
 Simple state space algorithm to calculate the state space for a playing board. 
 Loops in a breadth first manner through all possible child states.
 """
-from .breadth_firstmayla import Breadthfirst
+from .breadth_first import Breadthfirst
 
-
-# veranderen naar breadth first
 class StateSpace(Breadthfirst):
 
     def run(self):
         """
-        Runs the algorithm untill a solution is found.
+        Runs the algorithm until a solution is found.
         """
         while self.states:
 

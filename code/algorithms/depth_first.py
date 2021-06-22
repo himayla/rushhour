@@ -1,6 +1,7 @@
-
 import csv
 import copy
+from queue import PriorityQueue
+
 
 class DepthFirst:
     def __init__(self, model):
@@ -9,7 +10,13 @@ class DepthFirst:
         self.start_board = ""
         self.tried = set()
         self.solution = {}
-        self.moves = [["car", "move"]] 
+        self.moves = [["car", "move"]]
+
+        # ---------- best first implementation -----# 
+        self.pqueue = PriorityQueue()
+        self.pqueue.put((1, model.copy()))
+        # ---------- best first implementation -----# 
+
 
     def get_next_state(self):
         return self.states.pop()
@@ -91,7 +98,6 @@ class DepthFirst:
         """
         Runs the algorithm until a solution is found.
         """
-        counter = 0
         self.start_board = self.states[0]
 
         while self.states: 
@@ -110,9 +116,3 @@ class DepthFirst:
                 return path
             else:
                 self.build_children(new_model)
-                #breakpoint()
-
-            counter +=1
-        # print(new_model.__hash__())
-
-        

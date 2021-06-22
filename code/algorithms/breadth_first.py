@@ -6,7 +6,7 @@ Algorithm that uses the breadth first approach to find the shortest possible pat
 from .depth_first import DepthFirst
 
 class Breadthfirst(DepthFirst):
-
+    
     def get_next_state(self):
         """
         Method that gets the next state from the list of states.

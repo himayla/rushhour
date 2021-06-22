@@ -84,7 +84,6 @@ class BlockCar:
         Gives a half point for each way a car that blocks the red car to be able to move at all.
         Gives a tenth of a point for every empty spot that is in the car of a car that blocks the red car. 
         """
-        
         for key, value in self.pos_car_row_x.items():
                      
             count_empty_up = 0
@@ -133,10 +132,9 @@ class BlockCar:
         score = self.check_moves(rel_moves[0], rel_moves[1])
         self.reset()
         scores[str(grid)] = [score, grid]
+
         return scores
             
-
-
 # """
 # Future ideas: 
 # - check the third row
