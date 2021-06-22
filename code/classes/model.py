@@ -11,12 +11,12 @@ class Model():
         self.list_of_moves = []                         # for now only for randomise
         self.victory_move = grid.victory_move           # for now only for randomise
 
-    def __str__(self):
-        self.print()
-        return f''
+    # def __str__(self):
+    #     self.print()
+    #     return f''
     
-    def __repr__(self):
-        return self.__str__()
+    # def __repr__(self):
+    #     return self.__str__()
 
     def __hash__(self):
         return hash(str(self.board))

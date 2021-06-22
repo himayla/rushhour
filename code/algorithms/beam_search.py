@@ -4,6 +4,7 @@ This algorithm...
 
 from .breadth_first import Breadthfirst
 from code.heuristics import blocked_cars
+from code.heuristics import advanced_block
 
 class BeamSearch(Breadthfirst):
 
@@ -43,8 +44,8 @@ class BeamSearch(Breadthfirst):
                 #-------------------------------------- Beam search implementation ------------------------------------#
                 scored_list = []
                 # Score the current board based on the heuristic
-                scored_child = blocked_cars.BlockCar().run(new_model.board)
-
+                scored_child = advanced_block.BlockCar().run(new_model)
+                
                 # Add move to a list of scored grids
                 scored_list.append(scored_child) 
     
@@ -64,12 +65,12 @@ class BeamSearch(Breadthfirst):
                     for number in range(0, n):
                         ranking.append(sorted_scores[number])
 
-                print(type(ranking))
+                # print(type(ranking))
 
                 # Pick only the grid, not the score and loop through the list #MK: snap ik niet?
                 for move in ranking:
-                    for key, value in new_move.items():
-
+                    for key, value in move.items():
+                        # print(f"value: {value[1]}")
             #-------------------------------------- End beam search implementation ------------------------------------
                         # If the new graph is not yet in the list of states to visit, add it
                         if value[1] not in self.states and self.tried: #VALUE [1] GAAT HET MIS.
