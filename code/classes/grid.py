@@ -71,6 +71,8 @@ class Grid():
 
         return array
 
+        
+
 
     def print(self):      
         for car in self.board:

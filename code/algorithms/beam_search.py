@@ -64,9 +64,11 @@ class BeamSearch(Breadthfirst):
                     for number in range(0, n):
                         ranking.append(sorted_scores[number])
 
+                print(type(ranking))
+
                 # Pick only the grid, not the score and loop through the list #MK: snap ik niet?
                 for move in ranking:
-                    for key, value in move.items():
+                    for key, value in new_move.items():
 
             #-------------------------------------- End beam search implementation ------------------------------------
                         # If the new graph is not yet in the list of states to visit, add it
