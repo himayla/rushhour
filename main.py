@@ -20,18 +20,15 @@ if __name__ == "__main__":
     # --------------------------- Randomise and Depth by Mayla ----------------------------------- #
     #random_model = randomise_mayla.random_solver(model.Model(new_grid))
 
+<<<<<<< HEAD
     # depth = df.DepthFirst(model.Model(new_grid))
     # depth.run()
+=======
+    paths = df.DepthFirst(model.Model(new_grid)).run()
     
-    # --------------------------- Hill Climber ---------------------------------
-    # print("Setting up Hill Climber...")
-    # climber = hc.HillClimber(random_model)
-
-    # print("Running Hill Climber...")
-    # climber.run(10, verbose=False)
-
-    # print(f"Value of the configuration after Hill Climber: "
-    #       f"{climber.model.calculate_value()}")
+    
+>>>>>>> a9a48164528d4fbc927f5ad59d8c787a75c356f0
+    
 
     # --------------------------- Breadth first ------------------------------- #
     paths = dp.Breadthfirst(new_grid.board).run()
@@ -52,6 +49,16 @@ if __name__ == "__main__":
 
     # --------------------------- concatenated search  --------------------------------- #
     # paths = CS.BeamSearch(new_grid.board).run()
+
+    # --------------------------- Hill Climber ---------------------------------
+    print("Setting up Hill Climber...")
+    climber = hc.HillClimber(paths).run(20)
+
+    # print("Running Hill Climber...")
+
+    # print(f"Value of the configuration after Hill Climber: "
+    #       f"{climber.model.calculate_value()}")
+
     # -------------------------- Visualisation (for depth and breadth)-------------------------------- #
     # car_ids = model.Model.get_car_ids(paths)
     # image_dir = f"visualisation/{name}"

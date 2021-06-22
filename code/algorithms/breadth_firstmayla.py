@@ -3,7 +3,7 @@ Algorithm that uses the breadth first approach to find the shortest possible pat
 """
 #MK: ^ een betere uitleg van 'breadth first approach', iets in trant van: zoekt de oplossingen door elke generatie horizontaal te bekijken?
 
-from .depth_first import DepthFirst
+from .depth_first_mayla2 import DepthFirst
 
 
 class Breadthfirst(DepthFirst):

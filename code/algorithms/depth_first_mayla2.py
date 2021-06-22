@@ -110,7 +110,7 @@ class DepthFirst:
                     write = csv.writer(file)
                     write.writerows(self.moves)
 
-                break
+                return path
             else:
                 self.build_children(new_model)
                 #breakpoint()

@@ -19,7 +19,7 @@ from code.classes.model import Model
 from .breadth_firstmayla import Breadthfirst
 import random
 
-class Hillclimber(Breadthfirst):
+class HillClimber(Breadthfirst):
     def __init__(self, path):
         self.start_board = ""
         self.end_board = ""
@@ -27,6 +27,8 @@ class Hillclimber(Breadthfirst):
         self.path = path
         self.stat_value = ""
         self.count = 0
+        self.states = [self]
+        self.visited_states = []
 
     def determine_path(self, path):
         length = len(path)
@@ -56,11 +58,11 @@ class Hillclimber(Breadthfirst):
 
     def run(self, iterations):
         self.determine_path(self.path)
-        for state in self.check_path:
+        for state in range(self.path_check):
             if self.count == iterations:
                 return self.path
             new_model = self.path[state]
             if self.check_solution(new_model):
                 self.check_path(new_model, self.count)
             else:
-                self.build_children(new_model)
+                self.build_children(new_model.board)
