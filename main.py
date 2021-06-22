@@ -27,7 +27,7 @@ if __name__ == "__main__":
     #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run() #!!
     
     # --------------------------- Depth first --------------------------------- #
-    # paths = df.DepthFirst(model.Model(new_grid)).run()
+    paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # --------------------------- Hill Climber --------------------------------- #
     print("Setting up Hill Climber...")
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for path in paths:
         model_path.append(model.Model(path))      
     climber = hc.HillClimber(model_path).run(100)
-    if climber:
+    if len(climber) < len(paths):
         print(f"faster path: {len(climber)}")
     else:
         print(f"that's plenty efficient!")

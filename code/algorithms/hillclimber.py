@@ -38,7 +38,7 @@ class HillClimber(Breadthfirst):
         self.path_check = random.randint(15, 25)
         self.start_value = random.randint(0, length - self.path_check)
         self.start_board = path[self.start_value]
-        self.end_board = path[self.start_value + self.path_check]
+        self.end_board = path[self.start_value + self.path_check - 1]
 
     def check_path(self, final_model):
         alt_path = self.find_solution_seq(final_model)
