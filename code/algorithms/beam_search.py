@@ -73,6 +73,7 @@ class BeamSearch(Breadthfirst):
                         # print(f"value: {value[1]}")
             #-------------------------------------- End beam search implementation ------------------------------------
                         # If the new graph is not yet in the list of states to visit, add it
-                        if value[1] not in self.states and self.tried: #VALUE [1] GAAT HET MIS.
+                        if value[1] not in self.states and value[1] not in self.tried: #VALUE [1] GAAT HET MIS.
+                            # print(f"found this ")
                             self.states.append(value[1])
-                            self.tried.append(value[1])
+                            self.tried.add(value[1])

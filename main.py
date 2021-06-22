@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # --------------------------- Beam search  -------------------------------- #
     paths = bs.BeamSearch(model.Model(new_grid)).run() 
-    
+   
     # --------------------------- Best First  --------------------------------- #
     #paths = bf.BestFirst(model.Model(new_grid)).run() #!!!
 
