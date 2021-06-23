@@ -13,6 +13,9 @@ class BeamSearch(Breadthfirst):
         # Get a list of empty spaces where cars could move to
         empty_spaces = model.get_empty_spaces(model.board)
 
+        # Initialize list for later use
+        scored_list = []
+
         for space in range(len(empty_spaces)):
 
             # Find the cars that are above, below and to the sides of the empty space
@@ -48,36 +51,37 @@ class BeamSearch(Breadthfirst):
                 
                 #-------------------------------------- Beam search implementation ------------------------------------#
                 
-                # Initialize list for later use
-                scored_list = []
-
                 # Score the current board based on the heuristic
                 scored_child = advanced_block_bs.BlockCar().run(new_model)
                 
                 # Add move to a list of scored boards
-                scored_list.append(scored_child) 
+                scored_list.append(scored_child)
     
-                # Sort the list of dictionaries, higest first
-                sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
+        # Sort the list of dictionaries, higest first
+        sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
 
-                ranking = []
+        # print(f'sorted scores{sorted_scores}')
+        ranking = []
 
-                # Pick the amount of children to select from a parent grid
-                n = 3
+        # Pick the amount of children to select from a parent grid
+        """
+        n >= 4 solves 6x6_1
+        n >= 7 solves 6x6_2
+        n >= 7 solves 6x6_3
+        """
+        n = 7
 
-                for number in range(0, len(sorted_scores)):
-                    # To perform a beam search, only use the first n items in the list
-                    if len(sorted_scores) <= n:
-                        ranking.append(sorted_scores[number])
+        ranking = sorted_scores[:n]
+        
+        for board in ranking:
 
-                for board in ranking:
+            # The 2nd index of the value is the board
+            for value in board.values():
+                # print(value[1])
 
-                    # The 2nd index of the value is the board
-                    for value in board.values():
+                # If the new grid is not yet in the list of states to visit, add it
+                if value[1] not in self.visited:
+                    self.states.append(value[1])
+                    self.visited.add(value[1])
 
-                        # If the new grid is not yet in the list of states to visit, add it
-                        if value[1] not in self.states and value[1] not in self.visited:
-                            self.states.append(value[1])
-                            self.visited.add(value[1])
-
-                #-------------------------------------- End beam search implementation -------------------------------------#
+        #-------------------------------------- End beam search implementation -------------------------------------#
