@@ -1,6 +1,6 @@
 from .breadth_first import Breadthfirst
 from code.heuristics import blocked_cars
-from code.heuristics import advanced_block
+from code.heuristics import advanced_block_bf
 import csv
 import copy
 
@@ -54,10 +54,9 @@ class BestFirst(Breadthfirst):
                 print(type(new_board))
 
                 #-------------------------------------- Block car heuristic ------------------------------------#
-                scored_child = blocked_cars.BlockCar().run(new_board)
+                scored_child = advanced_block_bf.BlockCar().run(new_board)
 
-                #-------------------------------------- Advanced block car heuristic ------------------------------------#
-                #scored_child = advanced_block.BlockCar().run(new_board)
+                
   
                 #-------------------------------------- Best first implementation ------------------------------------#            
                 # score grid based on a heuristic:

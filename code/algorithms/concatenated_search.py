@@ -1,6 +1,7 @@
 from .breadth_first import Breadthfirst
 from code.heuristics import blocked_cars
-from code.heuristics import advanced_block
+from code.heuristics import advanced_block_bs
+from code.heuristics import advanced_block_bf
 from code.algorithms import randomise as rn
 import numpy as np
 

@@ -2,7 +2,7 @@
 This algorithm...
 """
 from .breadth_first import Breadthfirst
-from code.heuristics import advanced_block
+from code.heuristics import advanced_block_bs
 
 class BeamSearch(Breadthfirst):
 
@@ -44,7 +44,7 @@ class BeamSearch(Breadthfirst):
                 scored_list = []
 
                 # Score the current board based on the heuristic
-                scored_child = advanced_block.BlockCar().run(new_model)
+                scored_child = advanced_block_bs.BlockCar().run(new_model)
                 
                 # Add move to a list of scored grids
                 scored_list.append(scored_child) 
