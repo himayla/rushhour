@@ -1,6 +1,6 @@
 """
-Simple state space algorithm to calculate the state space for a playing board. 
-Loops in a breadth first manner through all possible child states.
+Algorithm to print the state space for a playing board. 
+Explores all possible child states using a breadth first algorithm.
 """
 from .breadth_first import Breadthfirst
 
@@ -8,14 +8,14 @@ class StateSpace(Breadthfirst):
 
     def run(self):
         """
-        Runs the algorithm until a solution is found.
+        Runs the algorithm until all possible child boards are found.
         """
         while self.states:
 
-            print(len(self.visited_states))
+            # Print out the number of children found
+            print(len(self.visited))
 
-            # If there is a map on the top of the stack, get it
-            new_grid = self.get_next_state()
+            # If there is a board on the top of the stack, get it
+            new_board = self.get_next_state()
 
-            # build children
-            self.build_children(new_grid)
+            self.build_children(new_board)

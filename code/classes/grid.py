@@ -1,3 +1,9 @@
+"""
+Class Grid contains the grid object. 
+Within the grid object, the car objects are created from the csv file that is chosen in the main.py. 
+Those car objects are then loaded onto a 2D array or matrix that will be used for the algorithms. 
+"""
+
 import csv
 from .car import Car
 
@@ -70,10 +76,3 @@ class Grid():
                     array[car.y+1][car.x-1] = car.name
 
         return array
-
-        
-
-
-    def print(self):      
-        for car in self.board:
-            print(car)

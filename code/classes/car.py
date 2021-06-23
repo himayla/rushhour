@@ -1,5 +1,6 @@
 """
-Class contains...
+This class contains the car object. 
+The car object has a name, orientation of the car, their x and y coordinates along with the length of the car.
 """
 
 class Car():

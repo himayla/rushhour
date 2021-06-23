@@ -1,5 +1,12 @@
 """
-Visualisation of the game of Rush Hour
+The Visualisation class is created in order to visualise the boards of the grids in a more user-friendly manner than a 2D array. 
+The input is a list of models. Each of these models contains a board which is transformed into a graph. 
+This goal is achieved by using matplotlib functions, first to create the board. 
+Then to put rectangles on the x and y axis, where the cars are. 
+These rectangles are colored using imageio. 
+It is taken into account that the red car remains red, the other cars are given random colours from the rainbow. 
+
+Each board is made into a .png file in the same 
 """
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt

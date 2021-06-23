@@ -1,7 +1,6 @@
 """
-Algorithm that uses the breadth first approach to find the shortest possible path to the answer.
+Algorithm that searches in a horizontal manner through the tree of children boards and finds the shortest possible path to the answer.
 """
-#MK: ^ een betere uitleg van 'breadth first approach', iets in trant van: zoekt de oplossingen door elke generatie horizontaal te bekijken?
 
 from .depth_first import DepthFirst
 
@@ -9,6 +8,6 @@ class Breadthfirst(DepthFirst):
     
     def get_next_state(self):
         """
-        Method that gets the next state from the list of states.
+        Get the next board from the queue.
         """
         return self.states.pop(0)

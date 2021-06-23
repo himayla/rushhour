@@ -1,13 +1,12 @@
 """
-Algorithm that reconfigures the grid by randomly finding empty spots and cars that can move to this spot, until car X reaches the exit.
+The random algorithm reconfigures the board by randomly looking for empty spots and cars that can move to this spot and moves these until the red car can reach the exit.
 """
 import random
 
 def random_solver(model):
     """
-    Rearrange the board by looking for empty spots until solution is found.
+    Rearrange the board by looking for empty spots until a solution is found.
     """
-    
     while model.victory_move not in model.list_of_moves:
         rearrange_board(model)
        
@@ -16,21 +15,18 @@ def random_solver(model):
     return model.moves
     
     
-    
-
-
 def rearrange_board(model):
     """
     Chooses an empty space and a car that can move to this place and swaps these.
     """
-    # print(f"moves1: {moves}")
+ 
     # List all the empty spaces on the board
     empty_spaces = model.get_empty_spaces(model.board)
 
     # Choose a random spaces from the empty spaces
     position = choose_random_car(empty_spaces)
 
-    # List all horizontal and vertical cars connected to the empty space
+    # Find the cars that are above, below and to the sides of the empty space
     directions = model.get_relevant_rows(position)
 
     # Create a list for the cars that can move to the empty space
@@ -53,7 +49,6 @@ def rearrange_board(model):
        
         model.moves.append(model.board)
         
-
 
 def choose_random_car(possible_cars):  
     """

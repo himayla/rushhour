@@ -1,5 +1,19 @@
 """
-This file includes ...
+This file includes the model that is used in all algorithms. 
+By making the grid into a model it is easier and faster to run algorithms. 
+The actions that can be performed within this model are divided into general abilities and algorithm abilities.
+ 
+The general abilities include:
+- Getting car id's from a board.
+- Printing a specific board from a grid.
+- Creating a csv file to show the car that moves and the relative move that it makes.
+
+The algorithms abilities include: 
+- Getting a list of all the empty spaces that exist on the board of the grid.
+- Showing the cars in four directions (upper, lower, left, right) relative to a specific empty space. 
+- Showing a list of cars that can move to a specific empty space.
+- Moving a chosen car to a chosen empty space.
+- Showing which location the red car needs to be in to qualify the algorithm as "done".
 """
 import csv
 import copy
@@ -67,7 +81,10 @@ class Model():
 
     def print(self, moves=False, path=False):
         """
-        Prints board.
+        Prints board. 
+        Optional arguments: 
+            moves, prints the board and the amount of moves 
+            path, prints the board and the length of path
         """
         print(f"Board:")
         for line in self.board:
@@ -77,9 +94,10 @@ class Model():
         if path:
             print(f"Amount of moves in path: {len(path)}")
 
+
     def write_output(self, moves):
         """
-        Writes the relative distance of cars in a CSV file.
+        Writes the relative distance from the moves of cars in a CSV file.
         """
         file = open('output.csv', 'w+', newline='')
         with file:
@@ -91,7 +109,7 @@ class Model():
     
     def get_empty_spaces(self, board):
         """
-        Returns a list of coordinates for the empty spaces in the grid.
+        Returns a list of coordinates for the empty spaces in the board.
         """
         empty_spaces = []
 
@@ -298,7 +316,9 @@ class Model():
         return self.board, location
 
     def get_victory_coor(self):
-        
+        """
+        Gets the victory coordinates for each size playing board.
+        """
         if len(self.board) == 6:
             victory_coor = [5, 2]
         elif len(self.board) == 9:
