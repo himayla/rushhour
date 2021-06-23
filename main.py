@@ -56,7 +56,7 @@ if __name__ == "__main__":
     
     # --------------------------- Visualisation ----------------------------------- #
     car_ids = model.Model.get_car_ids(new_grid)    
-    image_dir = f"visualisation/boards"
+    image_dir = f"doc/visualisation"
     
     # Visualise the different boards and save them in folder 
     counter = 1.0
