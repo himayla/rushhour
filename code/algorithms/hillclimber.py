@@ -82,7 +82,7 @@ class HillClimber(Breadthfirst):
 
     def check_solution(self, board):
         """
-        Checks solution to see whether the breadth first algorithm has reached the chosen end board of the subset of the path
+        Checks solution to see whether the breadth first algorithm has reached the chosen end board of the subset of the path.
         """
         if board == self.end_board:
             return True

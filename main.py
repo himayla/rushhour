@@ -19,31 +19,28 @@ sys.setrecursionlimit(2000)
 
 if __name__ == "__main__":
 
-    # change map name here:
+    # Change map name here:
     map_name = "6x6_1"
 
+    # Create a new object based on the data
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
-
 
     # ------- Algoritm implementations. Uncomment to run the algorithm!---------#
 
     # --------------------------- Beam search  -------------------------------- #
-    # paths = bs.BeamSearch(model.Model(new_grid)).run()
+    #paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  --------------------------------- #
-    paths = bf.BestFirst(model.Model(new_grid)).run()
+   # paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ------------------------------- #
-    # paths = bf.Breadthfirst(model.Model(new_grid)).run()
+    #paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
-    # -------------------------- Concatenated search  -------------------------- #
-    # paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
-    
     # --------------------------- Depth first ---------------------------------- #
-    #paths = df.DepthFirst(model.Model(new_grid)).run()
+    paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------ #
-    # paths = rn.random_solver(model.Model(new_grid))
+    #paths = rn.random_solver(model.Model(new_grid))
 
     # --------------------------- Hill Climber ---------------------------------- #
     # print("Setting up Hill Climber...")
@@ -53,7 +50,6 @@ if __name__ == "__main__":
     # paths = hc.HillClimber(model_path).run(100)
 
     # ---------------------------- Visualisation ----------------------------------- #
-
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
     

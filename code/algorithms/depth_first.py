@@ -40,15 +40,14 @@ class DepthFirst:
             if self.is_solution(new_model.board):
                 path = self.find_solution_seq(new_model)
 
+                # Print solution and write output in CSV
                 new_model.print(self.moves==False, path)
-
                 new_model.write_output(self.moves)
 
                 return path
 
             # If not, build new children
-            else:
-                self.build_children(new_model)
+            self.build_children(new_model)
 
 
     def get_next_state(self):

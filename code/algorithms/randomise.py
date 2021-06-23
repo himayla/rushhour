@@ -50,7 +50,7 @@ def rearrange_board(model):
         if model.board not in model.moves:
             temp_board = copy.deepcopy(model.board)
             model.paths.append(temp_board)
-        
+
 
 def choose_random(possible_cars):  
     """

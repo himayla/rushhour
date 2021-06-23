@@ -1,5 +1,7 @@
 """
 The Beam Search algorithm chooses the best children in the queue by giving a score to each child using the Block Car heuristic. Only the best n children will be put in the queue.
+The user can decide for a value n (69). This decision is a tradeoff, a lower n value will produce a quicker but a higher n value will produce a shorter solution. 
+For example, the 6x6_1 board can be solved by using n >= 4 quickly, but not with the quickest solution. 
 """
 from .breadth_first import Breadthfirst
 from code.heuristics import advanced_block_bs
@@ -8,7 +10,7 @@ class BeamSearch(Breadthfirst):
 
     def build_children(self, model):
         """
-        Attaches new (scored) grid models to the self.visited and creates a dictionary to keep track of which grids are created from which grids. 
+        Attaches new (scored) board models to the self.visited and creates a dictionary to keep track of which grids are created from which grids. 
         """
 
         # Get a list of empty spaces where cars could move to
@@ -58,17 +60,12 @@ class BeamSearch(Breadthfirst):
                 # Add move to a list of scored boards
                 scored_list.append(scored_child)
     
-        # Sort the list of dictionaries, higest first
+        # Sort the list of dictionaries, higest first, source:https://code-maven.com/slides/python/sort-dictionary-by-value
         sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
 
-        # print(f'sorted scores{sorted_scores}')
         ranking = []
 
         # Pick the amount of children to select from a parent grid. 
-        """
-        The decision for the n value is a tradeoff, a lower n value will produce a quicker but a higher n value will produce a shorter solution. 
-        For example, the 6x6_1 board can be solved by using n >= 4 quickly, but not with the quickest solution. 
-        """
         n = 7
 
         # pick the first n children

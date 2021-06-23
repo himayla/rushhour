@@ -1,16 +1,41 @@
 """
 The Best First algorithm is based on a breadth first algorithm. 
-The difference between a Best First and a Breadth First algorithm is that a best first uses a heuristic to score boards. 
+The difference between a Best First and a Breadth First algorithm is that Best First uses a heuristic to score boards. 
 These scores are based on the advanced block heuristic in the heuristic directory. 
-The Best First then uses those scores to give priority to the boards that score highly. 
-Then, based on priority, these boards are popped from the list of states. 
+The Best First then uses those scores to give priority to the boards that score highly. Based on priority, these boards are popped from the list of states. 
 This ensures the boards with the highest likelihood of reaching a solution, will be investigated first. 
 """
+
 from .breadth_first import Breadthfirst
 from code.heuristics import advanced_block_bf
 import csv
 
 class BestFirst(Breadthfirst):
+
+    def run(self):
+        """
+        Runs the algorithm untill a solution is found in a breadth first manner
+        """
+        self.start_board = self.pqueue.queue[0][1]
+        
+        # While there are still states to visit, stay in the loop
+        while not self.pqueue.empty():
+            
+            new_model = self.get_next_state()
+            board = new_model[1]
+            
+            # Check to see whether the solution has been found yet
+            if self.is_solution(board.board):
+
+                path = self.find_solution_seq(board)
+
+                # Print board and write output to CSV file
+                board.print(self.moves==False, path)
+                board.write_output(self.moves)
+
+                return path
+            # If no solutions found, build children
+            self.build_children(board)
 
     def get_next_state(self):
         """
@@ -31,7 +56,7 @@ class BestFirst(Breadthfirst):
             # Find cars that can move to the empty spot
             cars = model.get_possible_cars(directions)
 
-            # For each car, move the car on the grid to create a child state.
+            # For each car, move the car on the grid to create a child state
             for car in cars:
                 new_model = model.copy()
 
@@ -48,15 +73,15 @@ class BestFirst(Breadthfirst):
                     rel_distance = empty_spaces[space][1] - rel_move[0]
                     car_move = [car, rel_distance]
                     
-                # If the new graph is not yet added to the dictionary of paths, add it. 
+                # If the new graph is not yet added to the dictionary of paths, add it
                 if str(new_board) not in self.solution:
                     self.solution[str(new_board)] = [model, car_move]
 
-                #-------------------------------------- Advanced block car heuristic ------------------------------------#
+                #-------------------------------------- Advanced Block Car heuristic ------------------------------------#
                 # score grid based on a heuristic:
                 scored_child = advanced_block_bf.BlockCarBF().run(new_model)
   
-                #-------------------------------------- Best first implementation ------------------------------------#            
+                #-------------------------------------- Best First implementation ------------------------------------#            
                 
                 # add the scored child if its not already in the queue
                 if scored_child not in self.pqueue.queue:
@@ -64,8 +89,7 @@ class BestFirst(Breadthfirst):
                         self.pqueue.put(scored_child)
                 self.visited.add(scored_child[1])
 
-        #-------------------------------------- end Best first implementation ------------------------------------#
-    
+    #-------------------------------------- End Best First implementation -------------------------------------------#
     def find_solution_seq(self, new_model):
         """
         Based on the final graph, trace back the previous graphs using the self.solution nested dictionary. 
@@ -79,32 +103,4 @@ class BestFirst(Breadthfirst):
             self.moves = self.moves + [self.solution[str(new_model.board)][1]]
         
         return path
-    
-    
-    def run(self):
-        """
-        Runs the algorithm untill a solution is found in a breadth first manner
-        """
-        self.start_board = self.pqueue.queue[0][1]
-        
-        # While there are still states to visit, stay in the loop
-        while not self.pqueue.empty():
-            
-            new_model = self.get_next_state()
-            board = new_model[1]
-            
-            # Check to see whether the solution has been found yet
-            if self.is_solution(board.board):
 
-                path = self.find_solution_seq(board)
-                board.print()
-                print(f"moves: {len(path)}")
-
-                file = open('output.csv', 'w+', newline='')
-                with file:
-                    write = csv.writer(file)
-                    write.writerows(self.moves)
-
-                return path
-            else:
-                self.build_children(board)
