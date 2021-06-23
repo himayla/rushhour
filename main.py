@@ -24,11 +24,14 @@ if __name__ == "__main__":
 
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
+
+    # ------- Algoritm implementations. Uncomment to run the algorithm!---------#
+
     # --------------------------- Beam search  -------------------------------- #
     # paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  --------------------------------- #
-    # paths = bf.BestFirst(model.Model(new_grid)).run()
+    paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ------------------------------- #
     # paths = bf.Breadthfirst(model.Model(new_grid)).run()
@@ -40,7 +43,7 @@ if __name__ == "__main__":
     #paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------ #
-    paths = rn.random_solver(model.Model(new_grid))
+    # paths = rn.random_solver(model.Model(new_grid))
 
     # --------------------------- Hill Climber ---------------------------------- #
     # print("Setting up Hill Climber...")
@@ -48,7 +51,6 @@ if __name__ == "__main__":
     # for path in paths:
     #     model_path.append(model.Model(path))      
     # paths = hc.HillClimber(model_path).run(100)
-
 
     # ---------------------------- Visualisation ----------------------------------- #
 

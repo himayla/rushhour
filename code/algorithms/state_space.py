@@ -7,7 +7,7 @@ class StateSpace(Breadthfirst):
 
     def run(self):
         """
-        Runs the algorithm until all possible child boards are found.
+        Runs the algorithm until all possible child boards are found to accurately determine the state space for the selected board.
         """
         while self.states:
 

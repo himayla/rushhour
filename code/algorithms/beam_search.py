@@ -10,6 +10,7 @@ class BeamSearch(Breadthfirst):
         """
         Attaches new (scored) grid models to the self.visited and creates a dictionary to keep track of which grids are created from which grids. 
         """
+
         # Get a list of empty spaces where cars could move to
         empty_spaces = model.get_empty_spaces(model.board)
 
@@ -63,11 +64,10 @@ class BeamSearch(Breadthfirst):
         # print(f'sorted scores{sorted_scores}')
         ranking = []
 
-        # Pick the amount of children to select from a parent grid
+        # Pick the amount of children to select from a parent grid. 
         """
-        n >= 4 solves 6x6_1
-        n >= 7 solves 6x6_2
-        n >= 7 solves 6x6_3
+        The decision for the n value is a tradeoff, a lower n value will produce a quicker but a higher n value will produce a shorter solution. 
+        For example, the 6x6_1 board can be solved by using n >= 4 quickly, but not with the quickest solution. 
         """
         n = 7
 

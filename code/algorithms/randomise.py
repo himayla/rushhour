@@ -13,7 +13,7 @@ def random_solver(model):
 
     model.print(moves=True)
 
-    return model.moves
+    return model.paths
     
     
 def rearrange_board(model):
@@ -49,7 +49,7 @@ def rearrange_board(model):
 
         if model.board not in model.moves:
             temp_board = copy.deepcopy(model.board)
-            model.moves.append(temp_board)
+            model.paths.append(temp_board)
         
 
 def choose_random(possible_cars):  

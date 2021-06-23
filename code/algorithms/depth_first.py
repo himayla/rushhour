@@ -1,6 +1,5 @@
 """
-The Depth first algorithm builds a stack of children boards and traverses in a vertical manner through the tree of children boards. 
-Does not find the shortest path, but finds relatively quickly a solution.
+The Depth First algorithm finds the first solution by building a stack of children boards and traverses in a vertical manner through the tree of children boards. 
 """
 from queue import PriorityQueue
 
@@ -8,6 +7,14 @@ from queue import PriorityQueue
 class DepthFirst:
 
     def __init__(self, model):
+        """
+        Initializes the Depth First class.
+        Self.model calls the copy method in model.py.
+        Self.states includes a list with models.
+        Self.visited is unique collections of states.
+        Self.moves is initialized to store moves and index them.
+        Self.pqueue is only required attribute for the algorithms.
+        """
         self.model = model.copy()
         self.states = [self.model]
         self.start_board = ""
@@ -18,7 +25,7 @@ class DepthFirst:
         # Allows for priority queue so the algorithm can be expanded upon with a best first approach. 
         self.pqueue = PriorityQueue()
         self.pqueue.put((1, model.copy()))
-        
+
 
     def run(self):
         """
@@ -38,6 +45,7 @@ class DepthFirst:
                 new_model.write_output(self.moves)
 
                 return path
+
             # If not, build new children
             else:
                 self.build_children(new_model)

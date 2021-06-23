@@ -54,7 +54,7 @@ class BestFirst(Breadthfirst):
 
                 #-------------------------------------- Advanced block car heuristic ------------------------------------#
                 # score grid based on a heuristic:
-                scored_child = advanced_block_bf.BlockCar().run(new_model)
+                scored_child = advanced_block_bf.BlockCarBF().run(new_model)
   
                 #-------------------------------------- Best first implementation ------------------------------------#            
                 

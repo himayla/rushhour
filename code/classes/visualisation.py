@@ -23,7 +23,7 @@ class Visualisation():
 
     def draw_board(self, board, car_ids):
         """
-        Visualises the 2D array by creating a plot and filling this with different colors
+        Visualises the 2D array by creating a plot and filling this with different colors.
         """
         # Initialise an empty plot
         plt.plot()
@@ -61,7 +61,7 @@ class Visualisation():
                                             linestyle='solid')
                     plt.gca().add_patch(rect)
 
-                # The empty spaces not have any color
+                # The empty spaces do not have any color
                 rect = patches.Rectangle((x, len(board)-y), 1, 1, 
                     fill = False, 
                     color = "lightgrey",
@@ -80,7 +80,7 @@ class Visualisation():
 
     def create_gif(image_dir):
         """
-        Creates a gif from the different paths in the solution. Source: https://stackoverflow.com/questions/753190/programmatically-generate-video-or-animated-gif-in-python
+        Creates a gif from the different paths in the solution. Source: https://stackoverflow.com/questions/753190/programmatically-generate-video-or-animated-gif-in-python.
         """
         images = []
         

@@ -5,7 +5,6 @@ The algorithm does that by selecting a part of the path and running a breadth fi
 It will do that for as many iterations as is specified in the main.py. Then the shortest path is returned to main.py
 """
 
-from code.classes.model import Model
 from .breadth_first import Breadthfirst
 import random
 
@@ -49,7 +48,7 @@ class HillClimber(Breadthfirst):
         Determines the path and decides on a random subset of the path to run the breadth first algorithm on. 
         """
         length = len(path)
-        
+
         # This number can be changed by the user if they'd rather use bigger subsets of the path to run the breadth first on. 
         if length > 80:
             self.path_check = random.randint(60, 80)
@@ -80,7 +79,6 @@ class HillClimber(Breadthfirst):
             self.path = new_path        
             return True
         
-
 
     def check_solution(self, board):
         """
