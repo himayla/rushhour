@@ -1,6 +1,5 @@
 """
-This class contains the car object. 
-The car object has a name, orientation of the car, their x and y coordinates along with the length of the car.
+This class contains the Car object its attributes contain: a name, orientation (vertical or horizontal), x and y coordinates and the length of the car.
 """
 
 class Car():

@@ -1,3 +1,5 @@
+import sys
+
 from code.classes import grid, model
 
 from code.algorithms import beam_search as bs
@@ -9,14 +11,15 @@ from code.algorithms import randomise as rn
 from code.classes import visualisation as vs
 from code.algorithms import state_space as ss
 
+sys.setrecursionlimit(2000)
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
-    # paths = bs.BeamSearch(model.Model(new_grid)).run(
-   
+    # paths = bs.BeamSearch(model.Model(new_grid)).run()
+
     # --------------------------- Best First  --------------------------------- #
     # paths = bf.BestFirst(model.Model(new_grid)).run()
 
@@ -26,8 +29,8 @@ if __name__ == "__main__":
     # -------------------------- Concatenated search  -------------------------- #
     # paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
     
-    # --------------------------- Depth first --------------------------------- #
-    # paths = df.DepthFirst(model.Model(new_grid)).run()
+    # --------------------------- Depth first ---------------------------------- #
+    paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # --------------------------- Hill Climber -------------------------------- #
     # print("Setting up Hill Climber...")
@@ -41,13 +44,7 @@ if __name__ == "__main__":
     #     print(f"that's plenty efficient!")
 
     #  --------------------------- Randomise ----------------------------------- #
-    paths = rn.random_solver(model.Model(new_grid))
-
-    for line in paths[0]:
-        print(line)
-    print()
-    for line in paths[-1]:
-        print(line)
+    # paths = rn.random_solver(model.Model(new_grid))
 
     
      # --------------------------- Visualisation ----------------------------------- #

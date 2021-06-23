@@ -1,6 +1,6 @@
 """
-Class Grid contains the grid object. 
-Within the grid object, the car objects are created from the csv file that is chosen in the main.py. 
+This class contains the Grid object. 
+Within the grid object, the car objects are created from the data in the CSV file that is chosen in main.py. 
 Those car objects are then loaded onto a 2D array or matrix that will be used for the algorithms. 
 """
 
@@ -9,9 +9,14 @@ from .car import Car
 
 class Grid():
     def __init__(self, source_file):
+        """
+        Initializes the car object, required argument is the source_file in main.py and attributes 
+        contain the methods to load the cars and the grid. It also contains the coordinates of a victory move for the red car. 
+        """
         self.cars = self.load_cars(source_file)
         self.board = self.load_grid(source_file)
         self.victory_move
+
 
     def load_cars(self, source_file):
         """
@@ -23,6 +28,8 @@ class Grid():
             csv_file = csv.DictReader(file)
 
             for row in csv_file:
+
+                # Create new car objects based on the data from the CSV file
                 cars[row['car']] = Car(row['car'],row['orientation'], int(row['col']), int(row['row']), int(row['length']))
 
         return cars
