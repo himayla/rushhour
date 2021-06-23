@@ -24,8 +24,8 @@ class BlockCar:
         """
         scores = []
 
-        right_red = self.check_red_car(board)
-        rel_moves = self.relevant_moves(right_red, board)
+        right_red = self.check_red_car(board.board)
+        rel_moves = self.relevant_moves(right_red, board.board)
 
         score = self.score_board(rel_moves[0], rel_moves[1])
         #self.reset()

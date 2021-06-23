@@ -1,6 +1,8 @@
 """
 The Depth first algorithm builds a stack of children boards and traverses in a vertical manner through the tree of children boards and finds not the shortest path, but finds relatively quickly a solotion.
 """
+from queue import PriorityQueue
+
 
 class DepthFirst:
 
@@ -11,6 +13,11 @@ class DepthFirst:
         self.visited = set()
         self.solution = {}
         self.moves = [["car", "move"]]
+
+        # ---------- best first implementation -----# 
+        self.pqueue = PriorityQueue()
+        self.pqueue.put((1, model.copy()))
+        # ---------- best first implementation -----# 
 
 
     def run(self):

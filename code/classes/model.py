@@ -45,6 +45,9 @@ class Model():
     def __ne__(self, other):
         return str(self.board) != str(other.board)
 
+    def __lt__(self, other):
+        return False
+
 
     # ----------------------------- General ----------------------------------- # 
     
