@@ -18,7 +18,7 @@ The file ```main.py``` concludes with *Visualisation*, if this has run a GIF of 
 
 <img src="doc/ex_depth.gif" alt="example gif" height="300"></img>
 
-*Example of solving the Depth First Search algorithm*
+*Example of solving the Rush Hour puzzle with the Depth First Search algorithm*
 
 ### Structure
 The Git repository is structured as follows:
@@ -61,11 +61,10 @@ The Git repository is structured as follows:
     * One board of 12 by 12.
 
 * **/doc**: contains different documents for code
+    * Example GIF
     * An UML diagram of the classes:
 
     <img src="doc/UML_diagram.png" alt="UML diagram" height="150"></img>
-
-    * Example GIF
 
 ### Authors
 * Mila Sparreboom: [MSparreboom](https://github.com/MSparreboom)

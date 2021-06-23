@@ -5,6 +5,7 @@ Instructions:
     - Change the playing board by changing the map_name to 6x6_1/2/3, 9x9_4/5/6 or 12x12_7.
 """
 import sys
+
 from code.classes import grid, model
 from code.algorithms import beam_search as bs
 from code.algorithms import best_first as bf
@@ -26,31 +27,31 @@ if __name__ == "__main__":
     # Create a new object based on the data
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
-    # ------- Algoritm implementations. Uncomment to run the algorithm!---------#
+    # ------- Algoritm implementations. Uncomment to run the algorithm!----------- #
 
-    # --------------------------- Beam search  -------------------------------- #
+    # --------------------------- Beam search  ----------------------------------- #
     #paths = bs.BeamSearch(model.Model(new_grid)).run()
 
-    # --------------------------- Best First  --------------------------------- #
+    # --------------------------- Best First  ------------------------------------ #
     #paths = bf.BestFirst(model.Model(new_grid)).run()
 
-    # --------------------------- Breadth first ------------------------------- #
+    # --------------------------- Breadth first ---------------------------------- #
     #paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
-    # --------------------------- Depth first ---------------------------------- #
+    # --------------------------- Depth first ------------------------------------ #
     #paths = df.DepthFirst(model.Model(new_grid)).run()
 
-    # ---------------------------- Randomise ------------------------------------ #
+    # ---------------------------- Randomise ------------------------------------- #
     #paths = rn.random_solver(model.Model(new_grid))
 
-    # --------------------------- Hill Climber ---------------------------------- #
+    # --------------------------- Hill Climber ----------------------------------- #
     # print("Setting up Hill Climber...")
     # model_path = []
     # for path in paths:
     #     model_path.append(model.Model(path))      
     # paths = hc.HillClimber(model_path).run(100)
 
-    # ---------------------------- Visualisation ----------------------------------- #
+    # ---------------------------- Visualisation ---------------------------------- #
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
     
