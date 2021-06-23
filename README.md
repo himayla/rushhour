@@ -1,6 +1,7 @@
 # Rush hour 
 <i>Implementation by team: Unjam my Jam</i>
-<img src="https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg" alt="rush_hour_game" height="175"></img>
+
+<img src="https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg" alt="rush_hour_game" height="250"></img>
 
 Rush Hour is a sliding puzzle where the goal is for the red car to drive to the exit. The exit is however blocked by multiple cars and trucks. 
 This repository includes our research in the exploration of algorithms and heuristics to find out how this puzzle can be solved as quickly as possible.
