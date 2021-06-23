@@ -1,6 +1,6 @@
 # Rush hour 
 <i>Implementation by team: Unjam my Jam</i>
-![Rush hour game](https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg)
+<img src="https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg" alt="rush_hour_game" height="175"></img>
 
 Rush Hour is a sliding puzzle where the goal is for the red car to drive to the exit. The exit is however blocked by multiple cars and trucks. 
 This repository includes our research in the exploration of algorithms and heuristics to find out how this puzzle can be solved as quickly as possible.
@@ -19,7 +19,6 @@ The Git repository is structured as follows:
         * Beam_search.py: solve the board by removing children based on their score.
         * Breadth_first.py: solves the board by checking each generation from left to right (horizontally).
         * Depth_first.py: solves the board by checking the generations vertically. It selects the first possible next state of the original board and then the next state of that board until a solution is reached or there are no more states to check. 
-        * Concatenated_search.py: solves the board by adapting to the situation it's presented with.
         * Randomise.py: solves the board by finding empty spots and moves cars there until car X is at final destination.
     * **/code/classes**: contains a car, grid and visualisation class.
     * **/code/heuristics**: heuristics for algorithms
