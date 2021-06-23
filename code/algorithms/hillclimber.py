@@ -49,10 +49,14 @@ class HillClimber(Breadthfirst):
         Determines the path and decides on a random subset of the path to run the breadth first algorithm on. 
         """
         length = len(path)
+        
+        # This number can be changed by the user if they'd rather use bigger subsets of the path to run the breadth first on. 
         if length > 80:
             self.path_check = random.randint(60, 80)
         else:
             self.path_check = random.randint(5,20)
+
+        # Determines where in the path the subset will start
         self.start_value = random.randint(0, length - self.path_check)
         self.start_board = path[self.start_value]
         self.end_board = path[self.start_value + self.path_check - 1]
@@ -66,7 +70,8 @@ class HillClimber(Breadthfirst):
         alt_path = self.find_solution_seq(final_model)
         
         if len(alt_path) < self.path_check:
-            
+
+            # If the start_value is 0, the new path will start with the alternative path. 
             if self.start_value == 0:
                 new_path = alt_path + self.path[self.start_value + self.path_check:]
             else:
@@ -74,8 +79,7 @@ class HillClimber(Breadthfirst):
             
             self.path = new_path        
             return True
-        # else:
-        #     return False
+        
 
 
     def check_solution(self, board):
@@ -84,5 +88,4 @@ class HillClimber(Breadthfirst):
         """
         if board == self.end_board:
             return True
-        # else:
-        #     return False
+        

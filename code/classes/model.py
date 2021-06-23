@@ -21,49 +21,58 @@ import copy
 class Model():
     def __init__(self, grid):
         """ 
-        Initializes a model based on the grid class.
+        Initializes a model class based on the Grid class. Self.grid is used to access the board and the victory move from the Grid class.
+        The list_of_moves is initialized to save the moves cars make and paths contains the different ways for a solution. 
         """ 
         self.grid = grid
         self.board = copy.deepcopy(grid.board)
-        self.list_of_moves = [["car", "move"]]
         self.victory_move = grid.victory_move
-        self.moves = [["car", "move"]]
+        self.list_of_moves = [["car", "move"]]
+        self.paths = []
 
-    # def __str__(self):
-    #     self.print()
-    #     return f''
-    
-    # def __repr__(self):
-    #     return self.__str__()
 
     def __hash__(self):
+        """ 
+        Hashes the board to ensure no duplicates are created.
+        """ 
         return hash(str(self.board))
 
+
     def __eq__(self, other):
+        """
+        Substitutes the original Python equal method to ensure only boards are compared, not models.
+        """
         return str(self.board) == str(other.board)
 
+
     def __ne__(self, other):
+        """
+        Substitutes the original Python not equal method to ensure only boards are compared, not models.
+        """
         return str(self.board) != str(other.board)
 
+
     def __lt__(self, other):
+        """
+        When models are compared, the other board (not self) will be the one greater than the self (one is chosen arbitrarily over the other).
+        """
         return False
 
-
     # ----------------------------- General ----------------------------------- # 
-    
+
     def get_car_ids(self):
         """
         Returns a dictionary with the cars and car ID's.
         """
         car_ids = {}
 
-        id = 0
+        car_id = 0
         for x in range(len(self.board)):
             for y in range(len(self.board)):
                 car = self.board[y][x] 
                 if car not in car_ids:
-                    car_ids[self.board[y][x]] = id
-                    id += 1
+                    car_ids[self.board[y][x]] = car_id
+                    car_id += 1
 
         return car_ids
 
@@ -86,12 +95,13 @@ class Model():
         """
         Prints board. 
         Optional arguments: 
-            moves, prints the board and the amount of moves 
-            path, prints the board and the length of path
+            moves, prints the board and the amount of moves.
+            path, prints the board and the length of path.
         """
         print(f"Board:")
         for line in self.board:
             print(line)
+
         if moves:
             print(f"Amount of moves: {len(self.list_of_moves)}")
         if path:
@@ -109,7 +119,6 @@ class Model():
     
     # ---------------------------- Algorithms ----------------------------------- #
 
-    
     def get_empty_spaces(self, board):
         """
         Returns a list of coordinates for the empty spaces in the board.
@@ -321,6 +330,7 @@ class Model():
                     self.board[position[1]][position[0] + car] = random_car
         
         return self.board, location
+
 
     def get_victory_coor(self):
         """

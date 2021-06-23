@@ -6,6 +6,9 @@ __pycache__
 # output
 output.csv
 
+# png files in visualisation
+visualisation/boards/*.png
+
 # time analysis profiles
 *.prof
 

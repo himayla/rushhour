@@ -1,6 +1,5 @@
 """
-Algorithm to print the state space for a playing board. 
-Explores all possible child states using a breadth first algorithm.
+Algorithm to print the state-space for a playing board by exploring all possible child states using a breadth first algorithm.
 """
 from .breadth_first import Breadthfirst
 

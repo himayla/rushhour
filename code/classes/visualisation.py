@@ -1,12 +1,12 @@
 """
 The Visualisation class is created in order to visualise the boards of the grids in a more user-friendly manner than a 2D array. 
-The input is a list of models. Each of these models contains a board which is transformed into a graph. 
+The input is a list of models. Each of these models contains a board which is transformed into a plot. 
 This goal is achieved by using matplotlib functions, first to create the board. 
 Then to put rectangles on the x and y axis, where the cars are. 
 These rectangles are colored using imageio. 
 It is taken into account that the red car remains red, the other cars are given random colours from the rainbow. 
 
-Each board is made into a .png file in the same 
+Each board is made into a .png file in the same folder: "doc/visualisation/boards" in the directory.
 """
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
@@ -15,9 +15,11 @@ import os
 
 class Visualisation():
     def __init__(self, model, car_ids):
-        #self.car_ids = get_car_ids(model.board)
+        """
+        Initializes model class. Parameters include a model and the ID's from the different cars in the board, calls the draw_board method.
+        """
         self.board = self.draw_board(model.board, car_ids)
-        #self.car_ids
+
 
     def draw_board(self, board, car_ids):
         """

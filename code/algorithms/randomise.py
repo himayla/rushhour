@@ -10,16 +10,9 @@ def random_solver(model):
     """
     while model.victory_move not in model.list_of_moves:
         rearrange_board(model)
-    
 
-        #print(model.moves)
-       
-    # Print out the final board and amount of moves in the terminal
     model.print(moves=True)
-    # breakpoint()
-    # print(model.moves[0])
-    # for line in model.moves[0]:
-    #     print(line)
+
     return model.moves
     
     
@@ -27,7 +20,6 @@ def rearrange_board(model):
     """
     Chooses an empty space and a car that can move to this place and swaps these.
     """
- 
     # List all the empty spaces on the board
     empty_spaces = model.get_empty_spaces(model.board)
 

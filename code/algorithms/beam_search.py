@@ -71,13 +71,13 @@ class BeamSearch(Breadthfirst):
         """
         n = 7
 
+        # pick the first n children
         ranking = sorted_scores[:n]
         
         for board in ranking:
 
             # The 2nd index of the value is the board
             for value in board.values():
-                # print(value[1])
 
                 # If the new grid is not yet in the list of states to visit, add it
                 if value[1] not in self.visited:

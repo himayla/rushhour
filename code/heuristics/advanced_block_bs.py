@@ -1,23 +1,26 @@
 """
 This optimalisation heurisitic scores a board based on the cars that block the red car from driving to the exit.
-This heuristic is specifically for the best first algorithm, so the results can be put in to a priority queue.
+This heuristic is specifically for the beam search algorithm.
 """
 class BlockCar:
-    """
-    Initializes lists and values to be used in the algorithm. 
-    The right_red list is created to keep track of the cars that are to the right of the red car on the x-axis
-    The row_x is the value of the vertical row that the red car is on
-    positin_right_red is a dictionary of the position of the cars that are on the right of the red car on the x-axis. 
-    The names of the cars can be used as keys, the values are the horizontal values of where the cars are.  
-    """
 
     def __init__(self):
+        """
+        Initializes lists and values to be used in the algorithm. 
+        The right_red list is created to keep track of the cars that are to the right of the red car on the x-axis.
+        The vertical_red is the value of the vertical row that the red car is on.
+        The position_right_red is a dictionary of the position of the cars that are on the right of the red car on the x-axis:
+        the names of the cars can be used as keys, the values are the horizontal values of where the cars are.  
+        """
         self.right_red = [] 
         self.vertical_red = ""
         self.position_right_red = {}
         self.board_score = 1000
 
     def run(self, grid):
+        """
+        Calls the methods for this heuristic.
+        """
         scores = {}
 
         right_red = self.check_red_car(grid.board)
@@ -33,7 +36,6 @@ class BlockCar:
         """
         Checks every car to the right from the red car, saves the cars and returns the vertical value.
         """
-
         # Determine which row the red car is on by using the size of the board
         length = len(board[0])
 
@@ -79,7 +81,6 @@ class BlockCar:
         Checks the relative position for each car to see how far up or down the car needs to move to free up the space to the right of the red car.
         These relative moves are stored in the dictionaries: needs_up and needs_down where the key is the name of the car.
         """
-
         # For each car in the right_red list, use the car as a key in the dictionary that points to the row its on
         for value in right_red:
             car_row = []

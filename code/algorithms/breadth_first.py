@@ -1,5 +1,5 @@
 """
-Algorithm that searches in a horizontal manner through the tree of children boards and finds the shortest possible path to the answer.
+Algorithm that searches hoirzontally through the tree of children boards and finds the shortest possible path to the answer.
 """
 
 from .depth_first import DepthFirst

@@ -1,6 +1,6 @@
 """
 The Best First algorithm is based on a breadth first algorithm. 
-The difference between a Best First and a breadth first algorithm is that a best first uses a heuristic to score boards. 
+The difference between a Best First and a Breadth First algorithm is that a best first uses a heuristic to score boards. 
 These scores are based on the advanced block heuristic in the heuristic directory. 
 The Best First then uses those scores to give priority to the boards that score highly. 
 Then, based on priority, these boards are popped from the list of states. 
@@ -9,13 +9,12 @@ This ensures the boards with the highest likelihood of reaching a solution, will
 from .breadth_first import Breadthfirst
 from code.heuristics import advanced_block_bf
 import csv
-import copy
 
 class BestFirst(Breadthfirst):
 
     def get_next_state(self):
         """
-        Method that gets the next state from the list of states.
+        Method that gets the next state from the list of states, based on priority of the state.
         """
         return self.pqueue.get()
 
@@ -25,7 +24,6 @@ class BestFirst(Breadthfirst):
         Attaches new grids to the self.states and creates a dictionary to keep track of which graphs result in which child-graphs. 
         """
         empty_spaces = model.get_empty_spaces(model.board)
-        scored_list = []
 
         for space in range(len(empty_spaces)):
             directions = model.get_relevant_rows(empty_spaces[space])
@@ -91,17 +89,17 @@ class BestFirst(Breadthfirst):
         
         # While there are still states to visit, stay in the loop
         while not self.pqueue.empty():
-      
+            
             new_model = self.get_next_state()
-
             board = new_model[1]
-
+            
+            # Check to see whether the solution has been found yet
             if self.is_solution(board.board):
 
                 path = self.find_solution_seq(board)
                 board.print()
                 print(f"moves: {len(path)}")
-            
+
                 file = open('output.csv', 'w+', newline='')
                 with file:
                     write = csv.writer(file)
