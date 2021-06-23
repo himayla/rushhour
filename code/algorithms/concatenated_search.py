@@ -40,9 +40,9 @@ class ConcatenatedSearch(Breadthfirst):
                     self.solution[str(new_board)] = [model, car_move]
                 
                 # If the new graph is not yet in the list of states to visit, add it.
-                if new_model not in self.tried:
+                if new_model not in self.visited_states:
                     self.states.append(new_model)
-                    self.tried.add(new_model)
+                    self.visited_states.add(new_model)
                 
                 scored_list = []
 

@@ -39,7 +39,7 @@ class Visualisation():
                     plt.gca().add_patch(rect)
 
                 # The other cars will be a color from the color_map
-                if board[y][x] != "0":
+                elif board[y][x] != "0":
 
                     # Get the amount of different colors based on the amount of cars, + 2 removes red from the spectrum
                     color_map = plt.cm.get_cmap("hsv", len(car_ids) + 2)
