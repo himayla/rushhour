@@ -148,26 +148,17 @@ class BlockCar:
         self.pos_car_row_x = {}
         self.board_score = 0
 
-    def run(self, grid):
-        
-        scores = {}   
-        right_x = self.check_red_car(grid.board)
-        rel_moves = self.relevant_moves(right_x, grid.board)
-        score = self.scoring(rel_moves[0], rel_moves[1])
-        self.reset()
-        
-        scores[str(grid.board)] = [score, grid]
-        return scores
+    
 
      # ---------- best first ------------#
-    # def run(self, grid):
-    #     scores = [] 
-    #     right_x = self.check_red_car(grid)
-    #     rel_moves = self.relevant_moves(right_x, grid)
-    #     score = self.scoring(rel_moves[0], rel_moves[1])
-    #     self.reset()
-    #     scores = (-score, grid)
-    #     return scores
+    def run(self, grid):
+        scores = [] 
+        right_x = self.check_red_car(grid)
+        rel_moves = self.relevant_moves(right_x, grid)
+        score = self.scoring(rel_moves[0], rel_moves[1])
+        self.reset()
+        scores = (-score, grid)
+        return scores
     # ------------- best first --------- #
 
 
