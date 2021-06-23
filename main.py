@@ -28,7 +28,7 @@ if __name__ == "__main__":
     #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run() #!!!
     
     # --------------------------- Depth first --------------------------------- #
-    # paths = df.DepthFirst(model.Model(new_grid)).run() # recursie error
+    paths = df.DepthFirst(model.Model(new_grid)).run() # recursie error
 
     # # # --------------------------- Hill Climber --------------------------------- #
     # print("Setting up Hill Climber...")
@@ -42,7 +42,8 @@ if __name__ == "__main__":
     #     print(f"that's plenty efficient!")
 
     #  --------------------------- Randomise ----------------------------------- #
-    # paths = rn.random_solver(model.Model(new_grid)) # doet het wel met 6x6_3
+    #paths = rn.random_solver(model.Model(new_grid)) # doet het wel met 6x6_3
+    #print(paths[0])
     # for line in paths[0]:
     #     print(line)
     # length = len(paths)
@@ -54,14 +55,14 @@ if __name__ == "__main__":
     # paths = ss.StateSpace(model.Model(new_grid)).run()
     
     # --------------------------- Visualisation ----------------------------------- #
-    # car_ids = model.Model.get_car_ids(new_grid)    
-    # image_dir = f"visualisation/boards"
+    car_ids = model.Model.get_car_ids(new_grid)    
+    image_dir = f"visualisation/boards"
     
-    # # Visualise the different boards and save them in folder 
-    # counter = 1.0
-    # for path in paths:
-    #     vs.Visualisation(path, car_ids).save_plot(f"{image_dir}/{counter:.1f}")
-    #     counter += 0.1
+    # Visualise the different boards and save them in folder 
+    counter = 1.0
+    for path in paths:
+        vs.Visualisation(path, car_ids).save_plot(f"{image_dir}/{counter:.1f}")
+        counter += 0.1
 
-    # #Create gif from images in the folder
-    # vs.Visualisation.create_gif(f"{image_dir}")
+    #Create gif from images in the folder
+    vs.Visualisation.create_gif(f"{image_dir}")

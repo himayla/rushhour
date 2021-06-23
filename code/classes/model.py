@@ -27,7 +27,7 @@ class Model():
         self.board = copy.deepcopy(grid.board)
         self.list_of_moves = [["car", "move"]]
         self.victory_move = grid.victory_move
-        self.moves = [self.board]
+        self.moves = []
 
     # def __str__(self):
     #     self.print()
@@ -173,6 +173,7 @@ class Model():
         """
         valid_cars = []
 
+        # if a car is above the empty spot      
         upper = directions[0]
         if upper:            
             last_place = len(upper) - 1
@@ -187,6 +188,7 @@ class Model():
                 if count_upper > 1 and upper_car not in valid_cars:
                     valid_cars.append(upper_car)
         
+        # if a car is below the empty spot
         lower = directions[1]
         if lower:
             car_lower = lower[0]
@@ -200,6 +202,7 @@ class Model():
                 if count_lower > 1 and car_lower not in valid_cars:
                     valid_cars.append(car_lower)
 
+        # if a car is to the left of the empty spot
         left = directions[2]
         if left:
             last_place = len(left) - 1
@@ -214,6 +217,7 @@ class Model():
                 if count_left > 1 and left_car not in valid_cars:
                     valid_cars.append(left_car)
 
+        # if a car is to the right of the empty spot
         right = directions[3]
         if right:
             right_car = right[0]

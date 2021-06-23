@@ -14,9 +14,9 @@ import imageio
 import os
 
 class Visualisation():
-    def __init__(self, path, car_ids):
+    def __init__(self, model, car_ids):
         #self.car_ids = get_car_ids(model.board)
-        self.board = self.draw_board(path.board, car_ids)
+        self.board = self.draw_board(model.board, car_ids)
         #self.car_ids
 
     def draw_board(self, board, car_ids):
@@ -40,7 +40,7 @@ class Visualisation():
                                             fill = True,
                                             color = "red",
                                             linewidth=0.4,
-                                            alpha=0.35,
+                                            alpha=0.55,
                                             capstyle ='round',
                                             linestyle='solid')
                     plt.gca().add_patch(rect)
@@ -54,7 +54,7 @@ class Visualisation():
                                             fill = True,
                                             color = color_map(car_ids[board[y][x]]),
                                             linewidth=0.4,
-                                            alpha=0.35,
+                                            alpha=0.55,
                                             capstyle ='round',
                                             linestyle='solid')
                     plt.gca().add_patch(rect)

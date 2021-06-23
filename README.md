@@ -1,30 +1,19 @@
 # Rush hour 
-
 <i>Implementation by team: Unjam my Jam</i>
+![Rush hour game](https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg)
 
-Rush Hour is a logic game where the goal is to slide the cars in such a way that the car (X) is able to drive to the exit. 
-This project aims to algorithimically solve this puzzle using the least amount of moves. To achieve this we have set ourselves the following sub-goals:
-
-- [x] Read data from CSV-file
-- [x] Visualise data in a grid
-- [x] Algorithm which generates random solutions
-- [x] First algorithm 
-- [x] Second algorithm
-- [?] Find the quickest the solution
+Rush Hour is a sliding puzzle where the goal is for the red car to drive to the exit. The exit is however blocked by multiple cars and trucks. 
+This repository includes our research in the exploration of algorithms and heuristics to find out how this puzzle can be solved as quickly as possible.
 
 ### Getting started
-After cloning the Git code you can run a board by running:
+After cloning the Git repository you can open ```main.py``` and find the different algorithms commented out. You can start exploring by uncommenting algorithms, change the different boards sizes and run either:
 ```python main.py``` or ```python3 main.py```.
-To run this code the package matplotlib is required, you can download this with this command:
-```pip install matplotlib``` or ```pip3 install matplotlib```.
-In order to create GIFs of the solutions, another package is required called imageio. Which can be downloaded with this command: 
-```pip install imageio``` or ```pip3 install imageio```.
-
-A visualisation will of the board will be available in **visualisation/boards**
+The file ```main.py``` concludes with *Visualisation*, if this is run a GIF of the board will be available in **visualisation/boards**:
+![example gif](doc/ex_depth.gif)
 
 ### Structure
 The Git repository is structured as follows:
-* **/code:**: all code of this project
+* **/code:**: contains all the code for this project
     *  **/code/algorithms**: code for algorithms
         * Best_first.py: solve the board by sorting the children based on their score.
         * Beam_search.py: solve the board by removing children based on their score.
@@ -34,7 +23,17 @@ The Git repository is structured as follows:
         * Randomise.py: solves the board by finding empty spots and moves cars there until car X is at final destination.
     * **/code/classes**: contains a car, grid and visualisation class.
     * **/code/heuristics**: heuristics for algorithms
-* **/data**: contains different starting positions from cars to fill a grid
+
+* **/data**: contains different sizes for seven boards and the starting positions of cars.
+    * Three boards of 6 by 6.
+    * Two boards of 9 by 9.
+    * One board of 12 by 12.
+
+* **/doc**: contains different documents for code
+    * A UML diagram of the classes:
+    ![UML diagram](/UML_diagram.png )
+
+    * Example GIF
 
 ### Authors
 * Mila Sparreboom
