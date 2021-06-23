@@ -1,3 +1,5 @@
+import sys
+
 from code.classes import grid, model
 
 from code.algorithms import beam_search as bs
@@ -9,28 +11,28 @@ from code.algorithms import randomise as rn
 from code.classes import visualisation as vs
 from code.algorithms import state_space as ss
 
+sys.setrecursionlimit(2000)
 
 if __name__ == "__main__":
     map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
-    #paths = bs.BeamSearch(model.Model(new_grid)).run(
-   
-    # --------------------------- Best First  --------------------------------- #
-    paths = bf.BestFirst(model.Model(new_grid)).run()
+    # paths = bs.BeamSearch(model.Model(new_grid)).run()
 
+    # --------------------------- Best First  --------------------------------- #
+    # paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first -------------------------------- #
     # paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # -------------------------- Concatenated search  -------------------------- #
-    #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
+    # paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
     
-    # --------------------------- Depth first --------------------------------- #
-    # paths = df.DepthFirst(model.Model(new_grid)).run()
+    # --------------------------- Depth first ---------------------------------- #
+    paths = df.DepthFirst(model.Model(new_grid)).run()
 
-    # # # --------------------------- Hill Climber --------------------------------- #
+    # --------------------------- Hill Climber -------------------------------- #
     # print("Setting up Hill Climber...")
     # model_path = []
     # for path in paths:
@@ -42,7 +44,8 @@ if __name__ == "__main__":
     #     print(f"that's plenty efficient!")
 
     #  --------------------------- Randomise ----------------------------------- #
-    #rn.random_solver(model.Model(new_grid))
+    # paths = rn.random_solver(model.Model(new_grid))
+
     
      # --------------------------- Visualisation ----------------------------------- #
 

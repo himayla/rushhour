@@ -1,9 +1,12 @@
 """
 The Best First algorithm is based on a breadth first algorithm. 
-The difference between a Best First and a ...
+The difference between a Best First and a breadth first algorithm is that a best first uses a heuristic to score boards. 
+These scores are based on the advanced block heuristic in the heuristic directory. 
+The Best First then uses those scores to give priority to the boards that score highly. 
+Then, based on priority, these boards are popped from the list of states. 
+This ensures the boards with the highest likelihood of reaching a solution, will be investigated first. 
 """
 from .breadth_first import Breadthfirst
-#from code.heuristics import blocked_cars
 from code.heuristics import advanced_block_bf
 import csv
 import copy
