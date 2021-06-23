@@ -27,7 +27,7 @@ class Model():
         self.board = copy.deepcopy(grid.board)
         self.list_of_moves = [["car", "move"]]
         self.victory_move = grid.victory_move
-        self.moves = []
+        self.moves = [["car", "move"]]
 
     # def __str__(self):
     #     self.print()

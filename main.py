@@ -14,7 +14,7 @@ from code.algorithms import state_space as ss
 sys.setrecursionlimit(2000)
 
 if __name__ == "__main__":
-    map_name = "6x6_3"
+    map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
@@ -30,9 +30,14 @@ if __name__ == "__main__":
     # paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
     
     # --------------------------- Depth first ---------------------------------- #
-    paths = df.DepthFirst(model.Model(new_grid)).run()
+    #paths = df.DepthFirst(model.Model(new_grid)).run()
 
-    # --------------------------- Hill Climber -------------------------------- #
+
+ 
+    #  --------------------------- Randomise ----------------------------------- #
+    paths = rn.random_solver(model.Model(new_grid))
+
+    #--------------------------- Hill Climber -------------------------------- #
     # print("Setting up Hill Climber...")
     # model_path = []
     # for path in paths:
@@ -43,11 +48,7 @@ if __name__ == "__main__":
     # else:
     #     print(f"that's plenty efficient!")
 
-    #  --------------------------- Randomise ----------------------------------- #
-    # paths = rn.random_solver(model.Model(new_grid))
-
-    
-     # --------------------------- Visualisation ----------------------------------- #
+    #  # --------------------------- Visualisation ----------------------------------- #
 
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
