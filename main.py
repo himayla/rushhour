@@ -11,20 +11,21 @@ from code.algorithms import state_space as ss
 
 
 if __name__ == "__main__":
-    map_name = "6x6_1"
+    map_name = "6x6_3"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
-    #paths = bs.BeamSearch(model.Model(new_grid)).run() # duurt heel lang met 6x6_3, dus weet niet of hij het doet
+    #paths = bs.BeamSearch(model.Model(new_grid)).run(
    
     # --------------------------- Best First  --------------------------------- #
-    paths = bf.BestFirst(model.Model(new_grid)).run() #!!!
+    paths = bf.BestFirst(model.Model(new_grid)).run()
+
 
     # --------------------------- Breadth first -------------------------------- #
-    # paths = bf.Breadthfirst(model.Model(new_grid)).run()  # doet het wel met 6x6_3
+    # paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # -------------------------- Concatenated search  -------------------------- #
-    #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run() #!!!
+    #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
     
     # --------------------------- Depth first --------------------------------- #
     # paths = df.DepthFirst(model.Model(new_grid)).run()
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     #     print(f"that's plenty efficient!")
 
     #  --------------------------- Randomise ----------------------------------- #
-    #rn.random_solver(model.Model(new_grid)) # doet het wel met 6x6_3
+    #rn.random_solver(model.Model(new_grid))
     
      # --------------------------- Visualisation ----------------------------------- #
 

@@ -96,6 +96,7 @@ class BestFirst(Breadthfirst):
             if self.is_solution(board.board):
 
                 path = self.find_solution_seq(board)
+                board.print()
                 print(f"moves: {len(path)}")
             
                 file = open('output.csv', 'w+', newline='')
