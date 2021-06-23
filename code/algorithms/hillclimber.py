@@ -27,7 +27,6 @@ class HillClimber(Breadthfirst):
         self.path_check = ""
         self.path = path
         self.stat_value = ""
-        self.count = int(0)
         self.states = [self.start_board]
         self.visited_states = []
         self.solution = {}
@@ -36,10 +35,11 @@ class HillClimber(Breadthfirst):
 
     def determine_path(self, path):
         length = len(path)
-        # self.path_check = random.randint(100, 120)
-        self.path_check = 194
-        # self.start_value = random.randint(0, length - self.path_check)
-        self.start_value = 0
+        if length > 80:
+            self.path_check = random.randint(60, 80)
+        else:
+            self.path_check = random.randint(5,20)
+        self.start_value = random.randint(0, length - self.path_check)
         self.start_board = path[self.start_value]
         self.end_board = path[self.start_value + self.path_check - 1]
 
@@ -47,43 +47,18 @@ class HillClimber(Breadthfirst):
         alt_path = self.find_solution_seq(final_model)
         
         if len(alt_path) < self.path_check:
-            # print(f"start: {self.start_value}")
-            print(f"check: {self.path_check}")
-            print(f"lengte: {len(self.path)}")
-            board_index = self.start_value + self.path_check -1
-            # for board in range(self.start_value, self.start_value + self.path_check - 1):
-                # print(f"board: {self.path[board]}")
-                # if board >= len(alt_path):
-                #     # GET RID OF THE REST
-                #     self.path.remove(self.path[board_index])
-                    
-                #     board_index = board_index -1
-                    
-                # else:
-                #     self.path[self.start_value + board] = alt_path[board]
-                # if board < len(alt_path):
-                #     self.path[self.start_value + board] = alt_path[board]
-            for board in range(self.start_value, len(alt_path) - 1):
-                self.path[self.start_value + board] = alt_path[board]
-            for board2 in range(len(alt_path), self.path_check -1):
-                self.path.remove(self.path[len(alt_path)])
-                self.path_check = self.path_check -1
-                
-            print(f"lengte: {len(self.path)}")
-                    
-            self.count = 0
-            # print(len(self.path))
-            print(f"ben klaar")
+            
+            if self.start_value == 0:
+                new_path = alt_path + self.path[self.start_value + self.path_check:]
+            else:
+                new_path = self.path[0:self.start_value -1] + alt_path + self.path[self.start_value + self.path_check:]   
+            
+            self.path = new_path        
             return True
         else:
-            self.count +=1
             return False
 
     def check_solution(self, board):
-        # print(f"board: {board.board}")
-        # print(f"end: {self.end_board.board}")
-        # print(f"start:{type(board)}")
-        # print(f"eind: {type(self.end_board)}")
         if board == self.end_board:
             return True
         else:
@@ -93,18 +68,14 @@ class HillClimber(Breadthfirst):
         for i in range(iterations):
             self.determine_path(self.path)
             new_model = self.start_board
-            # print(f"new_model1: {new_model}")
             while self.states: 
-                
-                # print(f"new model: {new_model}")
                 if self.check_solution(new_model):
-                    # print(f"laatste board gevond")
                     self.check_path(new_model)
                     break
                 else:
-                    # print(f"new_model2: {new_model}")
                     self.build_children(new_model)
-                    # print(f"self.states: {self.states}")
+                if len(self.states) ==1:
+                    break
                 new_model = self.states.pop(1)
         return self.path
 
