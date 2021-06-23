@@ -3,7 +3,6 @@ The Depth First algorithm finds the first solution by building a stack of childr
 """
 from queue import PriorityQueue
 
-
 class DepthFirst:
 
     def __init__(self, model):
@@ -46,7 +45,7 @@ class DepthFirst:
 
                 return path
 
-            # If not, build new children
+            # If no solutions found, build children
             self.build_children(new_model)
 
 
@@ -79,11 +78,11 @@ class DepthFirst:
                 # Move each car and save the result 
                 new_move = new_model.move_car(empty_spaces[space], car, directions)
 
-                # Board is in index 0
+                # New board is in index 0
                 new_board = new_move[0]
 
                 # Relative movement and name of the moved car are in index 1
-                rel_move = new_move[1]
+                rel_move = new_move[1]              
 
                 # Find the relative distance that the car has moved
                 if rel_move[1] == "H":

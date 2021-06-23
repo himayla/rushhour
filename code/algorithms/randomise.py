@@ -14,8 +14,8 @@ def random_solver(model):
     model.print(moves=True)
 
     return model.paths
-    
-    
+
+
 def rearrange_board(model):
     """
     Chooses an empty space and a car that can move to this place and swaps these.

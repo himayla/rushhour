@@ -6,7 +6,7 @@ Then to put rectangles on the x and y axis, where the cars are.
 These rectangles are colored using imageio. 
 It is taken into account that the red car remains red, the other cars are given random colours from the rainbow. 
 
-Each board is made into a .png file in the same folder: "doc/visualisation/boards" in the directory.
+Each board is made into a .png file in the same folder: "visualisation/boards" in the directory.
 """
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt

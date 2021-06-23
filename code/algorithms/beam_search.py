@@ -63,22 +63,20 @@ class BeamSearch(Breadthfirst):
         # Sort the list of dictionaries, higest first, source:https://code-maven.com/slides/python/sort-dictionary-by-value
         sorted_scores = sorted(scored_list, key=lambda k: list(k.values())[0], reverse=True)
 
+        # Initialize list for the ranked children
         ranking = []
 
-        # Pick the amount of children to select from a parent grid. 
+        # Pick the amount of children to select from a parent board
         n = 7
 
-        # pick the first n children
+        # Pick the first n children
         ranking = sorted_scores[:n]
         
         for board in ranking:
-
-            # The 2nd index of the value is the board
             for value in board.values():
 
-                # If the new grid is not yet in the list of states to visit, add it
+                # If the new board is not yet in the list of states to visit, add it
                 if value[1] not in self.visited:
                     self.states.append(value[1])
                     self.visited.add(value[1])
-
         #-------------------------------------- End beam search implementation -------------------------------------#

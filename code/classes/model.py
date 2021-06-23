@@ -59,7 +59,6 @@ class Model():
         return False
 
     # ----------------------------- General ----------------------------------- # 
-
     def get_car_ids(self):
         """
         Returns a dictionary with the cars and car ID's.
@@ -118,7 +117,6 @@ class Model():
             write.writerows(moves)
     
     # ---------------------------- Algorithms ----------------------------------- #
-
     def get_empty_spaces(self, board):
         """
         Returns a list of coordinates for the empty spaces in the board.

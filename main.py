@@ -1,7 +1,7 @@
 """
-Usage: 
-    - Un-comment any algorithm to run diffenrent algoritms. 
-    - You can combine hillclimber with any algorithm, and you can combine the visualisation with any algorithm(s).
+Instructions: 
+    - Uncomment any algorithm to run diffenrent algoritms. 
+    - You can combine Hillclimber with any algorithm, and you can combine the visualisation with any algorithm(s).
     - Change the playing board by changing the map_name to 6x6_1/2/3, 9x9_4/5/6 or 12x12_7.
 """
 import sys
@@ -15,11 +15,12 @@ from code.algorithms import randomise as rn
 from code.classes import visualisation as vs
 from code.algorithms import state_space as ss
 
+# Modifies Pythons recursion limit for longer paths
 sys.setrecursionlimit(2000)
 
 if __name__ == "__main__":
 
-    # Change map name here:
+    # Change board here:
     map_name = "6x6_1"
 
     # Create a new object based on the data
@@ -31,13 +32,13 @@ if __name__ == "__main__":
     #paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  --------------------------------- #
-   # paths = bf.BestFirst(model.Model(new_grid)).run()
+    #paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ------------------------------- #
     #paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # --------------------------- Depth first ---------------------------------- #
-    paths = df.DepthFirst(model.Model(new_grid)).run()
+    #paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------ #
     #paths = rn.random_solver(model.Model(new_grid))

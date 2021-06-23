@@ -4,7 +4,6 @@ The hillclimber uses the path that resulted from the other algorithms such as de
 The algorithm does that by selecting a part of the path and running a breadth first on that part to see if it is possible to shorten it. 
 It will do that for as many iterations as is specified in the main.py. Then the shortest path is returned to main.py
 """
-
 from .breadth_first import Breadthfirst
 import random
 
@@ -86,4 +85,3 @@ class HillClimber(Breadthfirst):
         """
         if board == self.end_board:
             return True
-        
