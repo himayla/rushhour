@@ -3,7 +3,7 @@
 
 <img src="https://toyzoona.net/2955-medium_default/rush-hour-logic-game.jpg" alt="rush_hour_game" height="250"></img>
 
-Rush Hour is a sliding puzzle with as goal for the red car to drive to the exit. The route to the exit is however blocked by multiple cars and trucks. These obstacles have to be moved to free the way.
+Rush Hour is a sliding puzzle with as goal for the red car to drive to the exit. The route to the exit is however blocked by multiple cars and trucks. These obstacles have to be slided in such a way to free the exit for the red car.
 Our team Unjam my Jam explored different algorithms and heuristics to find out how a computer can solve this puzzle as quickly as possible.
 
 

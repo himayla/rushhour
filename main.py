@@ -11,26 +11,25 @@ from code.algorithms import state_space as ss
 
 
 if __name__ == "__main__":
-    map_name = "6x6_3"
+    map_name = "6x6_1"
     new_grid = grid.Grid(f"data/Rushhour{map_name}.csv")
 
     # --------------------------- Beam search  -------------------------------- #
-    #paths = bs.BeamSearch(model.Model(new_grid)).run(
+    # paths = bs.BeamSearch(model.Model(new_grid)).run(
    
     # --------------------------- Best First  --------------------------------- #
-    paths = bf.BestFirst(model.Model(new_grid)).run()
-
+    # paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first -------------------------------- #
     # paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # -------------------------- Concatenated search  -------------------------- #
-    #paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
+    # paths = cs.ConcatenatedSearch(model.Model(new_grid)).run()
     
     # --------------------------- Depth first --------------------------------- #
     # paths = df.DepthFirst(model.Model(new_grid)).run()
 
-    # # # --------------------------- Hill Climber --------------------------------- #
+    # --------------------------- Hill Climber -------------------------------- #
     # print("Setting up Hill Climber...")
     # model_path = []
     # for path in paths:
@@ -42,7 +41,14 @@ if __name__ == "__main__":
     #     print(f"that's plenty efficient!")
 
     #  --------------------------- Randomise ----------------------------------- #
-    #rn.random_solver(model.Model(new_grid))
+    paths = rn.random_solver(model.Model(new_grid))
+
+    for line in paths[0]:
+        print(line)
+    print()
+    for line in paths[-1]:
+        print(line)
+
     
      # --------------------------- Visualisation ----------------------------------- #
 

@@ -2,6 +2,7 @@
 The random algorithm reconfigures the board by randomly looking for empty spots and cars that can move to this spot and moves these until the red car can reach the exit.
 """
 import random
+import copy
 
 def random_solver(model):
     """
@@ -10,6 +11,7 @@ def random_solver(model):
     while model.victory_move not in model.list_of_moves:
         rearrange_board(model)
     
+
         #print(model.moves)
        
     # Print out the final board and amount of moves in the terminal
@@ -54,7 +56,8 @@ def rearrange_board(model):
         model.move_car(position, random_car, directions)
 
         if model.board not in model.moves:
-            model.moves.append(model.board)
+            temp_board = copy.deepcopy(model.board)
+            model.moves.append(temp_board)
         
 
 def choose_random_car(possible_cars):  
