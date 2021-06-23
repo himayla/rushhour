@@ -10,12 +10,13 @@ Our team Unjam my Jam explored different algorithms and heuristics to find out h
 ### Getting started
 After cloning the repository you can open ```main.py``` and find the different algorithms commented out. You can start exploring by uncommenting different algorithms, change the different boards sizes and run either: ```python main.py```.
 The file ```main.py``` concludes with *Visualisation*, if this is run a GIF of the board will be available in *visualisation/boards*:
+
 <img src="doc/ex_depth.gif" alt="example gif" height="250"></img>
 
 
 ### Structure
 The Git repository is structured as follows:
-* **/code:**: contains all the code for this project
+* **/code**: contains all the code for this project
     *  **/code/algorithms**: code for algorithms
 
         * Beam_search.py: solves the board by scoring different ways the red car could drive to the exit. It then removes the ways, children, with the lowest score. This algorithm uses the heuristic blocked cars (see *code/heuristics*).
