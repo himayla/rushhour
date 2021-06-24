@@ -8,8 +8,8 @@ import sys
 
 from code.classes import grid, model
 from code.algorithms import beam_search as bs
-from code.algorithms import best_first as bef
-from code.algorithms import breadth_first as bf
+from code.algorithms import best_first as bf
+from code.algorithms import breadth_first as dp
 from code.algorithms import depth_first as df
 from code.algorithms import hillclimber as hc
 from code.algorithms import randomise as rn
@@ -30,31 +30,29 @@ if __name__ == "__main__":
     # ------- Algoritm implementations. Uncomment to run the algorithm!----------- #
 
     # --------------------------- Beam search  ----------------------------------- #
-    #paths = bs.BeamSearch(model.Model(new_grid)).run()
+    # paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  ------------------------------------ #
-    #paths = bef.BestFirst(model.Model(new_grid)).run()
+    # paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ---------------------------------- #
-    #paths = bf.Breadthfirst(model.Model(new_grid)).run()
+    # paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # --------------------------- Depth first ------------------------------------ #
-    #paths = df.DepthFirst(model.Model(new_grid)).run()
+    # paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------- #
-    #paths = rn.random_solver(model.Model(new_grid))
+    # paths = rn.random_solver(model.Model(new_grid))
 
     # --------------------------- Hill Climber ----------------------------------- #
     # print("Setting up Hill Climber...")
+    # print(f"length path before: {len(paths)}")
     # model_path = []
     # for path in paths:
-    #     model_path.append(model.Model(path))
+    #     model_path.append(model.Model(path))      
     
-    # path = hc.HillClimber(paths).run(100)
-
-    # --------------------------- State Space ----------------------------------- #
-    # ss.StateSpace(model.Model(new_grid)).run()
-
+    # path = hc.HillClimber(model_path).run(100)
+    # print(f"length path after: {len(path)}")
     # ---------------------------- Visualisation ---------------------------------- #
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
