@@ -51,7 +51,6 @@ if __name__ == "__main__":
     #     model_path.append(model.Model(path))
     
     # path = hc.HillClimber(paths).run(100)
-    # print(len(path))
 
     # --------------------------- State Space ----------------------------------- #
     # ss.StateSpace(model.Model(new_grid)).run()
