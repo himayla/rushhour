@@ -47,9 +47,9 @@ def rearrange_board(model):
         # Swap the car with an empty spot
         model.move_car(random_empty_space, random_car, directions)
 
-        if model.board not in model.moves:
-            temp_board = copy.deepcopy(model.board)
-            model.paths.append(temp_board)
+        if model not in model.paths:
+            new_model = model.copy()
+            model.paths.append(new_model)
 
 
 def choose_random(possible_cars):  

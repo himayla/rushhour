@@ -17,7 +17,7 @@ from code.classes import visualisation as vs
 from code.algorithms import state_space as ss
 
 # Modifies Pythons recursion limit for longer paths
-sys.setrecursionlimit(2000)
+sys.setrecursionlimit(5000)
 
 if __name__ == "__main__":
 
@@ -30,16 +30,16 @@ if __name__ == "__main__":
     # ------- Algoritm implementations. Uncomment to run the algorithm!----------- #
 
     # --------------------------- Beam search  ----------------------------------- #
-    #paths = bs.BeamSearch(model.Model(new_grid)).run()
+    # paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  ------------------------------------ #
-    #paths = bf.BestFirst(model.Model(new_grid)).run()
+    # paths = bf.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ---------------------------------- #
-    #paths = bf.Breadthfirst(model.Model(new_grid)).run()
+    # paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # --------------------------- Depth first ------------------------------------ #
-    #paths = df.DepthFirst(model.Model(new_grid)).run()
+    # paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------- #
     #paths = rn.random_solver(model.Model(new_grid))
@@ -49,7 +49,8 @@ if __name__ == "__main__":
     # model_path = []
     # for path in paths:
     #     model_path.append(model.Model(path))      
-    # paths = hc.HillClimber(model_path).run(100)
+    #
+    # path = hc.HillClimber(paths).run(100)
 
     # ---------------------------- Visualisation ---------------------------------- #
     # car_ids = model.Model.get_car_ids(new_grid)    
