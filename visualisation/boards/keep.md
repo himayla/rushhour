@@ -1,1 +1,1 @@
-This is a file to ensure this folder is kept in place whilst being able to put the files that it contains, into gitignore. 
+This is a file to ensure this folder is kept in place whilst being able to put the files that it contains, into gitignore.

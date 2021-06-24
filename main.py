@@ -49,17 +49,16 @@ if __name__ == "__main__":
     # model_path = []
     # for path in paths:
     #     model_path.append(model.Model(path))
-    
-    # path = hc.HillClimber(paths).run(100)
+    # paths = hc.HillClimber(paths).run(100)
 
     # --------------------------- State Space ----------------------------------- #
-    # ss.StateSpace(model.Model(new_grid)).run()
+    # paths = ss.StateSpace(model.Model(new_grid)).run()
 
     # ---------------------------- Visualisation ---------------------------------- #
     # car_ids = model.Model.get_car_ids(new_grid)    
     # image_dir = f"visualisation/boards"
     
-    # # Visualise the different boards and save them in folder 
+    # #Visualise the different boards and save them in folder 
     # counter = 1.0
     # for path in paths:
     #     vs.Visualisation(path, car_ids).save_plot(f"{image_dir}/{counter:.1f}")
