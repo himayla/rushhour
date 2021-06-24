@@ -8,8 +8,8 @@ import sys
 
 from code.classes import grid, model
 from code.algorithms import beam_search as bs
-from code.algorithms import best_first as bf
-from code.algorithms import breadth_first as dp
+from code.algorithms import best_first as bef
+from code.algorithms import breadth_first as bf
 from code.algorithms import depth_first as df
 from code.algorithms import hillclimber as hc
 from code.algorithms import randomise as rn
@@ -30,16 +30,16 @@ if __name__ == "__main__":
     # ------- Algoritm implementations. Uncomment to run the algorithm!----------- #
 
     # --------------------------- Beam search  ----------------------------------- #
-    # paths = bs.BeamSearch(model.Model(new_grid)).run()
+    #paths = bs.BeamSearch(model.Model(new_grid)).run()
 
     # --------------------------- Best First  ------------------------------------ #
-    # paths = bf.BestFirst(model.Model(new_grid)).run()
+    #paths = bef.BestFirst(model.Model(new_grid)).run()
 
     # --------------------------- Breadth first ---------------------------------- #
-    # paths = bf.Breadthfirst(model.Model(new_grid)).run()
+    #paths = bf.Breadthfirst(model.Model(new_grid)).run()
 
     # --------------------------- Depth first ------------------------------------ #
-    # paths = df.DepthFirst(model.Model(new_grid)).run()
+    #paths = df.DepthFirst(model.Model(new_grid)).run()
 
     # ---------------------------- Randomise ------------------------------------- #
     #paths = rn.random_solver(model.Model(new_grid))
@@ -48,9 +48,13 @@ if __name__ == "__main__":
     # print("Setting up Hill Climber...")
     # model_path = []
     # for path in paths:
-    #     model_path.append(model.Model(path))      
-    #
+    #     model_path.append(model.Model(path))
+    
     # path = hc.HillClimber(paths).run(100)
+    # print(len(path))
+
+    # --------------------------- State Space ----------------------------------- #
+    # ss.StateSpace(model.Model(new_grid)).run()
 
     # ---------------------------- Visualisation ---------------------------------- #
     # car_ids = model.Model.get_car_ids(new_grid)    
